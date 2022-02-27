@@ -7,6 +7,7 @@
 .parentAnchorPane {
     -fx-background-color: linear-gradient(to right, #2000bb, #1827c6, #153ed0, #1b51d9, #2963e0, #1774e8, #1185ed, #2294f1, #24a6f4, #3db7f5, #5cc6f5, #7cd5f4);
     -fx-background-size: cover;
+
 }
 
 .loginBox {
