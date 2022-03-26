@@ -42,7 +42,7 @@
                         <RowConstraints minHeight="10.0" percentHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <GridPane fx:id="LoginBox" prefWidth="483.0" styleClass="loginBox" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.rowSpan="2" GridPane.vgrow="NEVER">
+                        <GridPane fx:id="LoginBox" prefHeight="418.0" prefWidth="442.0" styleClass="loginBox" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.rowSpan="2" GridPane.vgrow="NEVER">
                             <columnConstraints>
                                 <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" percentWidth="35.0" prefWidth="100.0" />
                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="13.0" prefWidth="100.0" />
@@ -50,7 +50,7 @@
                                 <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" percentWidth="48.0" prefWidth="100.0" />
                             </columnConstraints>
                             <rowConstraints>
-                                <RowConstraints maxHeight="89.0" minHeight="10.0" percentHeight="30.0" prefHeight="89.0" vgrow="ALWAYS" />
+                                <RowConstraints maxHeight="89.0" minHeight="10.0" percentHeight="34.0" prefHeight="89.0" vgrow="ALWAYS" />
                                 <RowConstraints maxHeight="49.0" minHeight="10.0" percentHeight="4.0" prefHeight="19.0" vgrow="ALWAYS" />
                                 <RowConstraints minHeight="10.0" percentHeight="15.0" prefHeight="30.0" valignment="BOTTOM" vgrow="ALWAYS" />
                                 <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
@@ -82,10 +82,10 @@
                                 </Button>
                                 <ImageView fx:id="FocusMe" fitHeight="33.0" fitWidth="32.0" focusTraversable="true" opacity="0.0" pickOnBounds="true" preserveRatio="true" styleClass="icon" GridPane.halignment="RIGHT">
                                     <image>
-                                        <Image url="@../resources/Images/user1.png" />
+                                        <Image url="@../resources/Images/chat.png" />
                                     </image>
                                 </ImageView>
-                                <TextField fx:id="UserNameTextField" maxHeight="-Infinity" maxWidth="-Infinity" onKeyTyped="#RemoveRedBordersUsername" prefHeight="33.0" prefWidth="270.0" promptText="Username" styleClass="loginTextBox" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="6" GridPane.vgrow="ALWAYS">
+                                <TextField fx:id="UserNameTextField" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#UndoErrorStyling" onKeyTyped="#RemoveRedBordersUsername" onMouseClicked="#UndoErrorStyling" prefHeight="33.0" prefWidth="270.0" promptText="Username" styleClass="loginTextBox" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="6" GridPane.vgrow="ALWAYS">
                                     <cursor>
                                         <Cursor fx:constant="TEXT" />
                                     </cursor>
@@ -93,7 +93,7 @@
                                         <Insets left="3.0" />
                                     </GridPane.margin>
                                 </TextField>
-                                <PasswordField fx:id="PassWordTextField" maxHeight="1.7976931348623157E308" onKeyTyped="#RemoveRedBordersPassWord" prefHeight="33.0" prefWidth="270.0" promptText="Password" styleClass="loginTextBox" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="8" GridPane.vgrow="ALWAYS">
+                                <PasswordField fx:id="PassWordTextField" maxHeight="1.7976931348623157E308" onAction="#UndoErrorStyling" onKeyTyped="#RemoveRedBordersPassWord" onMouseClicked="#UndoErrorStyling" prefHeight="33.0" prefWidth="270.0" promptText="Password" styleClass="loginTextBox" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="8" GridPane.vgrow="ALWAYS">
                                     <GridPane.margin>
                                         <Insets left="3.0" />
                                     </GridPane.margin></PasswordField>
@@ -117,6 +117,9 @@
                                     <children>
                                         <Text fx:id="ErrorCodeTextTest" fill="#c54b4b" layoutX="-10.0" opacity="0.0" strokeType="OUTSIDE" strokeWidth="0.0" text="The is test code" textOrigin="BOTTOM" />
                                     </children>
+                           <padding>
+                              <Insets top="4.0" />
+                           </padding>
                                 </TextFlow>
                             </children>
                             <effect>

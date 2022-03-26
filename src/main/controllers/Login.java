@@ -37,39 +37,62 @@ public class Login implements Initializable {
     //***************//
 
     //This might be the cause of the null pointer exception right here check back if stumped.
-    //This the source of the problem cant fin this resoruce
-    private  URL resource = getClass().getClassLoader().getResource("Images/agendaWriting.mp4");
-    private  String pathString = resource.toString();
+    //This the source of the problem
+    private static final URL resource = Login.class.getResource("/Images/notesWriting.mp4");
+    private static final String pathString = resource.toString();
+    @FXML
+    private MediaView VideoPlayer;
+
+
+    //********************************************************************//
+    //Fxml ID's
+    //********************************************************************//
+    @FXML
+    private AnchorPane LoginScreen;
+    @FXML
+    private AnchorPane LoginHolder;
+    @FXML
+    private Text MemberText;
+    @FXML
+    private TextField UserNameTextField;
+    @FXML
+    private PasswordField PassWordTextField;
+    @FXML
+    private TextFlow ErrorHandlingTextCode;
+    @FXML
+    private Label ErrorCodeLabel;
+    @FXML
+    private Text ErrorCodeTextTest;
+    @FXML
+    private GridPane LoginBox;
+    @FXML
+    private ImageView FocusMe;
+    @FXML
+    private Button LoginButton;
+    @FXML
+    private BorderPane MemberIconContainer;
+    @FXML
+    private ImageView MembersIcon;
+    @FXML
+    private BorderPane LockImageContainer;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        ErrorCodeTextTest.setOpacity(1);
-        //On Main Screen initialization do the following
-        //Release the focus from the TextBox
-        releaseFocusFromTextBox();
-        //Platform.runLater(this::releaseFocusFromTextBox);
 
-        //Set up the autoplay for the background video log-in-Screen
+        Platform.runLater(this::releaseFocusFromTextBox);
         MediaPlayer player = new MediaPlayer(new Media(pathString));
+        player.isMute();
         player.setAutoPlay(true);
-        player.setCycleCount(MediaPlayer.INDEFINITE); //This will loop
-        //player.play();
+        //This is probably the runtime computer slowing this down.
+        player.setCycleCount(MediaPlayer.INDEFINITE);
         VideoPlayer.setMediaPlayer(player);
+
 
         if (player != null) {
             System.out.println("This player is not null");
         }
-
-        player.setOnError(()->
-                System.out.println("media error"+player.getError().toString()));
-        //Attempt at making this semi-responsive
-        //This is the wrong architechture for this project
-//        LoginBox.widthProperty().addListener(event -> {
-//            //resizeMemberLoginText();
-//        });
-        //Set the users preferred language and Location From Computer Settings
         try {
-            setUserLangLoc();
+            displayNativeLanguage();
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
@@ -77,111 +100,36 @@ public class Login implements Initializable {
 
 
     //********************************************************************//
-    //Fxml ID's
-    //********************************************************************//
-
-
-    @FXML
-    private MediaView VideoPlayer;
-
-    @FXML
-    private AnchorPane LoginScreen;
-
-    @FXML
-    private AnchorPane LoginHolder;
-
-    @FXML
-    private Text MemberText;
-
-    @FXML
-    private TextField UserNameTextField;
-
-    @FXML
-    private PasswordField PassWordTextField;
-
-    @FXML
-    private TextFlow ErrorHandlingTextCode;
-
-    @FXML
-    private Label ErrorCodeLabel;
-
-    @FXML
-    private Text ErrorCodeTextTest;
-
-    @FXML
-    private GridPane LoginBox;
-
-    @FXML
-    private ImageView FocusMe;
-
-    @FXML
-    private Button LoginButton;
-
-    @FXML
-    private BorderPane MemberIconContainer;
-
-    @FXML
-    private ImageView MembersIcon;
-
-    @FXML
-    private BorderPane LockImageContainer;
-
-
-    //********************************************************************//
     //Fxml Functions
     //********************************************************************//
 
     @FXML
-    private void setUserLangLoc() throws UnsupportedEncodingException {
-        //Bases on the System time settings set the language and the error codes for all the language Strings on this page
-        //Dont think that I need this stuff
-//        ClassLoader classloader = Thread.currentThread().getContextClassLoader();
+    private void displayNativeLanguage() throws UnsupportedEncodingException {
+        //The resource-Bundle will set the location to what is on the user's locale windows computer settings.
+        //Do not need to do an if statement for locale if all are the same key.
 
-//        assert is != null;
-        String location = "Lang"; //This is where the Resource Bundle is stored
-
-
+        String location = "Lang";
         ResourceBundle resourceBundle = ResourceBundle.getBundle(location, Locale.getDefault());
 
+        String UserNameText = resourceBundle.getString("UserNameText");
+        String PassWordText = resourceBundle.getString("PassWordText");
+        String LoginButtonText = resourceBundle.getString("LoginButtonText");
+        String ErrorHandlingText = resourceBundle.getString("ErrorHandlingText");
+        String LoginPortalText = resourceBundle.getString("LoginPortalText");
 
+        MemberText.setText(LoginPortalText);
+        UserNameTextField.setPromptText(UserNameText);
+        PassWordTextField.setPromptText(PassWordText);
+        LoginButton.setText(LoginButtonText);
+        ErrorCodeTextTest.setText(ErrorHandlingText);
 
-        //If the users default language is set to en or fr show them this app login screen in that preferred language
-        if(Locale.getDefault().getLanguage().equals("en")){
-            //Do a conversion here for the japanese character set
-            //Convert is to the correct encoding and then display in UTF-8 or else wont render properly
-            //Despite telling intellij to set all properties to IS0-8859-1
-
-            String LoginPortalText = resourceBundle.getString("LoginPortalText");
-            String UserNameText = resourceBundle.getString("UserNameText");
-            String PassWordText = resourceBundle.getString("PassWordText");
-            String LoginButtonText = resourceBundle.getString("LoginButtonText");
-            String ErrorHandlingText = resourceBundle.getString("ErrorHandlingText");
-
-
-            //This is french shouldnt need the charsets
-//                String jpLoginPortalText = new String(LoginPortalText.getBytes("ISO-8859-1"), "UTF-8");
-//                String jpUserNameText = new String(UserNameText.getBytes("ISO-8859-1"), "UTF-8");
-//                String jpPassWordText = new String(PassWordText.getBytes("ISO-8859-1"), "UTF-8");
-//                String jpLoginButtonText = new String(LoginButtonText.getBytes("ISO-8859-1"), "UTF-8");
-//                String jpErrorHandlingText = new String(ErrorHandlingText.getBytes("ISO-8859-1"), "UTF-8");
-            MemberText.setText(LoginPortalText);
-            UserNameTextField.setPromptText(UserNameText);
-            PassWordTextField.setPromptText(PassWordText);
-            LoginButton.setText(LoginButtonText);
-
-            ErrorCodeTextTest.setText(ErrorHandlingText);
-            //Only want to show this error code if exception has happened.
-
-            System.out.println(Locale.getDefault().getCountry());
-            //resizeMemberLoginText();
-
-        }
+        System.out.println(Locale.getDefault().getCountry());
     }
 
     @FXML
-    boolean userIsValid(){
+    boolean userIsValid() {
         //Set to false to test the errorHandling currently
-        //Set to true to got the next Scene
+        //Set to true to go the next Scene
         return true;
     }
 
@@ -202,6 +150,7 @@ public class Login implements Initializable {
 
     @FXML
     void loginUser() throws IOException {
+        //Clean this code up tomorrow.
         //This is the button that is clicked when the user pressed the submit button
 
         // continue the to the next page and translate this back to NA-en
@@ -223,14 +172,14 @@ public class Login implements Initializable {
         }
     }
 
+    @FXML
+    private void UndoErrorStyling() {
+        ErrorCodeTextTest.setOpacity(0);
+    }
+
     //********************************************************************//
     //Regular Functions
     //********************************************************************//
-    void resizeMemberLoginText (){
-        //This is not making it twitch something else is
-//        double newFontSize = LoginBox.getWidth() / 9.5;
-//        MemberText.setFont(Font.font(newFontSize));
-    }
 
 
     private void ErrorCodeAlert() {
@@ -255,13 +204,13 @@ public class Login implements Initializable {
     private void ErrorCodeAnimation() {
         //Animation for a Right wiggle effect
         //want to shake the entire login-box and then make the username and textfield red
-        TranslateTransition moveRight = new TranslateTransition(Duration.millis(100),LoginBox);
+        TranslateTransition moveRight = new TranslateTransition(Duration.millis(100), LoginBox);
         moveRight.setFromX(0);
         moveRight.setToX(6);
-        TranslateTransition overShootLeft = new TranslateTransition(Duration.millis(80),LoginBox);
+        TranslateTransition overShootLeft = new TranslateTransition(Duration.millis(80), LoginBox);
         overShootLeft.setFromX(6);
         overShootLeft.setToX(-10);
-        SequentialTransition sequentialTransition = new SequentialTransition(moveRight,overShootLeft);
+        SequentialTransition sequentialTransition = new SequentialTransition(moveRight, overShootLeft);
         sequentialTransition.play();
     }
 }

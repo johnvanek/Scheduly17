@@ -5,9 +5,9 @@
 
 /* Login-Screen-Styles*/
 .parentAnchorPane {
-    -fx-background-color: linear-gradient(to right, #2000bb, #1827c6, #153ed0, #1b51d9, #2963e0, #1774e8, #1185ed, #2294f1, #24a6f4, #3db7f5, #5cc6f5, #7cd5f4);
+    /*-fx-background-color: linear-gradient(to right, #2000bb, #1827c6, #153ed0, #1b51d9, #2963e0, #1774e8, #1185ed, #2294f1, #24a6f4, #3db7f5, #5cc6f5, #7cd5f4);*/
     -fx-background-size: cover;
-
+    -fx-background-position: center center;
 }
 
 .loginBox {
@@ -70,18 +70,18 @@
 }
 
 .imageBorderPane {
-    -fx-background-image: url("/chat.png");
+    -fx-background-image: url("/Images/chat.png");
     -fx-background-position: bottom;
     -fx-background-size: cover;
     -fx-background-repeat: no-repeat;
 }
 
 .lockImageContainer {
-    -fx-background-image: url("/lock.png");
+    -fx-background-image: url("/Images/lock.png");
 }
 
 .usernameImageContainer {
-    -fx-background-image: url("/user1.png");
+    -fx-background-image: url("/Images/user1.png");
 }
 
 .lockImageContainer, .usernameImageContainer {
@@ -94,7 +94,7 @@
     /*Main entry into the login page */
     -fx-background-color: #FFF;
 }
-
+/*Don't need these styles anymore*/
 /*Styles for the Calender-View*/
 #CalendarRoot {
     /*Main Entry point into the Calender page*/
@@ -125,7 +125,6 @@
 
 .greyedOut-Panes {
     -fx-background-color: lightgrey;
-
 }
 
 .regularPanes {
