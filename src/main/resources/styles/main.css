@@ -44,7 +44,7 @@
 .loginTextBox {
     -fx-font-family: "Montserrat";
     -fx-font-style: oblique;
-    -fx-font-size: 1.15em;
+    -fx-font-size: 1.1em;
     -fx-border-color: #97CBFF;
     -fx-border-width: 1;
     -fx-font-weight: bold;
@@ -94,106 +94,18 @@
     /*Main entry into the login page */
     -fx-background-color: #FFF;
 }
-/*Don't need these styles anymore*/
-/*Styles for the Calender-View*/
-#CalendarRoot {
-    /*Main Entry point into the Calender page*/
-}
 
-.CalendarTextBox {
+.regionCodeBox {
     -fx-font-family: "Montserrat";
-    -fx-font-style: oblique;
-    -fx-font-size: 1.1em;
-    -fx-border-color: #97CBFF;
-    -fx-border-width: 1;
-    -fx-font-weight: bold;
-    -fx-text-fill: #24a6f4;
-
-    -fx-background-color: white;
-    -fx-border-radius: 12;
-    -fx-background-radius: 12;
-
+        -fx-font-size: 1.1em;
+        -fx-border-color: grey;
+        -fx-border-width: 1;
+        -fx-font-weight: bold;
+        -fx-background-color: #FBFCFB;
+         -fx-border-radius: 4;
+         -fx-background-radius: 4;
 }
 
-.greyedOut-Panes, .regularPanes {
-    -fx-border-width: 1;
-    -fx-border-radius: 5;
-    -fx-start-margin: 10;
-    -fx-background-insets: 1;
-    -fx-border-color: black;
-}
-
-.greyedOut-Panes {
-    -fx-background-color: lightgrey;
-}
-
-.regularPanes {
-    -fx-background-color: lightblue;
-}
-
-.month-label {
-    -fx-fill: white;
-    -fx-stroke: grey;
-    -fx-stroke-width: .2;
-    -fx-font-size: 24px;
-    -fx-font-family: "Roboto-Bold";
-    -fx-font-weight: bold;
-}
-
-.center-Heading {
-    /*-fx-background-color: red;*/
-}
-
-.appointment-List {
-    -fx-background-size: cover;
-    -fx-border-radius: 5;
-}
-
-.days-Heading {
-    -fx-fill: #4185c9;
-    -fx-stroke: grey;
-    -fx-stroke-width: .1;
-    -fx-font-family: "Roboto-Bold";
-    -fx-font-size: 1.5em;
-    -fx-font-weight: bold;
-}
-
-.calendarButton {
-    -fx-font-family: "Roboto-Bold";
-    -fx-font-weight: bold;
-    -fx-text-fill: #fff;
-    -fx-background-color: #1185ed;
-    -fx-font-size: 1.2em;
-    -fx-border-width: 2;
-    -fx-border-radius: 30;
-}
-
-.calendarButton:hover {
-    -fx-background-color: #24a6f4;
-}
-
-.calendarButton:pressed {
-    -fx-translate-y: 5;
-    -fx-effect: none;
-}
-
-.radio-button {
-    -fx-text-fill: white;
-    -fx-font-size: 1.25em;
-    -fx-font-weight: bold;
-    -fx-stroke-width: 2;
-    -fx-border-radius: 5;
-}
-
-.button-holder{
-    /*-fx-background-color: green;*/
-    -fx-font-size: 1.2em
-}
-
-.menuBar {
-    -fx-font-size: 1.25em
-}
-
-.MenuItem {
-    -fx-font-size: 1.05em;
+.regionCodeText {
+     -fx-text-fill: red;
 }

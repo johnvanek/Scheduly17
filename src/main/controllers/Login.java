@@ -17,6 +17,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Region;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
@@ -32,23 +33,20 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class Login implements Initializable {
-    //***************//
-    //Resource Path
-    //***************//
 
-    //This might be the cause of the null pointer exception right here check back if stumped.
-    //This the source of the problem
     private static final URL resource = Login.class.getResource("/Images/notesWriting.mp4");
     private static final String pathString = resource.toString();
-    @FXML
-    private MediaView VideoPlayer;
 
-
-    //********************************************************************//
+    //***********//
     //Fxml ID's
-    //********************************************************************//
+    //***********//
+
     @FXML
     private AnchorPane LoginScreen;
+    @FXML
+    private Text RegionCode;
+    @FXML
+    private MediaView VideoPlayer;
     @FXML
     private AnchorPane LoginHolder;
     @FXML
@@ -62,7 +60,7 @@ public class Login implements Initializable {
     @FXML
     private Label ErrorCodeLabel;
     @FXML
-    private Text ErrorCodeTextTest;
+    private Text ErrorNotificationText;
     @FXML
     private GridPane LoginBox;
     @FXML
@@ -83,14 +81,10 @@ public class Login implements Initializable {
         MediaPlayer player = new MediaPlayer(new Media(pathString));
         player.isMute();
         player.setAutoPlay(true);
-        //This is probably the runtime computer slowing this down.
+        //Runtime computer is probably not enough to run this indefinitely.
         player.setCycleCount(MediaPlayer.INDEFINITE);
         VideoPlayer.setMediaPlayer(player);
 
-
-        if (player != null) {
-            System.out.println("This player is not null");
-        }
         try {
             displayNativeLanguage();
         } catch (UnsupportedEncodingException e) {
@@ -98,48 +92,59 @@ public class Login implements Initializable {
         }
     }
 
-
     //********************************************************************//
-    //Fxml Functions
+    //Fxml Methods
     //********************************************************************//
 
     @FXML
     private void displayNativeLanguage() throws UnsupportedEncodingException {
-        //The resource-Bundle will set the location to what is on the user's locale windows computer settings.
-        //Do not need to do an if statement for locale if all are the same key.
-
         String location = "Lang";
-        ResourceBundle resourceBundle = ResourceBundle.getBundle(location, Locale.getDefault());
 
-        String UserNameText = resourceBundle.getString("UserNameText");
-        String PassWordText = resourceBundle.getString("PassWordText");
-        String LoginButtonText = resourceBundle.getString("LoginButtonText");
-        String ErrorHandlingText = resourceBundle.getString("ErrorHandlingText");
-        String LoginPortalText = resourceBundle.getString("LoginPortalText");
+        Locale userLocale = Locale.getDefault();
+        System.out.println("Current Local is " + userLocale);
+        //Enable the lower line to translate to french
+        //userLocale.setDefault(new Locale("fr", "France"));
+        userLocale = Locale.getDefault();
+        System.out.println("New Locale is " + userLocale);
+        ResourceBundle languageDictionary = ResourceBundle.getBundle(location, userLocale);
 
-        MemberText.setText(LoginPortalText);
-        UserNameTextField.setPromptText(UserNameText);
-        PassWordTextField.setPromptText(PassWordText);
-        LoginButton.setText(LoginButtonText);
-        ErrorCodeTextTest.setText(ErrorHandlingText);
+        if (userLocale.getLanguage() == "en" || userLocale.getLanguage().equals("fr")){
+            //If there is a match get the keys
+            String UserNameText = languageDictionary.getString("UserNameText");
+            String PassWordText = languageDictionary.getString("PassWordText");
+            String LoginButtonText = languageDictionary.getString("LoginButtonText");
+            String ErrorHandlingText = languageDictionary.getString("ErrorHandlingText");
+            String LoginPortalText = languageDictionary.getString("LoginPortalText");
+            String RegionCodeText = languageDictionary.getString("RegionCode");
+            //Then set the keys                                               ;
+            MemberText.setText(LoginPortalText);
+            PassWordTextField.setPromptText(PassWordText);
+            LoginButton.setText(LoginButtonText);
+            ErrorNotificationText.setText(ErrorHandlingText);
+            UserNameTextField.setPromptText(UserNameText);
 
-        System.out.println(Locale.getDefault().getCountry());
+            //RegionCode is combination of two strings
+            RegionCode.setText(RegionCodeText + " " + userLocale.getCountry());
+
+            //Confirmation of Locale geo in console. -> Check/Test in windows settings.
+            //Time and language settings and Region Settings.
+            System.out.println("The language is " + Locale.getDefault().getLanguage());
+            System.out.println("This country is " + Locale.getDefault().getCountry());
+        }
     }
 
     @FXML
     boolean userIsValid() {
-        //Set to false to test the errorHandling currently
-        //Set to true to go the next Scene
         return true;
     }
 
     @FXML
-    void RemoveRedBordersUsername() {
+    void removeRedBordersUsername() {
         UserNameTextField.setStyle("-fx-border-color: #97CBFF");
     }
 
     @FXML
-    void RemoveRedBordersPassWord() {
+    void removeRedBordersPassWord() {
         PassWordTextField.setStyle("-fx-border-color: #97CBFF");
     }
 
@@ -150,6 +155,8 @@ public class Login implements Initializable {
 
     @FXML
     void loginUser() throws IOException {
+
+        //Break this into several smaller functions remember the single principle.
         //Clean this code up tomorrow.
         //This is the button that is clicked when the user pressed the submit button
 
@@ -168,42 +175,36 @@ public class Login implements Initializable {
             //So far this is working as intended and is taking the user to the next screen.
         } else {
             //They must not be in the database this must be a wrong username or password
-            ErrorCodeAlert();
+            displayErrorCodeStyling();
         }
     }
 
     @FXML
-    private void UndoErrorStyling() {
-        ErrorCodeTextTest.setOpacity(0);
+    private void undoErrorStyling() {
+        ErrorNotificationText.setOpacity(0);
     }
 
     //********************************************************************//
     //Regular Functions
     //********************************************************************//
 
-
-    private void ErrorCodeAlert() {
-        //Show the ErrorCode Message
-        ErrorCodeTextTest.setOpacity(1);
-        //Clear and give the TextBox a red border
+    private void displayErrorCodeStyling() {
+        ErrorNotificationText.setOpacity(1);
         UserNameTextField.clear();
         PassWordTextField.clear();
-        releaseFocusFromTextBox(); //Also Release focus if haven't already done so.
+        releaseFocusFromTextBox();
         makeRedBorders();
-        ErrorCodeAnimation();
+        errorCodeAnimation();
     }
 
     private void makeRedBorders() {
-        //Could toggle classes in javascript not sure how to do that here
-        //System.out.println("The username TextField has this style Class" + UserNameTextField.getStyleClass());
-        //This works as inline css
         UserNameTextField.setStyle("-fx-border-color: red");
         PassWordTextField.setStyle("-fx-border-color: red");
     }
 
-    private void ErrorCodeAnimation() {
+    private void errorCodeAnimation() {
         //Animation for a Right wiggle effect
-        //want to shake the entire login-box and then make the username and textfield red
+        //Shake the entire login-box and then make the username and text-field red
         TranslateTransition moveRight = new TranslateTransition(Duration.millis(100), LoginBox);
         moveRight.setFromX(0);
         moveRight.setToX(6);
