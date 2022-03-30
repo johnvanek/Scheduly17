@@ -17,7 +17,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Region;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
@@ -32,6 +31,9 @@ import java.net.URL;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+/**
+ * The controller for the Login-Screen View.
+ */
 public class Login implements Initializable {
 
     private static final URL resource = Login.class.getResource("/Images/notesWriting.mp4");
@@ -74,6 +76,12 @@ public class Login implements Initializable {
     @FXML
     private BorderPane LockImageContainer;
 
+    /**
+     * Initializes the application is called after the FXML Fields have been loaded and injected.
+     *
+     * @param location  The location used to resolve relative paths for the root object, or null if the location is not known.
+     * @param resources The resources used to localize the root object, or null if the root object was not localized.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -96,19 +104,23 @@ public class Login implements Initializable {
     //Fxml Methods
     //********************************************************************//
 
+    /**
+     * Display's the Login-Form in the User's preferred language from their Window's settings.
+     *
+     * @throws UnsupportedEncodingException
+     */
     @FXML
-    private void displayNativeLanguage() throws UnsupportedEncodingException {
+    public void displayNativeLanguage() throws UnsupportedEncodingException {
         String location = "Lang";
-
         Locale userLocale = Locale.getDefault();
         System.out.println("Current Local is " + userLocale);
-        //Enable the lower line to translate to french
-        //userLocale.setDefault(new Locale("fr", "France"));
+        //Enable the lower line to translate to French
+        userLocale.setDefault(new Locale("fr", "France"));
         userLocale = Locale.getDefault();
         System.out.println("New Locale is " + userLocale);
         ResourceBundle languageDictionary = ResourceBundle.getBundle(location, userLocale);
 
-        if (userLocale.getLanguage() == "en" || userLocale.getLanguage().equals("fr")){
+        if (userLocale.getLanguage() == "en" || userLocale.getLanguage().equals("fr")) {
             //If there is a match get the keys
             String UserNameText = languageDictionary.getString("UserNameText");
             String PassWordText = languageDictionary.getString("PassWordText");
@@ -116,7 +128,7 @@ public class Login implements Initializable {
             String ErrorHandlingText = languageDictionary.getString("ErrorHandlingText");
             String LoginPortalText = languageDictionary.getString("LoginPortalText");
             String RegionCodeText = languageDictionary.getString("RegionCode");
-            //Then set the keys                                               ;
+            //Then set the keys
             MemberText.setText(LoginPortalText);
             PassWordTextField.setPromptText(PassWordText);
             LoginButton.setText(LoginButtonText);
@@ -133,52 +145,72 @@ public class Login implements Initializable {
         }
     }
 
+    /**
+     * Validates whether the user is Valid.
+     * Compares the Values supplied to etc.. continue this later
+     *
+     * @return Returns a boolean value representing whether the user is or is not Valid.
+     */
     @FXML
-    boolean userIsValid() {
+    private boolean userIsValid() {
         return true;
     }
 
+    /**
+     * Resets the red borders from the username text-field to the original color.
+     */
     @FXML
-    void removeRedBordersUsername() {
+    private void removeRedBordersUsername() {
         UserNameTextField.setStyle("-fx-border-color: #97CBFF");
     }
 
+    /**
+     * Resets the red borders from the password text-field to the orginal color.
+     */
     @FXML
-    void removeRedBordersPassWord() {
+    private void removeRedBordersPassWord() {
         PassWordTextField.setStyle("-fx-border-color: #97CBFF");
     }
 
+    /**
+     * Takes the focus from any object currently in focus and gives it to an image-view upper left.
+     */
     @FXML
-    void releaseFocusFromTextBox() {
+    private void releaseFocusFromTextBox() {
         FocusMe.requestFocus();
     }
 
+    /**
+     * Attempts to Login the user.
+     *
+     * @throws IOException
+     */
     @FXML
-    void loginUser() throws IOException {
-
-        //Break this into several smaller functions remember the single principle.
-        //Clean this code up tomorrow.
-        //This is the button that is clicked when the user pressed the submit button
-
-        // continue the to the next page and translate this back to NA-en
-        //Here we have to do the request to the server then do something bases on an error code
-        //For not just assume the user is alwaysInvalid
-
-        if (!userIsValid()) {
+    public void loginUser() throws IOException {
+        //Make this work later against the database.
+        if (userIsValid()) {
             //If the user if valid we want to compare there check here with any appointments in the next 15 minutes
             //And send up and alert that says hey you have an appointment in w/e minutes from login
 
-            Parent viewCalendar = FXMLLoader.load(getClass().getResource("../view/Calendar.fxml"));
+            Parent viewDashBoard = FXMLLoader.load(getClass().getResource("../views/secondscreen.fxml"));
             Stage primaryStage = (Stage) LoginButton.getScene().getWindow(); //This gets the primary Stage from the Button source
-            //However will probably need to persist some data or send some data with the user across this screen
-            primaryStage.setScene(new Scene(viewCalendar)); // This will send the user to the next screen
-            //So far this is working as intended and is taking the user to the next screen.
+            //Change the current scene to something else this way to I don't have to change the stage just changing the scene.
+            primaryStage.setScene(new Scene(viewDashBoard)); // This will send the user to the next screen
+
+            String username = UserNameTextField.getText();
+            //Only do this is the user is valid if not no front end validation. 
+            System.out.println("The username is " + username);
+            primaryStage.setTitle("Scheduly-17-" + username + "-DashBoard"); //Set this to dashBoard for now but make it read the user's username catch.
+            primaryStage.show();
         } else {
             //They must not be in the database this must be a wrong username or password
             displayErrorCodeStyling();
         }
     }
 
+    /**
+     * Hides the error notification Text.
+     */
     @FXML
     private void undoErrorStyling() {
         ErrorNotificationText.setOpacity(0);
@@ -188,7 +220,10 @@ public class Login implements Initializable {
     //Regular Functions
     //********************************************************************//
 
-    private void displayErrorCodeStyling() {
+    /**
+     * Displays red color scheme And error text with a shaking animation to alert the user.
+     */
+    public void displayErrorCodeStyling() {
         ErrorNotificationText.setOpacity(1);
         UserNameTextField.clear();
         PassWordTextField.clear();
@@ -197,11 +232,17 @@ public class Login implements Initializable {
         errorCodeAnimation();
     }
 
+    /**
+     * Makes the borders for the username and password text fields red.
+     */
     private void makeRedBorders() {
         UserNameTextField.setStyle("-fx-border-color: red");
         PassWordTextField.setStyle("-fx-border-color: red");
     }
 
+    /**
+     * Shakes the login box left to right.
+     */
     private void errorCodeAnimation() {
         //Animation for a Right wiggle effect
         //Shake the entire login-box and then make the username and text-field red

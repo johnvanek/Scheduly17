@@ -1,10 +1,9 @@
-package main;
-import java.sql.Connection;
+package main.database;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class JDBC {
+public class Connection {
  private static final String protocol = "jdbc";
      private static final String vendor = ":mysql:";
          private static final String location = "//localhost/";
@@ -13,7 +12,7 @@ public class JDBC {
         private static final String driver = "com.mysql.cj.jdbc.Driver"; // Driver reference
         private static final String userName = "sqlUser"; // Username
         private static String password = "Passw0rd!"; // Password
-        private static Connection connection = null;  // Connection Interface
+        private static java.sql.Connection connection = null;  // Connection Interface
         private static PreparedStatement preparedStatement;
 
          public static void makeConnection() {
@@ -32,7 +31,7 @@ public class JDBC {
                   }
           }
 
-            public static Connection getConnection() {
+            public static java.sql.Connection getConnection() {
                 return connection;
             }
              public static void closeConnection() {
@@ -44,7 +43,7 @@ public class JDBC {
                  }
              }
 
-       public static void makePreparedStatement(String sqlStatement, Connection conn) throws SQLException {
+       public static void makePreparedStatement(String sqlStatement, java.sql.Connection conn) throws SQLException {
            if (conn != null)
                preparedStatement = conn.prepareStatement(sqlStatement);
            else

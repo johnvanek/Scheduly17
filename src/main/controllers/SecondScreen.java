@@ -1,4 +1,4 @@
 package main.controllers;
 
-public class Controller {
+public class SecondScreen {
 }
