@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="900.0" stylesheets="@../resources/styles/main.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.SecondScreen">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="900.0" stylesheets="@../resources/styles/main.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.Appointments">
    <children>
       <TabPane layoutX="13.0" layoutY="191.0" prefHeight="347.0" prefWidth="864.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
@@ -46,15 +46,15 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: red;">
                      <children>
-                        <Button layoutX="55.0" layoutY="61.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="65.0" text="Add" />
-                        <Separator layoutX="105.0" layoutY="40.0" prefHeight="3.0" prefWidth="114.0" />
-                        <Separator layoutX="216.0" layoutY="40.0" orientation="VERTICAL" prefHeight="167.0" prefWidth="0.0" />
-                        <Separator layoutX="35.0" layoutY="206.0" prefHeight="3.0" prefWidth="182.0" />
-                        <Separator layoutX="34.0" layoutY="40.0" orientation="VERTICAL" prefHeight="166.0" prefWidth="6.0" />
+                        <Button layoutX="41.0" layoutY="49.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="65.0" text="Add" />
+                        <Separator layoutX="100.0" layoutY="40.0" prefHeight="3.0" prefWidth="119.0" />
+                        <Separator layoutX="216.0" layoutY="40.0" orientation="VERTICAL" prefHeight="79.0" prefWidth="0.0" />
+                        <Separator layoutX="34.0" layoutY="113.0" prefHeight="12.0" prefWidth="184.0" />
+                        <Separator layoutX="34.0" layoutY="40.0" orientation="VERTICAL" prefHeight="80.0" prefWidth="6.0" />
                         <Text layoutX="49.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modifiers" />
                         <Separator layoutX="35.0" layoutY="40.0" prefHeight="0.0" prefWidth="14.0" />
-                        <Button layoutX="55.0" layoutY="99.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="65.0" text="Delete" />
-                        <Button layoutX="140.0" layoutY="61.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="65.0" text="Update" />
+                        <Button layoutX="41.0" layoutY="85.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="65.0" text="Delete" />
+                        <Button layoutX="130.0" layoutY="49.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="65.0" text="Update" />
                         <ScrollPane layoutX="334.0" layoutY="40.0" prefHeight="230.0" prefWidth="500.0">
                           <content>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="230.0" prefWidth="500.0">
@@ -69,7 +69,7 @@
                               </AnchorPane>
                           </content>
                         </ScrollPane>
-                        <Text layoutX="694.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="All Appointments" />
+                        <Text layoutX="538.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="All Appointments" />
                      </children>
                   </AnchorPane>
               </content>
@@ -86,28 +86,26 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <Button layoutX="207.0" layoutY="154.0" mnemonicParsing="false" text="Back Time" />
-      <Button layoutX="558.0" layoutY="154.0" mnemonicParsing="false" text="Forward Time" />
-      <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="900.0">
+      <MenuBar layoutY="2.0">
         <menus>
           <Menu mnemonicParsing="false" text="Appointments">
             <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
+              <MenuItem mnemonicParsing="false" onAction="#DisplayAppointments" text="View" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Customers">
             <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
+              <MenuItem mnemonicParsing="false" onAction="#DisplayCustomers" text="View" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Reports">
+          <Menu mnemonicParsing="false" text="Records">
             <items>
-              <MenuItem mnemonicParsing="false" text="About" />
+              <MenuItem mnemonicParsing="false" onAction="#DisplayRecords" text="About" />
             </items>
           </Menu>
-            <Menu mnemonicParsing="false" text="SignOut">
+            <Menu mnemonicParsing="false" text="Signout">
               <items>
-                <MenuItem mnemonicParsing="false" text="Action 1" />
+                <MenuItem mnemonicParsing="false" onAction="#TerminateSession" text="Quit" />
               </items>
             </Menu>
         </menus>

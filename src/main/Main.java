@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import main.database.Connection;
+import main.utils.StageManager;
 
 /**
  * Main Class the Entry-Point into the application.
@@ -29,10 +30,17 @@ public class Main extends Application {
      */
     @Override
     public void start(Stage primaryStage) throws Exception {
+        //replace this with the SceneManager class
+        StageManager stageManager =  new StageManager();
+        stageManager.setPrimaryStage(primaryStage);
+        stageManager.setScene("login");
+        //What is this
+
         Parent root = FXMLLoader.load(getClass().getResource("views/login.fxml"));
-        primaryStage.setTitle("Scheduly-17");
-        Scene newScene = new Scene(root);
-        primaryStage.setScene(newScene);
+
+        //primaryStage.setTitle("Scheduly-17");
+        //Scene newScene = new Scene(root);
+        //primaryStage.setScene(newScene);
         primaryStage.setResizable(false);
         primaryStage.show();
     }

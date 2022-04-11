@@ -24,6 +24,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import main.utils.StageManager;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -191,17 +192,8 @@ public class Login implements Initializable {
         if (userIsValid()) {
             //If the user if valid we want to compare there check here with any appointments in the next 15 minutes
             //And send up and alert that says hey you have an appointment in w/e minutes from login
-
-            Parent viewDashBoard = FXMLLoader.load(getClass().getResource("../views/secondscreen.fxml"));
-            Stage primaryStage = (Stage) LoginButton.getScene().getWindow(); //This gets the primary Stage from the Button source
-            //Change the current scene to something else this way to I don't have to change the stage just changing the scene.
-            primaryStage.setScene(new Scene(viewDashBoard)); // This will send the user to the next screen
-
-            String username = UserNameTextField.getText();
-            //Only do this is the user is valid if not no front end validation. 
-            System.out.println("The username is " + username);
-            primaryStage.setTitle("Scheduly-17-" + username + "-DashBoard"); //Set this to dashBoard for now but make it read the user's username catch.
-            primaryStage.show();
+            System.out.println(StageManager.getPrimaryStage());
+            StageManager.setScene("appointments");
         } else {
             //They must not be in the database this must be a wrong username or password
             displayErrorCodeStyling();
