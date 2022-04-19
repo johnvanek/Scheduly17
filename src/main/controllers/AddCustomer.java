@@ -2,10 +2,17 @@ package main.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.input.MouseEvent;
+import javafx.fxml.Initializable;
 import main.utils.StageManager;
 
-public class Customers {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class AddCustomer implements Initializable {
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+    }
 
     @FXML
     void DisplayAppointments(ActionEvent event) {
@@ -28,11 +35,4 @@ public class Customers {
     void TerminateSession(ActionEvent event) {
 
     }
-
-    @FXML
-    void DisplayAddCustomer(MouseEvent event) {
-        StageManager.setTitle("add-Customer");
-        StageManager.setScene("addCustomer");
-    }
-
 }
