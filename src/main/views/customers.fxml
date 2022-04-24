@@ -75,5 +75,6 @@
       <Separator layoutX="251.0" layoutY="89.0" orientation="VERTICAL" prefHeight="476.0" prefWidth="14.0" />
       <Label layoutX="28.0" layoutY="292.0" text="Phone-Number" />
       <TextField layoutX="113.0" layoutY="288.0" prefHeight="25.0" prefWidth="119.0" />
+      <Button layoutX="92.0" layoutY="406.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="65.0" text="Finalize" />
    </children>
 </AnchorPane>

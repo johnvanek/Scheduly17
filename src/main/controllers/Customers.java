@@ -21,11 +21,12 @@ public class Customers {
 
     @FXML
     void DisplayRecords(ActionEvent event) {
-
+        //This might be the more comfortable way to code.
     }
 
     @FXML
     void TerminateSession(ActionEvent event) {
+        //Add the code for this session later.
 
     }
 
