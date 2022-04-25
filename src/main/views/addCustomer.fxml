@@ -50,6 +50,8 @@
             <Label layoutX="17.0" layoutY="143.0" text="Phone-Number" />
             <TextField layoutX="111.0" layoutY="145.0" prefHeight="25.0" prefWidth="119.0" />
             <Button layoutX="125.0" layoutY="311.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="65.0" text="Submit" />
+            <Label layoutX="10.0" layoutY="219.0" text="Provinces/States" />
+            <ComboBox layoutX="111.0" layoutY="215.0" prefWidth="150.0" />
          </children>
       </AnchorPane>
    </children>

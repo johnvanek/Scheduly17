@@ -19,32 +19,70 @@
    <children>
       <TabPane layoutX="13.0" layoutY="191.0" prefHeight="347.0" prefWidth="864.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab text="Weekly">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="426.0" prefWidth="748.0">
+            <Tab text="Weekly">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <ScrollPane layoutY="-1.0" prefHeight="400.0" prefWidth="864.0">
+                        <ScrollPane layoutY="33.0" prefHeight="285.0" prefWidth="864.0">
                            <content>
-                              <TableView prefHeight="330.0" prefWidth="861.0">
-                                <columns>
-                                  <TableColumn prefWidth="75.0" text="C1" />
-                                  <TableColumn prefWidth="75.0" text="C2" />
-                                </columns>
+                              <TableView prefHeight="273.0" prefWidth="1100.0">
+                                 <columns>
+                                    <TableColumn prefWidth="100.0" text="Appointment_ID" />
+                                    <TableColumn prefWidth="100.0" text="Title" />
+                                    <TableColumn prefWidth="100.0" text="Description" />
+                                    <TableColumn prefWidth="100.0" text="Location" />
+                                    <TableColumn prefWidth="100.0" text="Contact" />
+                                    <TableColumn prefWidth="100.0" text="Type" />
+                                    <TableColumn prefWidth="150.0" text="Start Date / Start Time" />
+                                    <TableColumn prefWidth="150.0" text="End Date / End Time" />
+                                    <TableColumn prefWidth="100.0" text="Customer_ID" />
+                                    <TableColumn prefWidth="100.0" text="User_ID" />
+                                 </columns>
                               </TableView>
                            </content>
                         </ScrollPane>
+                        <Text layoutX="297.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Appointments This Week">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Text>
                      </children>
                   </AnchorPane>
-            </content>
-          </Tab>
+               </content>
+            </Tab>
             <Tab text="Monthly">
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: blue;" />
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <ScrollPane layoutY="33.0" prefHeight="285.0" prefWidth="864.0">
+                           <content>
+                              <TableView prefHeight="273.0" prefWidth="1100.0">
+                                 <columns>
+                                    <TableColumn prefWidth="100.0" text="Appointment_ID" />
+                                    <TableColumn prefWidth="100.0" text="Title" />
+                                    <TableColumn prefWidth="100.0" text="Description" />
+                                    <TableColumn prefWidth="100.0" text="Location" />
+                                    <TableColumn prefWidth="100.0" text="Contact" />
+                                    <TableColumn prefWidth="100.0" text="Type" />
+                                    <TableColumn prefWidth="150.0" text="Start Date / Start Time" />
+                                    <TableColumn prefWidth="150.0" text="End Date / End Time" />
+                                    <TableColumn prefWidth="100.0" text="Customer_ID" />
+                                    <TableColumn prefWidth="100.0" text="User_ID" />
+                                 </columns>
+                              </TableView>
+                           </content>
+                        </ScrollPane>
+                        <Text layoutX="297.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Appointments This Month">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Text>
+                     </children></AnchorPane>
                </content>
             </Tab>
             <Tab text="Modify Appointments">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: red;">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
                         <Button layoutX="41.0" layoutY="49.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="65.0" text="Add" />
                         <Separator layoutX="100.0" layoutY="40.0" prefHeight="3.0" prefWidth="119.0" />
@@ -55,21 +93,29 @@
                         <Separator layoutX="35.0" layoutY="40.0" prefHeight="0.0" prefWidth="14.0" />
                         <Button layoutX="41.0" layoutY="85.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="65.0" text="Delete" />
                         <Button layoutX="130.0" layoutY="49.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="65.0" text="Update" />
-                        <ScrollPane layoutX="334.0" layoutY="40.0" prefHeight="230.0" prefWidth="500.0">
-                          <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="230.0" prefWidth="500.0">
-                                 <children>
-                                    <TableView prefHeight="230.0" prefWidth="500.0">
-                                      <columns>
-                                        <TableColumn prefWidth="75.0" text="C1" />
-                                        <TableColumn prefWidth="75.0" text="C2" />
-                                      </columns>
-                                    </TableView>
-                                 </children>
-                              </AnchorPane>
-                          </content>
+                        <ScrollPane layoutX="230.0" layoutY="40.0" prefHeight="230.0" prefWidth="625.0">
+                           <content>
+                              <TableView prefHeight="231.0" prefWidth="1100.0">
+                                <columns>
+                                  <TableColumn prefWidth="100.0" text="Appointment_ID" />
+                                  <TableColumn prefWidth="100.0" text="Title" />
+                                    <TableColumn prefWidth="100.0" text="Description" />
+                                    <TableColumn prefWidth="100.0" text="Location" />
+                                    <TableColumn prefWidth="100.0" text="Contact" />
+                                    <TableColumn prefWidth="100.0" text="Type" />
+                                    <TableColumn prefWidth="150.0" text="Start Date / Start Time" />
+                                    <TableColumn prefWidth="150.0" text="End Date / End Time" />
+                                    <TableColumn prefWidth="100.0" text="Customer_ID" />
+                                    <TableColumn prefWidth="100.0" text="User_ID" />
+                                </columns>
+                              </TableView>
+                           </content>
                         </ScrollPane>
-                        <Text layoutX="538.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="All Appointments" />
+                        <Text layoutX="297.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="All Appointments">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Text>
                      </children>
                   </AnchorPane>
               </content>
@@ -79,11 +125,6 @@
       <Label layoutX="342.0" layoutY="107.0" text="Appointments">
          <font>
             <Font size="24.0" />
-         </font>
-      </Label>
-      <Label layoutX="337.0" layoutY="154.0" text="Date Week /OR Month">
-         <font>
-            <Font size="16.0" />
          </font>
       </Label>
       <MenuBar layoutY="2.0">

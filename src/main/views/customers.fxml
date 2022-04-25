@@ -46,8 +46,12 @@
                <children>
                   <TableView prefHeight="261.0" prefWidth="521.0">
                     <columns>
-                      <TableColumn prefWidth="75.0" text="C1" />
-                      <TableColumn prefWidth="75.0" text="C2" />
+                      <TableColumn prefWidth="39.0" text="ID" />
+                      <TableColumn prefWidth="100.0" text="Name" />
+                        <TableColumn prefWidth="98.0" text="Address" />
+                        <TableColumn prefWidth="77.0" text="Postal-Code" />
+                        <TableColumn prefWidth="98.0" text="Country" />
+                        <TableColumn prefWidth="108.0" text="Province/State" />
                     </columns>
                   </TableView>
                </children>
@@ -75,6 +79,9 @@
       <Separator layoutX="251.0" layoutY="89.0" orientation="VERTICAL" prefHeight="476.0" prefWidth="14.0" />
       <Label layoutX="28.0" layoutY="292.0" text="Phone-Number" />
       <TextField layoutX="113.0" layoutY="288.0" prefHeight="25.0" prefWidth="119.0" />
-      <Button layoutX="92.0" layoutY="406.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="65.0" text="Finalize" />
+      <Button layoutX="92.0" layoutY="465.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="65.0" text="Finalize" />
+      <Label layoutX="19.0" layoutY="360.0" text="Provinces" />
+      <Label layoutX="19.0" layoutY="374.0" text="States" />
+      <ComboBox layoutX="86.0" layoutY="362.0" prefWidth="150.0" />
    </children>
 </AnchorPane>
