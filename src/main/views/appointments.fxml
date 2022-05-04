@@ -84,7 +84,7 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Button layoutX="41.0" layoutY="49.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="65.0" text="Add" />
+                        <Button layoutX="41.0" layoutY="49.0" mnemonicParsing="false" onMouseClicked="#DisplayAddAppointment" prefHeight="25.0" prefWidth="65.0" text="Add" />
                         <Separator layoutX="100.0" layoutY="40.0" prefHeight="3.0" prefWidth="119.0" />
                         <Separator layoutX="216.0" layoutY="40.0" orientation="VERTICAL" prefHeight="79.0" prefWidth="0.0" />
                         <Separator layoutX="34.0" layoutY="113.0" prefHeight="12.0" prefWidth="184.0" />

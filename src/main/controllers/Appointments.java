@@ -3,6 +3,7 @@ package main.controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.input.MouseEvent;
 import main.utils.StageManager;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -18,6 +19,13 @@ public class Appointments implements Initializable {
     void DisplayAppointments(ActionEvent event) {
         StageManager.setTitle("appointments");
         StageManager.setScene("appointments");
+    }
+
+    @FXML
+    void DisplayAddAppointment(MouseEvent event) {
+        System.out.println("Attempting to load add screen");
+        StageManager.setTitle("addappointment");
+        StageManager.setScene("addAppointment");
     }
 
     @FXML

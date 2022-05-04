@@ -22,8 +22,9 @@ public class AddCustomer implements Initializable {
 
     @FXML
     void DisplayCustomers(ActionEvent event) {
+        System.out.println("Scene-Changing-Customers");
         StageManager.setTitle("customers");
-        StageManager.setScene("appointments");
+        StageManager.setScene("customers");
     }
 
     @FXML

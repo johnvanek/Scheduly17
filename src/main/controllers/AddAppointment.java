@@ -2,10 +2,18 @@ package main.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.input.MouseEvent;
+import javafx.fxml.Initializable;
 import main.utils.StageManager;
 
-public class Customers {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class AddAppointment implements Initializable {
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+    }
 
     @FXML
     void DisplayAppointments(ActionEvent event) {
@@ -22,19 +30,12 @@ public class Customers {
 
     @FXML
     void DisplayRecords(ActionEvent event) {
-        //This might be the more comfortable way to code.
+
     }
 
     @FXML
     void TerminateSession(ActionEvent event) {
-        //Add the code for this session later.
 
-    }
-
-    @FXML
-    void DisplayAddCustomer(MouseEvent event) {
-        StageManager.setTitle("add-Customer");
-        StageManager.setScene("addCustomer");
     }
 
 }
