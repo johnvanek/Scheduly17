@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="900.0" stylesheets="@../resources/styles/main.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.AddAppointment">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="900.0" stylesheets="@../resources/styles/main.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.AddAppointment">
    <children>
       <MenuBar layoutY="2.0">
          <menus>
@@ -65,5 +65,6 @@
             <TextField layoutX="100.0" layoutY="389.0" prefHeight="25.0" prefWidth="119.0" />
          </children>
       </AnchorPane>
+      <Text layoutX="152.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" text="This is a test" />
    </children>
 </AnchorPane>

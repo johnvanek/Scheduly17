@@ -10,6 +10,6 @@ public class Query {
 
     public static void assembleQuery(String queryArg){
         query = queryArg;
-        statement = Connection.makePreparedStatement(query,);
+
     }
 }
