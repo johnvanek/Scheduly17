@@ -1,4 +1,4 @@
-package main.model;
+package main.DAO.models;
 
 public class FirstLevelDivision {
     private int divisionId;

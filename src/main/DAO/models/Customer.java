@@ -1,4 +1,4 @@
-package main.model;
+package main.DAO.models;
 
 public class Customer {
     private final int customerId;
@@ -9,6 +9,8 @@ public class Customer {
     private final int divisionId;
 
     public Customer(int customerId, String customerName, String address, String postalCode, String phoneNumber, int divisionId) {
+        //Only the fields customerId and division are without their own setter.
+        //Those fields are set in the constructor and then that is it.
         this.customerId = customerId;
         this.customerName = customerName;
         this.address = address;

@@ -1,4 +1,4 @@
-package main.model;
+package main.DAO.models;
 
 /**
  * A model representing the Contact Class.
