@@ -19,7 +19,6 @@ public class StageManager {
         StageManager.primaryStage = primaryStage;
     }
 
-
     public static void setScene(String viewToLoad) {
         String loaderString = "../views/" + viewToLoad + ".fxml";
         try {
