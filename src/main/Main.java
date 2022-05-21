@@ -1,8 +1,6 @@
 package main;
+
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 import main.database.Connection;
 import main.utils.StageManager;
@@ -28,18 +26,9 @@ public class Main extends Application {
      * This method set's up and displays the initial view for the JavaFx application.
      */
     @Override
-    public void start(Stage primaryStage) throws Exception {
-        //replace this with the SceneManager class
-        StageManager stageManager =  new StageManager();
-        stageManager.setPrimaryStage(primaryStage);
-        stageManager.setScene("login");
-        //What is this
-
-        Parent root = FXMLLoader.load(getClass().getResource("views/login.fxml"));
-
-        //primaryStage.setTitle("Scheduly-17");
-        //Scene newScene = new Scene(root);
-        //primaryStage.setScene(newScene);
+    public void start(Stage primaryStage) {
+        StageManager.setPrimaryStage(primaryStage);
+        StageManager.setScene("login");
         primaryStage.setResizable(false);
         primaryStage.show();
     }
