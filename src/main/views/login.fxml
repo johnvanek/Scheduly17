@@ -20,7 +20,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
-<AnchorPane fx:id="LoginScreen" maxHeight="1080.0" maxWidth="1920.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="900.0" styleClass="LoginRoot" stylesheets="@/styles/main.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.Login">
+<AnchorPane fx:id="LoginScreen" maxHeight="1080.0" maxWidth="1920.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="900.0" styleClass="LoginRoot" stylesheets="@/styles/main.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.Login">
     <children>
         <AnchorPane fx:id="LoginHolder" prefHeight="560.0" prefWidth="900.0" styleClass="parentAnchorPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
