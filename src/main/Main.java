@@ -20,6 +20,11 @@ public class Main extends Application {
     public static void main(String[] args) {
         Connection.makeConnection();
         launch(args);
+        //TODO Import the rest of the Todos from Google keep
+        // Create the Models for appointment and Customer.
+        // Create the observable list called CustomerList
+        // Link up CustomerList with an FXID on the table with a cell factory?
+        // Re-watch the Webinar DAO and Observable List if stuck.
     }
 
     /**
