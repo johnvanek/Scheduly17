@@ -12,21 +12,20 @@ public class Connection {
     private static final String jdbcUrl = protocol + vendor + location + databaseName + "?connectionTimeZone = SERVER"; // LOCAL
     private static final String driver = "com.mysql.cj.jdbc.Driver"; // Driver reference
     private static final String userName = "sqlUser"; // Username
-    private static String password = "Passw0rd!"; // Password
+    private static final String password = "Passw0rd!"; // Password
     private static java.sql.Connection connection = null;  // Connection Interface
     private static PreparedStatement preparedStatement;
 
     public static void makeConnection() {
 
         try {
-            Class.forName(driver); // Locate Driver
-            //password = Details.getPassword(); // Assign password
-            connection = DriverManager.getConnection(jdbcUrl, userName, password); // reference Connection object
+            Class.forName(driver);
+            connection = DriverManager.getConnection(jdbcUrl, userName, password);
             System.out.println("Connection successful!");
         } catch (ClassNotFoundException e) {
-            System.out.println("Error:" + e.getMessage());
+            System.out.println("Error:" + e.getMessage() + " Class Not Found");
         } catch (SQLException e) {
-            System.out.println("Error:" + e.getMessage());
+            System.out.println("Error:" + e.getMessage() + " General Sql Exception");
         }
     }
 
@@ -44,16 +43,13 @@ public class Connection {
     }
 
     public static void makePreparedStatement(String sqlStatement, java.sql.Connection conn) throws SQLException {
-        if (conn != null)
-            preparedStatement = conn.prepareStatement(sqlStatement);
-        else
-            System.out.println("Prepared Statement Creation Failed!");
+        if (conn != null) preparedStatement = conn.prepareStatement(sqlStatement);
+        else System.out.println("Prepared Statement Creation Failed!");
     }
 
-    public static PreparedStatement getPreparedStatement() throws SQLException {
-        if (preparedStatement != null)
-            return preparedStatement;
-        else System.out.println("Null reference to Prepared Statement");
+    public static PreparedStatement getPreparedStatement() {
+        if (preparedStatement != null) return preparedStatement;
+        else System.out.println("Prepared Statement Reference is null");
         return null;
     }
 
