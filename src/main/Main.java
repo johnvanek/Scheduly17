@@ -24,7 +24,10 @@ public class Main extends Application {
         //  Create a method to see the database code in the terminal.
         //  Hook up the Cell Factory Method to show the data in the tables.
         //  Determine from there what models need to be created.
-        //  Sort out the JavaDoc Documentation.
+        // Implement a method to see the data from the database inside of the console.
+        // The Method should be as follows
+        // Using SQL through JDBC interfaces run a sql statement that returns a result.
+        // For a test try to return the available appointments.
     }
 
     /**
