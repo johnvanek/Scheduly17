@@ -8,8 +8,7 @@ public class Query {
     private static Statement statement;
     private static ResultSet resultSet;
 
-    public static void assembleQuery(String queryArg){
+    public static void assembleQuery(String queryArg) {
         query = queryArg;
-
     }
 }
