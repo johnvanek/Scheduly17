@@ -97,16 +97,16 @@
                            <content>
                               <TableView fx:id="ALLVIEW" prefHeight="231.0" prefWidth="1100.0">
                                 <columns>
-                                  <TableColumn prefWidth="100.0" text="Appointment_ID" />
-                                  <TableColumn prefWidth="100.0" text="Title" />
-                                    <TableColumn prefWidth="100.0" text="Description" />
-                                    <TableColumn prefWidth="100.0" text="Location" />
-                                    <TableColumn prefWidth="100.0" text="Contact" />
-                                    <TableColumn prefWidth="100.0" text="Type" />
-                                    <TableColumn prefWidth="150.0" text="Start Date / Start Time" />
-                                    <TableColumn prefWidth="150.0" text="End Date / End Time" />
-                                    <TableColumn prefWidth="100.0" text="Customer_ID" />
-                                    <TableColumn prefWidth="100.0" text="User_ID" />
+                                  <TableColumn fx:id="AllViewAppID" prefWidth="100.0" text="Appointment_ID" />
+                                  <TableColumn fx:id="AllViewTitle" prefWidth="100.0" text="Title" />
+                                    <TableColumn fx:id="AllViewDes" prefWidth="100.0" text="Description" />
+                                    <TableColumn fx:id="AllViewLoc" prefWidth="100.0" text="Location" />
+                                    <TableColumn fx:id="AllViewCon" prefWidth="100.0" text="Contact" />
+                                    <TableColumn fx:id="AllViewType" prefWidth="100.0" text="Type" />
+                                    <TableColumn fx:id="AllViewDateStart" prefWidth="150.0" text="Start Date / Start Time" />
+                                    <TableColumn fx:id="AllViewEndDate" prefWidth="150.0" text="End Date / End Time" />
+                                    <TableColumn fx:id="AllViewCustID" prefWidth="100.0" text="Customer_ID" />
+                                    <TableColumn fx:id="AllViewUserID" prefWidth="100.0" text="User_ID" />
                                 </columns>
                               </TableView>
                            </content>

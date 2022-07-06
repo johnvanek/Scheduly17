@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
 import main.database.Connection;
@@ -21,7 +22,8 @@ public class Appointments implements Initializable {
     static {
         // The query for this should come from table helper
         try {
-            ObservableManager.CreateObservable("SELECT * FROM appointments");
+            //Maybe add another method to create tableview
+            ObservableManager.CreateObservable("SELECT * FROM appointments", "appointment");
         } catch (SQLException e) {
             System.out.println("Problem Creating Observable");
             throw new RuntimeException(e);
@@ -33,11 +35,41 @@ public class Appointments implements Initializable {
     // Will have to do this for each add also could maybe use lambda.
 
     //Create Observable List
-    ObservableList<Appointments> appointmentsList = FXCollections.observableArrayList();
-
+    //ObservableList<Appointments> appointmentsList = FXCollections.observableArrayList();
     // The reference for the AllView
+
     @FXML
-    private TableView<?> ALLVIEW;
+    private TableView<Appointments> ALLVIEW;
+
+    @FXML
+    private TableColumn<?, ?> AllViewAppID;
+
+    @FXML
+    private TableColumn<?, ?> AllViewTitle;
+
+    @FXML
+    private TableColumn<?, ?> AllViewDes;
+
+    @FXML
+    private TableColumn<?, ?> AllViewLoc;
+
+    @FXML
+    private TableColumn<?, ?> AllViewCon;
+
+    @FXML
+    private TableColumn<?, ?> AllViewType;
+
+    @FXML
+    private TableColumn<?, ?> AllViewDateStart;
+
+    @FXML
+    private TableColumn<?, ?> AllViewEndDate;
+
+    @FXML
+    private TableColumn<?, ?> AllViewCustID;
+
+    @FXML
+    private TableColumn<?, ?> AllViewUserID;
 
 
     @Override
