@@ -23,20 +23,20 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <ScrollPane layoutY="33.0" prefHeight="285.0" prefWidth="864.0">
+                        <ScrollPane layoutY="28.0" prefHeight="291.0" prefWidth="865.0">
                            <content>
-                              <TableView prefHeight="273.0" prefWidth="1100.0">
+                              <TableView fx:id="WeekView" prefHeight="289.0" prefWidth="1100.0">
                                  <columns>
-                                    <TableColumn prefWidth="100.0" text="Appointment_ID" />
-                                    <TableColumn prefWidth="100.0" text="Title" />
-                                    <TableColumn prefWidth="100.0" text="Description" />
-                                    <TableColumn prefWidth="100.0" text="Location" />
-                                    <TableColumn prefWidth="100.0" text="Contact" />
-                                    <TableColumn prefWidth="100.0" text="Type" />
-                                    <TableColumn prefWidth="150.0" text="Start Date / Start Time" />
-                                    <TableColumn prefWidth="150.0" text="End Date / End Time" />
-                                    <TableColumn prefWidth="100.0" text="Customer_ID" />
-                                    <TableColumn prefWidth="100.0" text="User_ID" />
+                                    <TableColumn fx:id="WeekViewAppID" prefWidth="100.0" text="Appointment_ID" />
+                                    <TableColumn fx:id="WeekViewTitle" prefWidth="100.0" text="Title" />
+                                    <TableColumn fx:id="WeekViewDes" prefWidth="100.0" text="Description" />
+                                    <TableColumn fx:id="WeekViewLoc" prefWidth="100.0" text="Location" />
+                                    <TableColumn fx:id="WeekViewCon" prefWidth="100.0" text="Contact" />
+                                    <TableColumn fx:id="WeekViewType" prefWidth="100.0" text="Type" />
+                                    <TableColumn fx:id="WeekViewDateStart" prefWidth="150.0" text="Start Date / Start Time" />
+                                    <TableColumn fx:id="WeekViewDateEnd" prefWidth="150.0" text="End Date / End Time" />
+                                    <TableColumn fx:id="WeekViewCustID" prefWidth="100.0" text="Customer_ID" />
+                                    <TableColumn fx:id="WeekViewUserID" prefWidth="100.0" text="User_ID" />
                                  </columns>
                               </TableView>
                            </content>
@@ -54,20 +54,20 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <ScrollPane layoutY="33.0" prefHeight="285.0" prefWidth="864.0">
+                        <ScrollPane layoutY="28.0" prefHeight="291.0" prefWidth="865.0">
                            <content>
-                              <TableView prefHeight="273.0" prefWidth="1100.0">
+                              <TableView fx:id="MonthView" prefHeight="289.0" prefWidth="1100.0">
                                  <columns>
-                                    <TableColumn prefWidth="100.0" text="Appointment_ID" />
-                                    <TableColumn prefWidth="100.0" text="Title" />
-                                    <TableColumn prefWidth="100.0" text="Description" />
-                                    <TableColumn prefWidth="100.0" text="Location" />
-                                    <TableColumn prefWidth="100.0" text="Contact" />
-                                    <TableColumn prefWidth="100.0" text="Type" />
-                                    <TableColumn prefWidth="150.0" text="Start Date / Start Time" />
-                                    <TableColumn prefWidth="150.0" text="End Date / End Time" />
-                                    <TableColumn prefWidth="100.0" text="Customer_ID" />
-                                    <TableColumn prefWidth="100.0" text="User_ID" />
+                                    <TableColumn fx:id="MonthViewAppID" prefWidth="100.0" text="Appointment_ID" />
+                                    <TableColumn fx:id="MonthViewTitle" prefWidth="100.0" text="Title" />
+                                    <TableColumn fx:id="MonthViewDes" prefWidth="100.0" text="Description" />
+                                    <TableColumn fx:id="MonthViewLoc" prefWidth="100.0" text="Location" />
+                                    <TableColumn fx:id="MonthViewCon" prefWidth="100.0" text="Contact" />
+                                    <TableColumn fx:id="MonthViewType" prefWidth="100.0" text="Type" />
+                                    <TableColumn fx:id="MonthViewDateStart" prefWidth="150.0" text="Start Date / Start Time" />
+                                    <TableColumn fx:id="MonthViewDateEnd" prefWidth="150.0" text="End Date / End Time" />
+                                    <TableColumn fx:id="MonthViewCustID" prefWidth="100.0" text="Customer_ID" />
+                                    <TableColumn fx:id="MonthViewUserID" prefWidth="100.0" text="User_ID" />
                                  </columns>
                               </TableView>
                            </content>
@@ -104,7 +104,7 @@
                                     <TableColumn fx:id="AllViewCon" prefWidth="100.0" text="Contact" />
                                     <TableColumn fx:id="AllViewType" prefWidth="100.0" text="Type" />
                                     <TableColumn fx:id="AllViewDateStart" prefWidth="150.0" text="Start Date / Start Time" />
-                                    <TableColumn fx:id="AllViewEndDate" prefWidth="150.0" text="End Date / End Time" />
+                                    <TableColumn fx:id="AllViewDateEnd" prefWidth="150.0" text="End Date / End Time" />
                                     <TableColumn fx:id="AllViewCustID" prefWidth="100.0" text="Customer_ID" />
                                     <TableColumn fx:id="AllViewUserID" prefWidth="100.0" text="User_ID" />
                                 </columns>

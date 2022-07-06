@@ -25,16 +25,93 @@ public class Appointments implements Initializable {
             //Maybe add another method to create tableview
             ObservableManager.CreateAppointmentList("SELECT * FROM appointments");
         } catch (SQLException e) {
-            System.out.println("Problem Creating Observable");
+            System.out.println("Problem Creating ObservableList's");
             throw new RuntimeException(e);
         }
     }
 
-    //TODO either implement an observable list here inline which is not ideal for code reuse.
-    // Or implement an observable-list manager that can be accessed as if from a class.
-    // Will have to do this for each add also could maybe use lambda.
+    //TODO implement the code here for the weekly and the monthly view
+    // 2 tables but they only need to display if TimeManager says true or false.
+    // Time manager will check any within the current week
+    // Time manager will check if any within the current month.
+    // Back and create 2 more TableViews
+    // Assign the Ids
+    // And Assign the Cell Values
+    // Copy and Paste as much as possible from ALL-View
+    // Watch outback truckers
 
-    //FXMLIS'S**************************************************************************
+    //FXML-ID'S**************************************************************************
+
+    //Week-Tab - ID'S
+    @FXML
+    private TableView<Appointment> WeekView;
+
+    @FXML
+    private TableColumn<?, ?> WeekViewAppID;
+
+    @FXML
+    private TableColumn<?, ?> WeekViewTitle;
+
+    @FXML
+    private TableColumn<?, ?> WeekViewDes;
+
+    @FXML
+    private TableColumn<?, ?> WeekViewLoc;
+
+    @FXML
+    private TableColumn<?, ?> WeekViewCon;
+
+    @FXML
+    private TableColumn<?, ?> WeekViewType;
+
+    @FXML
+    private TableColumn<?, ?> WeekViewDateStart;
+
+    @FXML
+    private TableColumn<?, ?> WeekViewDateEnd;
+
+    @FXML
+    private TableColumn<?, ?> WeekViewCustID;
+
+    @FXML
+    private TableColumn<?, ?> WeekViewUserID;
+
+    //Month-Tab - ID'S
+    @FXML
+    private TableView<Appointment> MonthView;
+
+    @FXML
+    private TableColumn<?, ?> MonthViewAppID;
+
+    @FXML
+    private TableColumn<?, ?> MonthViewTitle;
+
+    @FXML
+    private TableColumn<?, ?> MonthViewDes;
+
+    @FXML
+    private TableColumn<?, ?> MonthViewLoc;
+
+    @FXML
+    private TableColumn<?, ?> MonthViewCon;
+
+    @FXML
+    private TableColumn<?, ?> MonthViewType;
+
+    @FXML
+    private TableColumn<?, ?> MonthViewDateStart;
+
+    @FXML
+    private TableColumn<?, ?> MonthViewDateEnd;
+
+    @FXML
+    private TableColumn<?, ?> MonthViewCustID;
+
+    @FXML
+    private TableColumn<?, ?> MonthViewUserID;
+
+
+    //Modify-Tab - ID'S
     @FXML
     private TableView<Appointment> AllView;
 
@@ -60,7 +137,7 @@ public class Appointments implements Initializable {
     private TableColumn<?, ?> AllViewDateStart;
 
     @FXML
-    private TableColumn<?, ?> AllViewEndDate;
+    private TableColumn<?, ?> AllViewDateEnd;
 
     @FXML
     private TableColumn<?, ?> AllViewCustID;
@@ -69,7 +146,7 @@ public class Appointments implements Initializable {
     private TableColumn<?, ?> AllViewUserID;
 
 
-    //FXMLMETHODS************************************
+    //FXML-METHODS************************************
 
     @FXML
     void DisplayAppointments(ActionEvent event) {
@@ -104,9 +181,33 @@ public class Appointments implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //Since im am going to have to do this for 3 tabs might make sense make a display manager
-        System.out.println("Initializing Table View");
-        //Initialize all TableView
+        //Initialize the Table Views
+        System.out.println("Initializing Table View's For Appointment Screen");
+        //Initialize the Month Tab
+        WeekView.setItems(appointmentList);
+        WeekViewAppID.setCellValueFactory(new PropertyValueFactory<>("AppointmentId"));
+        WeekViewTitle.setCellValueFactory(new PropertyValueFactory<>("Title"));
+        WeekViewDes.setCellValueFactory(new PropertyValueFactory<>("Description"));
+        WeekViewLoc.setCellValueFactory(new PropertyValueFactory<>("Location"));
+        WeekViewType.setCellValueFactory(new PropertyValueFactory<>("Type"));
+        WeekViewDateStart.setCellValueFactory(new PropertyValueFactory<>("StartDateTime"));
+        WeekViewDateEnd.setCellValueFactory(new PropertyValueFactory<>("EndDateTime"));
+        WeekViewCustID.setCellValueFactory(new PropertyValueFactory<>("CustomerId"));
+        WeekViewUserID.setCellValueFactory(new PropertyValueFactory<>("UserId"));
+        WeekViewCon.setCellValueFactory(new PropertyValueFactory<>("ContactId"));
+        //Initialize the Month Tab
+        MonthView.setItems(appointmentList);
+        MonthViewAppID.setCellValueFactory(new PropertyValueFactory<>("AppointmentId"));
+        MonthViewTitle.setCellValueFactory(new PropertyValueFactory<>("Title"));
+        MonthViewDes.setCellValueFactory(new PropertyValueFactory<>("Description"));
+        MonthViewLoc.setCellValueFactory(new PropertyValueFactory<>("Location"));
+        MonthViewType.setCellValueFactory(new PropertyValueFactory<>("Type"));
+        MonthViewDateStart.setCellValueFactory(new PropertyValueFactory<>("StartDateTime"));
+        MonthViewDateEnd.setCellValueFactory(new PropertyValueFactory<>("EndDateTime"));
+        MonthViewCustID.setCellValueFactory(new PropertyValueFactory<>("CustomerId"));
+        MonthViewUserID.setCellValueFactory(new PropertyValueFactory<>("UserId"));
+        MonthViewCon.setCellValueFactory(new PropertyValueFactory<>("ContactId"));
+        //Initialize all Tab
         AllView.setItems(appointmentList);
         AllViewAppID.setCellValueFactory(new PropertyValueFactory<>("AppointmentId"));
         AllViewTitle.setCellValueFactory(new PropertyValueFactory<>("Title"));
@@ -114,7 +215,7 @@ public class Appointments implements Initializable {
         AllViewLoc.setCellValueFactory(new PropertyValueFactory<>("Location"));
         AllViewType.setCellValueFactory(new PropertyValueFactory<>("Type"));
         AllViewDateStart.setCellValueFactory(new PropertyValueFactory<>("StartDateTime"));
-        AllViewEndDate.setCellValueFactory(new PropertyValueFactory<>("EndDateTime"));
+        AllViewDateEnd.setCellValueFactory(new PropertyValueFactory<>("EndDateTime"));
         AllViewCustID.setCellValueFactory(new PropertyValueFactory<>("CustomerId"));
         AllViewUserID.setCellValueFactory(new PropertyValueFactory<>("UserId"));
         AllViewCon.setCellValueFactory(new PropertyValueFactory<>("ContactId"));

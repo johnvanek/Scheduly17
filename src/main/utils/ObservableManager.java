@@ -14,6 +14,9 @@ public class ObservableManager {
 
     //Create Observable List
     public static ObservableList<Appointment> appointmentList = FXCollections.observableArrayList();
+    public static ObservableList<Appointment> appointmentListWeek = FXCollections.observableArrayList();
+    public static ObservableList<Appointment> appointmentListMonth = FXCollections.observableArrayList();
+
     public static ObservableList<Customer> customerList = FXCollections.observableArrayList();
 
     static {
@@ -33,18 +36,19 @@ public class ObservableManager {
         while (resultSet.next()) {
             //Take the data from the query and use it to populate the model
             appointmentList.add(new Appointment( resultSet.getInt("appointment_ID"),
-                    // TODO Time stamp is in UTC but should display in Local Time Zone
                     resultSet.getString("title"),
                     resultSet.getString("description"),
                     resultSet.getString("location"),
                     resultSet.getString("type"),
-                    resultSet.getTimestamp("start").toLocalDateTime(),
+                    resultSet.getTimestamp("start").toLocalDateTime(), //Convert to the LocalTime
                     resultSet.getTimestamp("end").toLocalDateTime(),
                     resultSet.getInt("customer_ID"),
                     resultSet.getInt("user_ID"),
                     resultSet.getInt("Contact_ID")));
         }
     }
+
+
 
     public static ObservableList<Appointment> getAppointmentList() {
         return appointmentList;
@@ -54,11 +58,5 @@ public class ObservableManager {
         return customerList;
     }
 
-    public static ObservableList<?> ListFinder(String type) {
-        if ((type.equals("appointment"))) {
-            return getAppointmentList();
-        } else if (type.equals("customer")) {
-            return getCustomerList();
-        } else return null;
-    }
+
 }
