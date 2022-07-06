@@ -1,21 +1,21 @@
 package main.controllers;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import main.database.Connection;
+import main.DAO.models.Appointment;
 import main.utils.ObservableManager;
 import main.utils.StageManager;
-import main.utils.TableHelper;
 
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+
+import static main.utils.ObservableManager.appointmentList;
 
 public class Appointments implements Initializable {
 
@@ -23,7 +23,7 @@ public class Appointments implements Initializable {
         // The query for this should come from table helper
         try {
             //Maybe add another method to create tableview
-            ObservableManager.CreateObservable("SELECT * FROM appointments", "appointment");
+            ObservableManager.CreateAppointmentList("SELECT * FROM appointments");
         } catch (SQLException e) {
             System.out.println("Problem Creating Observable");
             throw new RuntimeException(e);
@@ -34,12 +34,9 @@ public class Appointments implements Initializable {
     // Or implement an observable-list manager that can be accessed as if from a class.
     // Will have to do this for each add also could maybe use lambda.
 
-    //Create Observable List
-    //ObservableList<Appointments> appointmentsList = FXCollections.observableArrayList();
-    // The reference for the AllView
-
+    //FXMLIS'S**************************************************************************
     @FXML
-    private TableView<Appointments> ALLVIEW;
+    private TableView<Appointment> AllView;
 
     @FXML
     private TableColumn<?, ?> AllViewAppID;
@@ -72,10 +69,7 @@ public class Appointments implements Initializable {
     private TableColumn<?, ?> AllViewUserID;
 
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println("Screen initialized");
-    }
+    //FXMLMETHODS************************************
 
     @FXML
     void DisplayAppointments(ActionEvent event) {
@@ -105,5 +99,24 @@ public class Appointments implements Initializable {
     @FXML
     void TerminateSession(ActionEvent event) {
         System.out.println("I am closing the session");
+    }
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        //Since im am going to have to do this for 3 tabs might make sense make a display manager
+        System.out.println("Initializing Table View");
+        //Initialize all TableView
+        AllView.setItems(appointmentList);
+        AllViewAppID.setCellValueFactory(new PropertyValueFactory<>("AppointmentId"));
+        AllViewTitle.setCellValueFactory(new PropertyValueFactory<>("Title"));
+        AllViewDes.setCellValueFactory(new PropertyValueFactory<>("Description"));
+        AllViewLoc.setCellValueFactory(new PropertyValueFactory<>("Location"));
+        AllViewType.setCellValueFactory(new PropertyValueFactory<>("Type"));
+        AllViewDateStart.setCellValueFactory(new PropertyValueFactory<>("StartDateTime"));
+        AllViewEndDate.setCellValueFactory(new PropertyValueFactory<>("EndDateTime"));
+        AllViewCustID.setCellValueFactory(new PropertyValueFactory<>("CustomerId"));
+        AllViewUserID.setCellValueFactory(new PropertyValueFactory<>("UserId"));
+        AllViewCon.setCellValueFactory(new PropertyValueFactory<>("ContactId"));
     }
 }

@@ -95,7 +95,7 @@
                         <Button layoutX="130.0" layoutY="49.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="65.0" text="Update" />
                         <ScrollPane layoutX="230.0" layoutY="40.0" prefHeight="230.0" prefWidth="625.0">
                            <content>
-                              <TableView fx:id="ALLVIEW" prefHeight="231.0" prefWidth="1100.0">
+                              <TableView fx:id="AllView" prefHeight="231.0" prefWidth="1100.0">
                                 <columns>
                                   <TableColumn fx:id="AllViewAppID" prefWidth="100.0" text="Appointment_ID" />
                                   <TableColumn fx:id="AllViewTitle" prefWidth="100.0" text="Title" />

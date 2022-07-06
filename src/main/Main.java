@@ -38,7 +38,7 @@ public class Main extends Application {
         System.out.println("Printing out the results of test-Query");
         System.out.println("******************************************************");
         while (resultSet.next()) {
-            System.out.println("TYPE: " + resultSet.getString("type") + ", ");
+            System.out.println("TYPE: " + resultSet.getString("appointment_ID") + ", ");
             System.out.println("Description: " + resultSet.getString("description"));
             System.out.println();
         }
