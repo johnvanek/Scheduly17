@@ -3,12 +3,11 @@ package main.database;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-public class Query {
+public abstract class Query {
     private static String query;
     private static Statement statement;
     private static ResultSet resultSet;
 
-    public static void assembleQuery(String queryArg) {
-        query = queryArg;
-    }
+    //TODO make classes that represent the different queries for each model.
+    public abstract void assembleQuery(String queryArg);
 }

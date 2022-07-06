@@ -24,15 +24,12 @@ public class Main extends Application {
     public static void main(String[] args) throws SQLException {
         Connection.makeConnection();
         //TODO - Get the Back End Hooked up the Front End.
-        //  Create a method to see the database code in the terminal.
-        //  Hook up the Cell Factory Method to show the data in the tables.
-        //  Determine from there what models need to be created.
-        // Implement a method to see the data from the database inside of the console.
-        // The Method should be as follows
-        // Using SQL through JDBC interfaces run a sql statement that returns a result.
-        // For a test try to return the available appointments.
-        // Just test this in main for now
-        // Okay now that it is executing hook it up in the appropriate file locations.
+        // Create a model for appointments so that it can be inserted into cell factory for Table view.
+        // Hook up the Cell Factory Method to show the data in the tables. - See if data will show up in the T.V
+        // There are only 2 data objects currently
+        // Appointments
+        // Customers
+
         String testQuery = "SELECT * FROM appointments";
         Connection.makePreparedStatement(testQuery, Connection.getConnection());
         PreparedStatement preparedStatement = Connection.getPreparedStatement();
@@ -46,6 +43,7 @@ public class Main extends Application {
             System.out.println();
         }
         launch(args);
+        Connection.closeConnection();
     }
 
     /**
