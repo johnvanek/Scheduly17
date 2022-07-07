@@ -8,11 +8,12 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import main.DAO.models.Appointment;
 import main.utils.StageManager;
 import main.utils.TimeManager;
-import main.utils.ValidationChecker;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ResourceBundle;
@@ -60,15 +61,40 @@ public class AddAppointment implements Initializable {
 
     @FXML
     void SubmitNewAppointment(MouseEvent event) {
-        // TODO implement the validationChecker for appointments
-        //Should perform some sort of validation here
-//        if(ValidationChecker.isBusinessHoursValid() && ValidationChecker.isCustomerAvailable()){
-//            //TODO perform the preparedStatement to be entered into the database
-//            System.out.println("The Validation ... In progress");
-//        }
-        TimeManager.convertToEst(LocalDateTime.now().plusHours(1));
-        ValidationChecker.isBusinessHoursValid();
+        getDataFromFields();
     }
+
+    private Appointment getDataFromFields() {
+        String title = TitleTextField.getText();
+        String desc = DescTextField.getText();
+        String loc = LocTextField.getText();
+        int con = Integer.parseInt(ConTextField.getText());
+        String type = TypeTextField.getText();
+        LocalDate startDate = StartDatePicker.getValue();
+        LocalTime startTime = StartTimeComboBox.getValue();
+        LocalDate endDate = EndDatePicker.getValue();
+        LocalTime endTime = EndTimeComboBox.getValue();
+        int custID = Integer.parseInt(CustIDTextField.getText());
+        int userID = Integer.parseInt(UserIDTextField.getText());
+
+        //TODO
+        // perform the validation
+
+
+
+        LocalDateTime startDateTime = startDate.atTime(startTime);
+        System.out.println("The start date and time is " + startDateTime);
+        LocalDateTime endDateTime = endDate.atTime(endTime);
+        System.out.println("The end date and time is " + endDateTime);
+        //If it is in the business hours and there is no overlap go ahead and add it the database.
+        if(TimeManager.isInBusinessHours(startDateTime,endDateTime) && TimeManager.isCustomerAvailable(custID,startDateTime,endDateTime)){
+            //If they pass these validation we are good to call an operation inside of here to add it to the database.
+        }
+
+        return null;
+        //return new Appointment(title,desc,loc,con,type)
+    }
+
 
     @FXML
     void DisplayAppointments(ActionEvent event) {

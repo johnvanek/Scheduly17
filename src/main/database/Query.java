@@ -1,11 +1,21 @@
 package main.database;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.SQLException;
 
-public abstract class Query {
-    private static String query;
-    private static Statement statement;
+public class Query {
+
     private static ResultSet resultSet;
-    public abstract void assembleQuery(String queryArg);
+
+    public static void executeQuery(String query) throws SQLException {
+        Connection.makePreparedStatement(query, Connection.getConnection());
+        PreparedStatement preparedStatement = Connection.getPreparedStatement();
+        assert preparedStatement != null;
+        resultSet = preparedStatement.executeQuery();
+    }
+
+    public static ResultSet getResultSet() {
+        return resultSet;
+    }
 }

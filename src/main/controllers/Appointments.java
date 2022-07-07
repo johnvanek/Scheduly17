@@ -18,24 +18,16 @@ import java.util.ResourceBundle;
 import static main.utils.ObservableManager.*;
 
 public class Appointments implements Initializable {
-
     static {
-        // The query for this should come from table helper
         try {
-            //Maybe add another method to create tableview
-            ObservableManager.createAppointmentList("SELECT * FROM appointments");
+            ObservableManager.createAppointmentList();
         } catch (SQLException e) {
-            System.out.println("Problem Creating ObservableList's");
+            System.out.println("Problem Creating ObservableList's for appointments");
             throw new RuntimeException(e);
         }
     }
 
-    //TODO implement the code here for the weekly and the monthly view
-    // Test the weekly and monthly Views by creating the the add functionality.
-    // Watch outback truckers
-
     //FXML-ID'S**************************************************************************
-
     //Week-Tab - ID'S
     @FXML
     private TableView<Appointment> WeekView;
@@ -175,8 +167,7 @@ public class Appointments implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //Initialize the Table Views
-        System.out.println("Initializing Table View's For Appointment Screen");
+        //Bind the Table Views
         //Initialize the Month Tab
         WeekView.setItems(appointmentListWeek);
         WeekViewAppID.setCellValueFactory(new PropertyValueFactory<>("AppointmentId"));
