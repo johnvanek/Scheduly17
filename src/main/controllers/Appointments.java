@@ -15,7 +15,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-import static main.utils.ObservableManager.appointmentList;
+import static main.utils.ObservableManager.*;
 
 public class Appointments implements Initializable {
 
@@ -184,7 +184,7 @@ public class Appointments implements Initializable {
         //Initialize the Table Views
         System.out.println("Initializing Table View's For Appointment Screen");
         //Initialize the Month Tab
-        WeekView.setItems(appointmentList);
+        WeekView.setItems(appointmentListWeek);
         WeekViewAppID.setCellValueFactory(new PropertyValueFactory<>("AppointmentId"));
         WeekViewTitle.setCellValueFactory(new PropertyValueFactory<>("Title"));
         WeekViewDes.setCellValueFactory(new PropertyValueFactory<>("Description"));
@@ -196,7 +196,7 @@ public class Appointments implements Initializable {
         WeekViewUserID.setCellValueFactory(new PropertyValueFactory<>("UserId"));
         WeekViewCon.setCellValueFactory(new PropertyValueFactory<>("ContactId"));
         //Initialize the Month Tab
-        MonthView.setItems(appointmentList);
+        MonthView.setItems(appointmentListMonth);
         MonthViewAppID.setCellValueFactory(new PropertyValueFactory<>("AppointmentId"));
         MonthViewTitle.setCellValueFactory(new PropertyValueFactory<>("Title"));
         MonthViewDes.setCellValueFactory(new PropertyValueFactory<>("Description"));

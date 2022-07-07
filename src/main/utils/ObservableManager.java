@@ -35,7 +35,13 @@ public class ObservableManager {
 
         while (resultSet.next()) {
             //Take the data from the query and use it to populate the model
-            appointmentList.add(new Appointment( resultSet.getInt("appointment_ID"),
+
+            // Technically because I'm not validating here the script that runs could add in appointments that overlap
+            // And could add in appointments that are outside of hours but the rubric states only when adding or
+            // Editing or else I would validate here each record that goes into observable list.
+
+            //Temporary Appointment reference
+            Appointment currentAppointment = new Appointment( resultSet.getInt("appointment_ID"),
                     resultSet.getString("title"),
                     resultSet.getString("description"),
                     resultSet.getString("location"),
@@ -44,11 +50,27 @@ public class ObservableManager {
                     resultSet.getTimestamp("end").toLocalDateTime(),
                     resultSet.getInt("customer_ID"),
                     resultSet.getInt("user_ID"),
-                    resultSet.getInt("Contact_ID")));
+                    resultSet.getInt("Contact_ID"));
+
+            //Add all the appointments here from the script to the data model.
+            appointmentList.add(currentAppointment);
+
+            //Only add the weekly ones for weekly
+            if(TimeManager.isInRangeWeekly(currentAppointment)){
+                appointmentListWeek.add(currentAppointment);
+            }
+
+            //Only add the Ones in the same month till the end of the month
+            if(TimeManager.isInRangeMonthly(currentAppointment)){
+                appointmentListMonth.add(currentAppointment);
+            }
         }
     }
 
-
+    public static void CreateAppointmentWeekList(String query){
+        // TODO only add these to the list if the
+        //if(TimeManager.)
+    }
 
     public static ObservableList<Appointment> getAppointmentList() {
         return appointmentList;
