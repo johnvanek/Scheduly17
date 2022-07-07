@@ -166,7 +166,7 @@ public class Login implements Initializable {
     }
 
     /**
-     * Resets the red borders from the password text-field to the orginal color.
+     * Resets the red borders from the password text-field to the original color.
      */
     @FXML
     private void removeRedBordersPassWord() {

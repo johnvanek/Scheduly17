@@ -23,7 +23,7 @@ public class Appointments implements Initializable {
         // The query for this should come from table helper
         try {
             //Maybe add another method to create tableview
-            ObservableManager.CreateAppointmentList("SELECT * FROM appointments");
+            ObservableManager.createAppointmentList("SELECT * FROM appointments");
         } catch (SQLException e) {
             System.out.println("Problem Creating ObservableList's");
             throw new RuntimeException(e);

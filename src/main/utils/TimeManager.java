@@ -3,6 +3,8 @@ package main.utils;
 import main.DAO.models.Appointment;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
 public class TimeManager {
     public static boolean isInRangeWeekly(Appointment appointment) {
@@ -21,5 +23,11 @@ public class TimeManager {
         LocalDateTime monthForward = currentTime.plusMonths(1);
         //Need a way to figure out the days remaining in the end of the month
         return (currentTime.isBefore(appStartDateTime) && currentTime.isBefore(monthForward) && appStartDateTime.isAfter(currentTime) && currentTime.getMonth() == appStartDateTime.getMonth() && currentTime.getYear() == appStartDateTime.getYear());
+    }
+
+    public static ZonedDateTime convertToEst(LocalDateTime timeToCovertToEst) {
+        //ZoneId systemZoneID = ZoneId.systemDefault();
+        //Combines this date-time with a time-zone to create a ZonedDateTime. In this case EST
+        return timeToCovertToEst.atZone(ZoneId.of("EST", ZoneId.SHORT_IDS));
     }
 }
