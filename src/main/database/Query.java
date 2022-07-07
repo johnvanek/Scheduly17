@@ -15,6 +15,14 @@ public class Query {
         resultSet = preparedStatement.executeQuery();
     }
 
+    public static void executePreparedStatement(PreparedStatement ps) throws SQLException {
+        resultSet = ps.executeQuery();
+    }
+
+    public static void assembleQueryIntoPreparedStatement() {
+        //might not make this
+    }
+
     public static ResultSet getResultSet() {
         return resultSet;
     }

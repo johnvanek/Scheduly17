@@ -1,7 +1,11 @@
 package main.utils;
 
 import main.DAO.models.Appointment;
+import main.database.Connection;
+import main.database.Query;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -35,10 +39,11 @@ public class TimeManager {
     public static boolean isInBusinessHours(LocalDateTime startDateTime, LocalDateTime endDateTime) {
         //if the start time is before the end time, and they are on the same day, I have restricted business hours using
         // The combo-boxes if they are on the same day they can only select business hours.
+        // This disallows multiple day appointments.
         return (startDateTime.isBefore(endDateTime) && startDateTime.getDayOfYear() == endDateTime.getDayOfYear());
     }
 
-    public static boolean isCustomerAvailable(int custID, LocalDateTime start, LocalDateTime end) {
+    public static boolean isCustomerAvailable(int customerID, LocalDateTime appStart, LocalDateTime appEnd) throws SQLException {
         //3 conditions here to determine if there is an overlap
 
         //This comparison all need to be negated they are checking for the edge cases' existence
@@ -69,23 +74,28 @@ public class TimeManager {
         //9:30 - 11:30
         //Edge cases id there are Equal aka both start are at the same time that is a overlap
         //**** Formula ****
+        //Assemble
 
-        //These are the steps to calculate if there is an overlap
-        //1. Step the start and end times in combo boxes already done.
-        //get the data
-        //2. (current) Loop over all the records in the database
-            //Could just loop over the observable list of existing appointments
-            // Then if that is good at is to the database, and it will repopulate when to
-            // Initialize is called.
-        try {
-            ObservableManager.createAppointmentList();
-        } catch (SQLException e) {
-            System.out.println("Problem Creating ObservableList's");
-            throw new RuntimeException(e);
+        String query = "SELECT * FROM appointments WHERE Customer_ID = ?";
+        PreparedStatement ps = Connection.getConnection().prepareStatement(query);
+        ps.setInt(1,customerID);
+
+        Query.executePreparedStatement(ps);
+        ResultSet resultSet = Query.getResultSet();
+        System.out.println("Comparing appointment times for potential customer overlap!!");
+        while (resultSet.next()) {
+            Appointment currentAppointment = new Appointment(resultSet.getInt("appointment_ID"),
+                    resultSet.getString("title"),
+                    resultSet.getString("description"),
+                    resultSet.getString("location"),
+                    resultSet.getString("type"),
+                    resultSet.getTimestamp("start").toLocalDateTime(), //Convert to the LocalTime
+                    resultSet.getTimestamp("end").toLocalDateTime(),
+                    resultSet.getInt("customer_ID"),
+                    resultSet.getInt("user_ID"),
+                    resultSet.getInt("Contact_ID"));
         }
-        // Only filter for the one with the same customer id.
-        // In the case of modify ignore the appointment that has the same id as the one being edited.
-        //Then check for the overlap.
-    return true;
+
+        return true;
     }
 }

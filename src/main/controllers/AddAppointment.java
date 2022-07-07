@@ -8,11 +8,11 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import main.DAO.models.Appointment;
 import main.utils.StageManager;
 import main.utils.TimeManager;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -60,11 +60,11 @@ public class AddAppointment implements Initializable {
     //FXML METHODS*********************************
 
     @FXML
-    void SubmitNewAppointment(MouseEvent event) {
-        getDataFromFields();
+    void SubmitNewAppointment(MouseEvent event) throws SQLException {
+        verifyIfDataIsValid();
     }
 
-    private Appointment getDataFromFields() {
+    private void verifyIfDataIsValid() throws SQLException {
         String title = TitleTextField.getText();
         String desc = DescTextField.getText();
         String loc = LocTextField.getText();
@@ -77,22 +77,13 @@ public class AddAppointment implements Initializable {
         int custID = Integer.parseInt(CustIDTextField.getText());
         int userID = Integer.parseInt(UserIDTextField.getText());
 
-        //TODO
-        // perform the validation
-
-
-
+        //assemble the LocalDateTimeObjects
         LocalDateTime startDateTime = startDate.atTime(startTime);
-        System.out.println("The start date and time is " + startDateTime);
         LocalDateTime endDateTime = endDate.atTime(endTime);
-        System.out.println("The end date and time is " + endDateTime);
-        //If it is in the business hours and there is no overlap go ahead and add it the database.
-        if(TimeManager.isInBusinessHours(startDateTime,endDateTime) && TimeManager.isCustomerAvailable(custID,startDateTime,endDateTime)){
-            //If they pass these validation we are good to call an operation inside of here to add it to the database.
-        }
 
-        return null;
-        //return new Appointment(title,desc,loc,con,type)
+        if(TimeManager.isInBusinessHours(startDateTime,endDateTime) && TimeManager.isCustomerAvailable(custID,startDateTime,endDateTime)){
+
+        }
     }
 
 
