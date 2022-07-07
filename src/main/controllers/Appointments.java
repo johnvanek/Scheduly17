@@ -31,13 +31,7 @@ public class Appointments implements Initializable {
     }
 
     //TODO implement the code here for the weekly and the monthly view
-    // 2 tables but they only need to display if TimeManager says true or false.
-    // Time manager will check any within the current week
-    // Time manager will check if any within the current month.
-    // Back and create 2 more TableViews
-    // Assign the Ids
-    // And Assign the Cell Values
-    // Copy and Paste as much as possible from ALL-View
+    // Test the weekly and monthly Views by creating the the add functionality.
     // Watch outback truckers
 
     //FXML-ID'S**************************************************************************
