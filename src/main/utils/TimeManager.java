@@ -9,9 +9,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 
 public class TimeManager {
     public static boolean isInRangeWeekly(Appointment appointment) {
@@ -30,30 +27,6 @@ public class TimeManager {
         LocalDateTime monthForward = currentTime.plusMonths(1);
         //Need a way to figure out the days remaining in the end of the month
         return (currentTime.isBefore(appStartDateTime) && currentTime.isBefore(monthForward) && appStartDateTime.isAfter(currentTime) && currentTime.getMonth() == appStartDateTime.getMonth() && currentTime.getYear() == appStartDateTime.getYear());
-    }
-
-    public static ZonedDateTime convertToEst(LocalDateTime timeToCovertToEst) {
-        //ZoneId systemZoneID = ZoneId.systemDefault();
-        //Combines this date-time with a time-zone to create a ZonedDateTime. In this case EST
-        return timeToCovertToEst.atZone(ZoneId.of("EST", ZoneId.SHORT_IDS));
-    }
-
-    public static boolean isInBusinessHours(LocalDateTime startDateTime, LocalDateTime endDateTime) {
-        // The combo-boxes if they are on the same day they can only select business hours.
-        // This disallows multiple day appointments.
-
-
-        ZonedDateTime estStart = convertToEst(startDateTime);
-        ZonedDateTime estEnd = convertToEst(endDateTime);
-
-        ZonedDateTime now = ZonedDateTime.now(ZoneId.systemDefault());
-        System.out.println("The time right now in UTC is " + now);
-        ZonedDateTime officeEightAmStart = now.with(LocalTime.of(8,0));
-        System.out.println("The time that the office opens in Est -> Your Time is " + officeEightAmStart);
-        ZonedDateTime officeTenPmClose = now.with(LocalTime.of(22,0));
-        System.out.println("The time that the office closes in EST -> Your Time is " + officeTenPmClose);
-        //estStart.isAfter()
-        return true;
     }
 
     public static boolean isCustomerAvailable(int customerID, LocalDateTime appStart, LocalDateTime appEnd) throws SQLException {

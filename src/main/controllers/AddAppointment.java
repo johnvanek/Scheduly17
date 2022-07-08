@@ -19,6 +19,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.*;
 import java.util.ResourceBundle;
+import java.util.TimeZone;
 
 import static main.utils.ObservableManager.*;
 
@@ -63,9 +64,9 @@ public class AddAppointment implements Initializable {
         ZonedDateTime now = ZonedDateTime.now(ZoneId.systemDefault());
         System.out.println("The time right now is " + LocalDateTime.now());
         System.out.println("Your time zone is " + ZoneId.systemDefault());
-        ZonedDateTime officeEightAmStart = now.with(LocalTime.of(8,0));
+        ZonedDateTime officeEightAmStart = now.with(LocalTime.of(8, 0));
         System.out.println("The time that the office opens in Est -> Your Time is " + officeEightAmStart);
-        ZonedDateTime officeTenPmClose = now.with(LocalTime.of(22,0));
+        ZonedDateTime officeTenPmClose = now.with(LocalTime.of(22, 0));
         System.out.println("The time that the office closes in EST -> Your Time is " + officeTenPmClose);
         //Test These Values
         //Test case given an appointment in the database from 10 - 11am
@@ -75,6 +76,11 @@ public class AddAppointment implements Initializable {
         //9:30 to 11
         //9:30 - 10:30
         //9:30 - 11:30
+        System.out.println("**************Testing the TimeZones*****************");
+
+        System.out.println("Your ZoneID is " + ZoneId.systemDefault());
+        System.out.println(ZoneId.getAvailableZoneIds());
+        System.out.println("The time zone is " + TimeZone.getTimeZone(ZoneId.systemDefault()));
 
     }
 
@@ -104,28 +110,28 @@ public class AddAppointment implements Initializable {
         LocalDateTime endDateTime = endDate.atTime(endTime);
 
         //If the customer is not already booked
-        if(TimeManager.isCustomerAvailable(custID,startDateTime,endDateTime)){
+        if (TimeManager.isCustomerAvailable(custID, startDateTime, endDateTime)) {
             //Add this appointment to the database
             String query = "INSERT INTO appointments (Title,Description,Location,Type,Start,End,Create_Date,Created_By,Last_Update,Last_Updated_By,Customer_ID,User_ID,Contact_ID) " +
-                            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement ps = Connection.getConnection().prepareStatement(query);
-            ps.setString(1,title);
-            ps.setString(2,desc);
-            ps.setString(3,loc);
-            ps.setString(4,type);
+            ps.setString(1, title);
+            ps.setString(2, desc);
+            ps.setString(3, loc);
+            ps.setString(4, type);
             //Have to convert this to UTC before I insert it into the database currently in LocalDateTime
             //With this driver should auto convert to UTC
             System.out.println("Testing Driver Timestamp conversion: LocalTime: " + startDateTime);
             ps.setTimestamp(5, Timestamp.valueOf(startDateTime));
             System.out.println("Testing Driver Timestamp conversion: UTCDatabaseTime: " + Timestamp.valueOf(startDateTime));
-            ps.setTimestamp(6,Timestamp.valueOf(endDateTime));
-            ps.setTimestamp(7,Timestamp.valueOf(LocalDateTime.now()));
-            ps.setString(8,"John Vanek");
+            ps.setTimestamp(6, Timestamp.valueOf(endDateTime));
+            ps.setTimestamp(7, Timestamp.valueOf(LocalDateTime.now()));
+            ps.setString(8, "John Vanek");
             ps.setTimestamp(9, Timestamp.valueOf(LocalDateTime.now()));
-            ps.setString(10,"John Vanek");
-            ps.setInt(11,custID);
-            ps.setInt(12,userID);
-            ps.setInt(13,con);
+            ps.setString(10, "John Vanek");
+            ps.setInt(11, custID);
+            ps.setInt(12, userID);
+            ps.setInt(13, con);
             ps.executeUpdate();
             ObservableManager.createAppointmentList();
             //If there are no errors take us back to appointments
@@ -151,6 +157,7 @@ public class AddAppointment implements Initializable {
     @FXML
     void DisplayRecords(ActionEvent event) {
         //TODO add screen change here to records
+
     }
 
     @FXML
