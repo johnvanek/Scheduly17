@@ -111,9 +111,9 @@
                               </TableView>
                            </content>
                         </ScrollPane>
-                        <Text layoutX="297.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="All Appointments">
+                        <Text layoutX="322.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="All Appointments">
                            <font>
-                              <Font size="20.0" />
+                              <Font size="21.0" />
                            </font>
                         </Text>
                      </children>

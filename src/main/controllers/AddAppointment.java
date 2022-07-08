@@ -8,11 +8,15 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import main.database.Connection;
+import main.utils.ObservableManager;
 import main.utils.StageManager;
 import main.utils.TimeManager;
 
 import java.net.URL;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -55,34 +59,70 @@ public class AddAppointment implements Initializable {
         createAddAppointmentData();
         StartTimeComboBox.setItems(addAppointmentStartTimes);
         EndTimeComboBox.setItems(addAppointmentEndTimes);
+        //Test These Values
+        //Test case given an appointment in the database from 10 - 11am
+        //10-1030 should overlap
+        //10-11
+        //1030 -11
+        //9:30 to 11
+        //9:30 - 10:30
+        //9:30 - 11:30
+
     }
 
     //FXML METHODS*********************************
 
     @FXML
     void SubmitNewAppointment(MouseEvent event) throws SQLException {
-        verifyIfDataIsValid();
+        verifyIfValidAndSubmit();
     }
 
-    private void verifyIfDataIsValid() throws SQLException {
+    private void verifyIfValidAndSubmit() throws SQLException {
         String title = TitleTextField.getText();
         String desc = DescTextField.getText();
         String loc = LocTextField.getText();
-        int con = Integer.parseInt(ConTextField.getText());
         String type = TypeTextField.getText();
+
         LocalDate startDate = StartDatePicker.getValue();
         LocalTime startTime = StartTimeComboBox.getValue();
         LocalDate endDate = EndDatePicker.getValue();
         LocalTime endTime = EndTimeComboBox.getValue();
+
         int custID = Integer.parseInt(CustIDTextField.getText());
         int userID = Integer.parseInt(UserIDTextField.getText());
-
+        int con = Integer.parseInt(ConTextField.getText());
         //assemble the LocalDateTimeObjects
         LocalDateTime startDateTime = startDate.atTime(startTime);
         LocalDateTime endDateTime = endDate.atTime(endTime);
 
+        //If In business-Hours and the customer is not already booked
         if(TimeManager.isInBusinessHours(startDateTime,endDateTime) && TimeManager.isCustomerAvailable(custID,startDateTime,endDateTime)){
-
+            //Add this appointment to the database
+            String query = "INSERT INTO appointments (Title,Description,Location,Type,Start,End,Create_Date,Created_By,Last_Update,Last_Updated_By,Customer_ID,User_ID,Contact_ID) " +
+                            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            PreparedStatement ps = Connection.getConnection().prepareStatement(query);
+            ps.setString(1,title);
+            ps.setString(2,desc);
+            ps.setString(3,loc);
+            ps.setString(4,type);
+            //Have to convert this to UTC before I insert it into the database currently in LocalDateTime
+            //With this driver should auto convert to UTC
+            System.out.println("Testing Driver Timestamp conversion: LocalTime: " + startDateTime);
+            ps.setTimestamp(5, Timestamp.valueOf(startDateTime));
+            System.out.println("Testing Driver Timestamp conversion: UTCDatabaseTime: " + Timestamp.valueOf(startDateTime));
+            ps.setTimestamp(6,Timestamp.valueOf(endDateTime));
+            ps.setTimestamp(7,Timestamp.valueOf(LocalDateTime.now()));
+            ps.setString(8,"John Vanek");
+            ps.setTimestamp(9, Timestamp.valueOf(LocalDateTime.now()));
+            ps.setString(10,"John Vanek");
+            ps.setInt(11,custID);
+            ps.setInt(12,userID);
+            ps.setInt(13,con);
+            ps.executeUpdate();
+            ObservableManager.createAppointmentList();
+            //If there are no errors take us back to appointments
+            StageManager.setTitle("appointments");
+            StageManager.setScene("appointments");
         }
     }
 

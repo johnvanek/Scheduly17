@@ -1,13 +1,15 @@
 package main.utils;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import main.DAO.models.Appointment;
 import main.database.Connection;
-import main.database.Query;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
@@ -37,52 +39,47 @@ public class TimeManager {
     }
 
     public static boolean isInBusinessHours(LocalDateTime startDateTime, LocalDateTime endDateTime) {
-        //if the start time is before the end time, and they are on the same day, I have restricted business hours using
         // The combo-boxes if they are on the same day they can only select business hours.
         // This disallows multiple day appointments.
-        return (startDateTime.isBefore(endDateTime) && startDateTime.getDayOfYear() == endDateTime.getDayOfYear());
+
+        // TODO need to check here the office hours
+        //  Local time will be checked against EST business hours before they are stored in the database as UTC.
+
+        ZonedDateTime estStart = convertToEst(startDateTime);
+        ZonedDateTime estEnd = convertToEst(endDateTime);
+
+        ZonedDateTime now = ZonedDateTime.now(ZoneId.systemDefault());
+        System.out.println("The time right now in UTC is " + now);
+        ZonedDateTime officeEightAmStart = now.with(LocalTime.of(8,0));
+        System.out.println("The time that the office opens in UTC is " + officeEightAmStart);
+
+
+        //estStart.isAfter()
+        return true;
     }
 
     public static boolean isCustomerAvailable(int customerID, LocalDateTime appStart, LocalDateTime appEnd) throws SQLException {
-        //3 conditions here to determine if there is an overlap
-
-        //This comparison all need to be negated they are checking for the edge cases' existence
-        // If any of these occur disregard the appointment
-        //1 The start if this meeting is between another meeting
-        // (WantToAddStart >= appointmentToCompareInDatabaseStart) && (WantToAddStart < appointmentToCompareInDatabaseEnd);
-        //2 and End is in between another meeting
-        // (WantToAddEnd > DatabaseStart && WantToAddEnd <= DatabaseEnd
-        //3 Start and end consumes another smaller meeting completely.
-        // WantToAddStart <= DatabaseStart && WantToAddEnd >= DatabaseEnd
-
         //Methods in the LocalDateTime class
         // A > B    /// A.isAfter(B)
         // A == B  ///  A.isEqual(B)
         // A < B   ///  A.isBefore(B)
 
         //To get A <= B
-        // ( A < B || A == B )
         // In LocalDateTimeMethods
         // (A.isBefore(B) || A.isEqual(B))
 
-        //Test case given an appointment in the database from 10 - 11am
-        //10-1030 should overlap
-        //10-11
-        //1030 -11
-        //9:30 to 11
-        //9:30 - 10:30
-        //9:30 - 11:30
-        //Edge cases id there are Equal aka both start are at the same time that is a overlap
-        //**** Formula ****
-        //Assemble
+        //TO get A >= B
+        //InLocalDateTimeMethods
+        // A.isAfter(B) || A.isEqual(B)
 
-        String query = "SELECT * FROM appointments WHERE Customer_ID = ?";
+        String query = "SELECT * FROM appointments WHERE Customer_ID = " + customerID;
+
         PreparedStatement ps = Connection.getConnection().prepareStatement(query);
-        ps.setInt(1,customerID);
+        ResultSet resultSet = ps.executeQuery();
 
-        Query.executePreparedStatement(ps);
-        ResultSet resultSet = Query.getResultSet();
         System.out.println("Comparing appointment times for potential customer overlap!!");
+        Alert overlapAlert = new Alert(Alert.AlertType.ERROR, "This appointment you are trying to add overlaps" +
+                "the customer with another existing appointment.", ButtonType.CLOSE);
         while (resultSet.next()) {
             Appointment currentAppointment = new Appointment(resultSet.getInt("appointment_ID"),
                     resultSet.getString("title"),
@@ -94,8 +91,29 @@ public class TimeManager {
                     resultSet.getInt("customer_ID"),
                     resultSet.getInt("user_ID"),
                     resultSet.getInt("Contact_ID"));
-        }
 
+            //Get the data to compare from the records that have the same customer_ID
+            LocalDateTime databaseStart = currentAppointment.getStartDateTime();
+            LocalDateTime databaseEnd = currentAppointment.getEndDateTime();
+            //Then check if there are any overlaps edge cases. If any of these occur disregard the appointment
+            //Condition 1 --|The start of this meeting is during another existing meeting|--
+            if ((appStart.isAfter(databaseStart) || appStart.isEqual(databaseStart)) && (appStart.isBefore(databaseEnd))) {
+                overlapAlert.show();
+                return false;
+            }
+            //Condition 2 --|The appointment End is in between another existing meeting|--
+            // (WantToAddEnd > DatabaseStart && WantToAddEnd <= DatabaseEnd)
+            if ((appEnd.isAfter(databaseStart) && (appEnd.isBefore(databaseEnd) || appEnd.isEqual(databaseEnd)))) {
+                overlapAlert.show();
+                return false;
+            }
+            //Condition 3 --|Start and end consumes another smaller meeting completely|--
+            if ((appStart.isBefore(databaseStart) || appStart.isEqual(databaseStart))
+                    && (appEnd.isAfter(databaseEnd) || appEnd.isEqual(databaseEnd))) {
+                overlapAlert.show();
+                return false;
+            }
+        }
         return true;
     }
 }

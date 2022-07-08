@@ -40,7 +40,7 @@
       </MenuBar>
       <AnchorPane layoutX="284.0" layoutY="50.0" prefHeight="491.0" prefWidth="314.0" style="-fx-background-color: lightblue;" stylesheets="@../resources/styles/main.css">
          <children>
-            <Text layoutX="77.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add A New Appointment">
+            <Text layoutX="68.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add A New Appointment">
                <font>
                   <Font size="15.0" />
                </font></Text>
@@ -53,7 +53,7 @@
             <Label layoutX="68.0" layoutY="180.0" text="Type" />
             <Label layoutX="48.0" layoutY="149.0" text="Contact" />
             <TextField fx:id="ConTextField" layoutX="101.0" layoutY="145.0" prefHeight="25.0" prefWidth="119.0" />
-            <Button fx:id="SubmitNewButton" layoutX="125.0" layoutY="452.0" mnemonicParsing="false" onMouseClicked="#SubmitNewAppointment" prefHeight="25.0" prefWidth="65.0" text="Submit" />
+            <Button fx:id="SubmitNewButton" focusTraversable="false" layoutX="125.0" layoutY="452.0" mnemonicParsing="false" onMouseClicked="#SubmitNewAppointment" prefHeight="25.0" prefWidth="65.0" text="Submit" />
             <Label layoutX="24.0" layoutY="221.0" text="Start Date" />
             <TextField fx:id="TypeTextField" layoutX="101.0" layoutY="176.0" prefHeight="25.0" prefWidth="119.0" />
             <DatePicker fx:id="StartDatePicker" layoutX="84.0" layoutY="217.0" />

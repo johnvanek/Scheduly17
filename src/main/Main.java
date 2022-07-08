@@ -23,25 +23,6 @@ public class Main extends Application {
      */
     public static void main(String[] args) throws SQLException {
         Connection.makeConnection();
-        //TODO - Get the Back End Hooked up the Front End.
-        // Create a model for appointments so that it can be inserted into cell factory for Table view.
-        // Hook up the Cell Factory Method to show the data in the tables. - See if data will show up in the T.V
-        // There are only 2 data objects currently
-        // Appointments
-        // Customers
-
-        String testQuery = "SELECT * FROM appointments";
-        Connection.makePreparedStatement(testQuery, Connection.getConnection());
-        PreparedStatement preparedStatement = Connection.getPreparedStatement();
-        assert preparedStatement != null; // This just makes intellij happy I think it is redundant.
-        ResultSet resultSet = preparedStatement.executeQuery();
-        System.out.println("Printing out the results of test-Query");
-        System.out.println("******************************************************");
-        while (resultSet.next()) {
-            System.out.println("TYPE: " + resultSet.getString("appointment_ID") + ", ");
-            System.out.println("Description: " + resultSet.getString("description"));
-            System.out.println();
-        }
         launch(args);
         Connection.closeConnection();
     }

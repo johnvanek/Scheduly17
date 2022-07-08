@@ -4,8 +4,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import main.DAO.models.Appointment;
 import main.DAO.models.Customer;
-import main.database.Query;
+import main.database.Connection;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalTime;
@@ -30,23 +31,24 @@ public class ObservableManager {
 
 
     public static void createAppointmentList() throws SQLException {
+        appointmentList.clear(); // Clear out the old List before creating a new one
         String query = "Select * FROM appointments";
-        Query.executeQuery(query);
-        ResultSet resultSet = Query.getResultSet();
+        PreparedStatement ps = Connection.getConnection().prepareStatement(query);
+        ResultSet rs = ps.executeQuery();
         System.out.println("Initializing Table View's For Appointment Screen");
 
-        while (resultSet.next()) {
+        while (rs.next()) {
             //Temporary Appointment reference
-            Appointment currentAppointment = new Appointment(resultSet.getInt("appointment_ID"),
-                    resultSet.getString("title"),
-                    resultSet.getString("description"),
-                    resultSet.getString("location"),
-                    resultSet.getString("type"),
-                    resultSet.getTimestamp("start").toLocalDateTime(), //Convert to the LocalTime
-                    resultSet.getTimestamp("end").toLocalDateTime(),
-                    resultSet.getInt("customer_ID"),
-                    resultSet.getInt("user_ID"),
-                    resultSet.getInt("Contact_ID"));
+            Appointment currentAppointment = new Appointment(rs.getInt("appointment_ID"),
+                    rs.getString("title"),
+                    rs.getString("description"),
+                    rs.getString("location"),
+                    rs.getString("type"),
+                    rs.getTimestamp("start").toLocalDateTime(), //Convert to the LocalTime
+                    rs.getTimestamp("end").toLocalDateTime(),
+                    rs.getInt("customer_ID"),
+                    rs.getInt("user_ID"),
+                    rs.getInt("Contact_ID"));
 
             //Add all the appointments here from the script to the data model.
             appointmentList.add(currentAppointment);
