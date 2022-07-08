@@ -42,8 +42,6 @@ public class TimeManager {
         // The combo-boxes if they are on the same day they can only select business hours.
         // This disallows multiple day appointments.
 
-        // TODO need to check here the office hours
-        //  Local time will be checked against EST business hours before they are stored in the database as UTC.
 
         ZonedDateTime estStart = convertToEst(startDateTime);
         ZonedDateTime estEnd = convertToEst(endDateTime);
@@ -51,9 +49,9 @@ public class TimeManager {
         ZonedDateTime now = ZonedDateTime.now(ZoneId.systemDefault());
         System.out.println("The time right now in UTC is " + now);
         ZonedDateTime officeEightAmStart = now.with(LocalTime.of(8,0));
-        System.out.println("The time that the office opens in UTC is " + officeEightAmStart);
-
-
+        System.out.println("The time that the office opens in Est -> Your Time is " + officeEightAmStart);
+        ZonedDateTime officeTenPmClose = now.with(LocalTime.of(22,0));
+        System.out.println("The time that the office closes in EST -> Your Time is " + officeTenPmClose);
         //estStart.isAfter()
         return true;
     }

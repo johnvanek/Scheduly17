@@ -7,7 +7,10 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
@@ -69,5 +72,36 @@
             <TextField fx:id="UserIDTextField" layoutX="100.0" layoutY="389.0" prefHeight="25.0" prefWidth="119.0" />
          </children>
       </AnchorPane>
+      <Text layoutX="682.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reminder - User" wrappingWidth="111.3958740234375">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Text>
+      <Text layoutX="725.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&amp;" wrappingWidth="12.799975585937545">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Text>
+      <Text layoutX="699.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Time" wrappingWidth="68.0">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Text>
+      <Text layoutX="699.0" layoutY="129.0" strokeType="OUTSIDE" strokeWidth="0.0" text="End Time" wrappingWidth="68.0">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Text>
+      <Text layoutX="615.0" layoutY="149.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Must Conform to the Office Hours EST" wrappingWidth="256.19580078125">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Text>
+      <Separator layoutX="604.0" layoutY="49.0" orientation="VERTICAL" prefHeight="491.0" prefWidth="6.0" />
+      <ImageView fitHeight="209.0" fitWidth="256.0" layoutX="615.0" layoutY="161.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../resources/Images/clockTime.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

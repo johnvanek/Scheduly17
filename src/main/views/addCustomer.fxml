@@ -7,10 +7,13 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="900.0" stylesheets="@../resources/styles/main.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.AddCustomer">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="900.0" style="-fx-background-color: white;" stylesheets="@../resources/styles/main.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.AddCustomer">
    <children>
       <MenuBar layoutY="2.0">
          <menus>
@@ -36,9 +39,12 @@
             </Menu>
          </menus>
       </MenuBar>
-      <AnchorPane layoutX="284.0" layoutY="50.0" prefHeight="322.0" prefWidth="314.0" style="-fx-background-color: grey;" stylesheets="@../resources/styles/main.css">
+      <AnchorPane layoutX="284.0" layoutY="50.0" prefHeight="322.0" prefWidth="314.0" style="-fx-background-color: lightblue;" stylesheets="@../resources/styles/main.css">
          <children>
-            <Text layoutX="100.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add A New Customer" />
+            <Text layoutX="76.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add A New Customer">
+               <font>
+                  <Font size="17.0" />
+               </font></Text>
             <Label layoutX="17.0" layoutY="53.0" text="Customer-Name" />
             <TextField layoutX="111.0" layoutY="49.0" prefHeight="25.0" prefWidth="119.0" />
             <Label layoutX="57.0" layoutY="84.0" text="Address" />
@@ -54,5 +60,35 @@
             <ComboBox layoutX="111.0" layoutY="215.0" prefWidth="150.0" />
          </children>
       </AnchorPane>
+      <Text layoutX="674.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Take Care Of The ">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Text>
+      <Text layoutX="702.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Text>
+      <Text layoutX="678.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Remember User">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Text>
+      <Text layoutX="692.0" layoutY="342.0" strokeType="OUTSIDE" strokeWidth="0.0" text="And They Will">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Text>
+      <Text layoutX="676.0" layoutY="365.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Take Care Of You!">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Text>
+      <ImageView fitHeight="221.0" fitWidth="227.0" layoutX="625.0" layoutY="104.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../resources/Images/ThumbsUp.jpg" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

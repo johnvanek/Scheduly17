@@ -17,9 +17,7 @@ import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.time.*;
 import java.util.ResourceBundle;
 
 import static main.utils.ObservableManager.*;
@@ -59,6 +57,16 @@ public class AddAppointment implements Initializable {
         createAddAppointmentData();
         StartTimeComboBox.setItems(addAppointmentStartTimes);
         EndTimeComboBox.setItems(addAppointmentEndTimes);
+        // TODO test these values tommorow
+        //  Test the Business Hours and Set up the alert for that.
+        //This is the same code in Time manager business valid etc.
+        ZonedDateTime now = ZonedDateTime.now(ZoneId.systemDefault());
+        System.out.println("The time right now is " + LocalDateTime.now());
+        System.out.println("Your time zone is " + ZoneId.systemDefault());
+        ZonedDateTime officeEightAmStart = now.with(LocalTime.of(8,0));
+        System.out.println("The time that the office opens in Est -> Your Time is " + officeEightAmStart);
+        ZonedDateTime officeTenPmClose = now.with(LocalTime.of(22,0));
+        System.out.println("The time that the office closes in EST -> Your Time is " + officeTenPmClose);
         //Test These Values
         //Test case given an appointment in the database from 10 - 11am
         //10-1030 should overlap
@@ -95,8 +103,8 @@ public class AddAppointment implements Initializable {
         LocalDateTime startDateTime = startDate.atTime(startTime);
         LocalDateTime endDateTime = endDate.atTime(endTime);
 
-        //If In business-Hours and the customer is not already booked
-        if(TimeManager.isInBusinessHours(startDateTime,endDateTime) && TimeManager.isCustomerAvailable(custID,startDateTime,endDateTime)){
+        //If the customer is not already booked
+        if(TimeManager.isCustomerAvailable(custID,startDateTime,endDateTime)){
             //Add this appointment to the database
             String query = "INSERT INTO appointments (Title,Description,Location,Type,Start,End,Create_Date,Created_By,Last_Update,Last_Updated_By,Customer_ID,User_ID,Contact_ID) " +
                             "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
