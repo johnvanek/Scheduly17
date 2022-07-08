@@ -54,10 +54,10 @@ public class AddAppointment implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //initialize the combo-box values
-        createAddAppointmentData();
-        StartTimeComboBox.setItems(addAppointmentStartTimes);
-        EndTimeComboBox.setItems(addAppointmentEndTimes);
+        //initialize the combo-box data
+        populateDataComboBoxes();
+        StartTimeComboBox.setItems(StartTimesAddApp);
+        EndTimeComboBox.setItems(EndTimesAddApp);
         // TODO test these values tommorow
         //  Test the Business Hours and Set up the alert for that.
         //This is the same code in Time manager business valid etc.
@@ -87,7 +87,7 @@ public class AddAppointment implements Initializable {
     //FXML METHODS*********************************
 
     @FXML
-    void SubmitNewAppointment(MouseEvent event) throws SQLException {
+    void submitNewAppointment(MouseEvent event) throws SQLException {
         verifyIfValidAndSubmit();
     }
 
@@ -133,7 +133,8 @@ public class AddAppointment implements Initializable {
             ps.setInt(12, userID);
             ps.setInt(13, con);
             ps.executeUpdate();
-            ObservableManager.createAppointmentList();
+            //After adding in new data clear repopulate the appointment data on the front-end
+            ObservableManager.populateDataAppointmentLists();
             //If there are no errors take us back to appointments
             StageManager.setTitle("appointments");
             StageManager.setScene("appointments");

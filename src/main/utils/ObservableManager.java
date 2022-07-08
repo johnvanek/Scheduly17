@@ -4,39 +4,35 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import main.DAO.models.Appointment;
 import main.DAO.models.Customer;
-import main.database.Connection;
 
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalTime;
 
+import static main.database.Query.*;
+
 public class ObservableManager {
 
     //Observable List's
-
     //Appointment View List's
-    public static ObservableList<Appointment> appointmentList = FXCollections.observableArrayList();
-    public static ObservableList<Appointment> appointmentListWeek = FXCollections.observableArrayList();
-    public static ObservableList<Appointment> appointmentListMonth = FXCollections.observableArrayList();
+    public static ObservableList<Appointment> appointmentAllList = FXCollections.observableArrayList();
+    public static ObservableList<Appointment> appointmentWeeklyList = FXCollections.observableArrayList();
+    public static ObservableList<Appointment> appointmentMonthlyList = FXCollections.observableArrayList();
 
     // Appointment Add Screen List's
 
     // Appointment Add Screen Combo-Boxes
-    public static ObservableList<LocalTime> addAppointmentStartTimes = FXCollections.observableArrayList();
-    public static ObservableList<LocalTime> addAppointmentEndTimes = FXCollections.observableArrayList();
+    public static ObservableList<LocalTime> StartTimesAddApp = FXCollections.observableArrayList();
+    public static ObservableList<LocalTime> EndTimesAddApp = FXCollections.observableArrayList();
 
     //Customer List
     public static ObservableList<Customer> customerList = FXCollections.observableArrayList();
 
 
-    public static void createAppointmentList() throws SQLException {
-        appointmentList.clear(); // Clear out the old List before creating a new one
-        String query = "Select * FROM appointments";
-        PreparedStatement ps = Connection.getConnection().prepareStatement(query);
-        ResultSet rs = ps.executeQuery();
-        System.out.println("Initializing Table View's For Appointment Screen");
-
+    public static void populateDataAppointmentLists() throws SQLException {
+        appointmentAllList.clear(); // Clear out the old List before creating a new one
+        executeQuery("Select * FROM appointments");
+        ResultSet rs = getResultSet();
         while (rs.next()) {
             //Temporary Appointment reference
             Appointment currentAppointment = new Appointment(rs.getInt("appointment_ID"),
@@ -51,31 +47,32 @@ public class ObservableManager {
                     rs.getInt("Contact_ID"));
 
             //Add all the appointments here from the script to the data model.
-            appointmentList.add(currentAppointment);
+            appointmentAllList.add(currentAppointment);
 
             //Only add the weekly ones for weekly
             if (TimeManager.isInRangeWeekly(currentAppointment)) {
-                appointmentListWeek.add(currentAppointment);
+                appointmentWeeklyList.add(currentAppointment);
             }
 
             //Only add the Ones in the same month till the end of the month
             if (TimeManager.isInRangeMonthly(currentAppointment)) {
-                appointmentListMonth.add(currentAppointment);
+                appointmentMonthlyList.add(currentAppointment);
             }
         }
+        //Now that we are done with the ResultSet lets cleanup
+        cleanupResources();
     }
 
-    public static void createAppointmentWeekList(String query) {
-        // TODO only add these if the Weekly validation is true.
-    }
-
-    public static void createAddAppointmentData() {
+    public static void populateDataComboBoxes() {
+        //Clear out the old data from the combo-Boxes before adding new data.
+        ObservableManager.StartTimesAddApp.clear();
+        ObservableManager.EndTimesAddApp.clear();
         createAddStartAppointmentComboBox();
         createAddEndAppointmentComboBox();
     }
 
     public static void createAddStartAppointmentComboBox() {
-        addAppointmentStartTimes.addAll(
+        StartTimesAddApp.addAll(
                 LocalTime.of(8, 0),
                 LocalTime.of(8, 15),
                 LocalTime.of(8, 30),
@@ -136,7 +133,7 @@ public class ObservableManager {
     }
 
     public static void createAddEndAppointmentComboBox() {
-        addAppointmentEndTimes.addAll(
+        EndTimesAddApp.addAll(
                 LocalTime.of(8, 15),
                 LocalTime.of(8, 30),
                 LocalTime.of(8, 45),

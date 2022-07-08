@@ -18,15 +18,6 @@ import java.util.ResourceBundle;
 import static main.utils.ObservableManager.*;
 
 public class Appointments implements Initializable {
-    static {
-        try {
-            ObservableManager.createAppointmentList();
-        } catch (SQLException e) {
-            System.out.println("Problem Creating ObservableList's for appointments");
-            throw new RuntimeException(e);
-        }
-    }
-
     //FXML-ID'S**************************************************************************
     //Week-Tab - ID'S
     @FXML
@@ -135,27 +126,27 @@ public class Appointments implements Initializable {
     //FXML-METHODS************************************
 
     @FXML
-    void DisplayAppointments(ActionEvent event) {
+    void ChangeSceneToAppointmentMainMenu(ActionEvent event) {
         StageManager.setTitle("appointments");
         StageManager.setScene("appointments");
     }
 
     @FXML
-    void DisplayAddAppointment(MouseEvent event) {
+    void ChangeSceneToAddAppointment(MouseEvent event) {
         System.out.println("Attempting to load add screen");
         StageManager.setTitle("addappointment");
         StageManager.setScene("addAppointment");
     }
 
     @FXML
-    void DisplayCustomers(ActionEvent event) {
+    void ChangeSceneToCustomerMainMenu(ActionEvent event) {
         System.out.println("Scene-Changing-Customers");
         StageManager.setTitle("customers");
         StageManager.setScene("customers");
     }
 
     @FXML
-    void DisplayRecords(ActionEvent event) {
+    void ChangeSceneToRecords(ActionEvent event) {
         System.out.println("I am displaying the records");
     }
 
@@ -167,9 +158,18 @@ public class Appointments implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        //I want to create the data here without throwing exceptions
+        try {
+            ObservableManager.populateDataAppointmentLists();
+        } catch (SQLException e) {
+            System.out.println("Problem on Appointments Screen creating the Observables lists for" +
+                    "the Appointment Tables");
+            throw new RuntimeException(e);
+        }
+
         //Bind the Table Views
         //Initialize the Month Tab
-        WeekView.setItems(appointmentListWeek);
+        WeekView.setItems(appointmentWeeklyList);
         WeekViewAppID.setCellValueFactory(new PropertyValueFactory<>("AppointmentId"));
         WeekViewTitle.setCellValueFactory(new PropertyValueFactory<>("Title"));
         WeekViewDes.setCellValueFactory(new PropertyValueFactory<>("Description"));
@@ -181,7 +181,7 @@ public class Appointments implements Initializable {
         WeekViewUserID.setCellValueFactory(new PropertyValueFactory<>("UserId"));
         WeekViewCon.setCellValueFactory(new PropertyValueFactory<>("ContactId"));
         //Initialize the Month Tab
-        MonthView.setItems(appointmentListMonth);
+        MonthView.setItems(appointmentMonthlyList);
         MonthViewAppID.setCellValueFactory(new PropertyValueFactory<>("AppointmentId"));
         MonthViewTitle.setCellValueFactory(new PropertyValueFactory<>("Title"));
         MonthViewDes.setCellValueFactory(new PropertyValueFactory<>("Description"));
@@ -193,7 +193,7 @@ public class Appointments implements Initializable {
         MonthViewUserID.setCellValueFactory(new PropertyValueFactory<>("UserId"));
         MonthViewCon.setCellValueFactory(new PropertyValueFactory<>("ContactId"));
         //Initialize all Tab
-        AllView.setItems(appointmentList);
+        AllView.setItems(appointmentAllList);
         AllViewAppID.setCellValueFactory(new PropertyValueFactory<>("AppointmentId"));
         AllViewTitle.setCellValueFactory(new PropertyValueFactory<>("Title"));
         AllViewDes.setCellValueFactory(new PropertyValueFactory<>("Description"));

@@ -21,11 +21,10 @@ public class TimeManager {
     }
 
     public static boolean isInRangeMonthly(Appointment appointment) {
-        // Till the end of the current month not a day more.
         LocalDateTime currentTime = LocalDateTime.now();
         LocalDateTime appStartDateTime = appointment.getStartDateTime();
         LocalDateTime monthForward = currentTime.plusMonths(1);
-        //Need a way to figure out the days remaining in the end of the month
+        //If they have the same time going forward up to a month but also have the same year and month return true
         return (currentTime.isBefore(appStartDateTime) && currentTime.isBefore(monthForward) && appStartDateTime.isAfter(currentTime) && currentTime.getMonth() == appStartDateTime.getMonth() && currentTime.getYear() == appStartDateTime.getYear());
     }
 
