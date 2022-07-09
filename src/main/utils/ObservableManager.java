@@ -19,8 +19,6 @@ public class ObservableManager {
     public static ObservableList<Appointment> appointmentWeeklyList = FXCollections.observableArrayList();
     public static ObservableList<Appointment> appointmentMonthlyList = FXCollections.observableArrayList();
 
-    // Appointment Add Screen List's
-
     // Appointment Add Screen Combo-Boxes
     public static ObservableList<LocalTime> StartTimesAddApp = FXCollections.observableArrayList();
     public static ObservableList<LocalTime> EndTimesAddApp = FXCollections.observableArrayList();
@@ -28,40 +26,51 @@ public class ObservableManager {
     //Customer List
     public static ObservableList<Customer> customerList = FXCollections.observableArrayList();
 
+    //Now that we are done with the ResultSet lets cleanup
 
-    public static void populateDataAppointmentLists() throws SQLException {
+
+    public static void populateDataAppointmentLists() {
         appointmentAllList.clear(); // Clear out the old List before creating a new one
         executeQuery("Select * FROM appointments");
         ResultSet rs = getResultSet();
-        while (rs.next()) {
-            //Temporary Appointment reference
-            Appointment currentAppointment = new Appointment(rs.getInt("appointment_ID"),
-                    rs.getString("title"),
-                    rs.getString("description"),
-                    rs.getString("location"),
-                    rs.getString("type"),
-                    rs.getTimestamp("start").toLocalDateTime(), //Convert to the LocalTime
-                    rs.getTimestamp("end").toLocalDateTime(),
-                    rs.getInt("customer_ID"),
-                    rs.getInt("user_ID"),
-                    rs.getInt("Contact_ID"));
 
-            //Add all the appointments here from the script to the data model.
-            appointmentAllList.add(currentAppointment);
+        try {
+            while (rs.next()) {
+                //Temporary Appointment reference
+                Appointment currentAppointment = new Appointment(rs.getInt("appointment_ID"),
+                        rs.getString("title"),
+                        rs.getString("description"),
+                        rs.getString("location"),
+                        rs.getString("type"),
+                        rs.getTimestamp("start").toLocalDateTime(), //Convert to the LocalTime
+                        rs.getTimestamp("end").toLocalDateTime(),
+                        rs.getInt("customer_ID"),
+                        rs.getInt("user_ID"),
+                        rs.getInt("Contact_ID"));
 
-            //Only add the weekly ones for weekly
-            if (TimeManager.isInRangeWeekly(currentAppointment)) {
-                appointmentWeeklyList.add(currentAppointment);
+
+                //Add all the appointments here from the script to the data model.
+                appointmentAllList.add(currentAppointment);
+
+                //Only add the weekly ones for weekly
+                if (TimeManager.isInRangeWeekly(currentAppointment)) {
+                    appointmentWeeklyList.add(currentAppointment);
+                }
+
+                //Only add the Ones in the same month till the end of the month
+                if (TimeManager.isInRangeMonthly(currentAppointment)) {
+                    appointmentMonthlyList.add(currentAppointment);
+                }
             }
-
-            //Only add the Ones in the same month till the end of the month
-            if (TimeManager.isInRangeMonthly(currentAppointment)) {
-                appointmentMonthlyList.add(currentAppointment);
-            }
+            cleanupResources();
+        } catch (SQLException e) {
+            System.out.println("There was a problem putting the information for appointments from the database" +
+                    "into the observableList for the appointmentsAll table-view");
+            throw new RuntimeException(e);
         }
-        //Now that we are done with the ResultSet lets cleanup
-        cleanupResources();
+
     }
+
 
     public static void populateDataComboBoxes() {
         //Clear out the old data from the combo-Boxes before adding new data.

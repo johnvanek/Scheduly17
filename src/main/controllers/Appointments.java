@@ -12,7 +12,6 @@ import main.utils.ObservableManager;
 import main.utils.StageManager;
 
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import static main.utils.ObservableManager.*;
@@ -127,20 +126,21 @@ public class Appointments implements Initializable {
 
     @FXML
     void ChangeSceneToAppointmentMainMenu(ActionEvent event) {
+        System.out.println("Scene-Changing-To-Appointment");
         StageManager.setTitle("appointments");
         StageManager.setScene("appointments");
     }
 
     @FXML
     void ChangeSceneToAddAppointment(MouseEvent event) {
-        System.out.println("Attempting to load add screen");
+        System.out.println("Scene-Changing-To-AppointmentADD");
         StageManager.setTitle("addappointment");
         StageManager.setScene("addAppointment");
     }
 
     @FXML
     void ChangeSceneToCustomerMainMenu(ActionEvent event) {
-        System.out.println("Scene-Changing-Customers");
+        System.out.println("Scene-Changing-To-Customers");
         StageManager.setTitle("customers");
         StageManager.setScene("customers");
     }
@@ -159,13 +159,9 @@ public class Appointments implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //I want to create the data here without throwing exceptions
-        try {
+
             ObservableManager.populateDataAppointmentLists();
-        } catch (SQLException e) {
-            System.out.println("Problem on Appointments Screen creating the Observables lists for" +
-                    "the Appointment Tables");
-            throw new RuntimeException(e);
-        }
+
 
         //Bind the Table Views
         //Initialize the Month Tab

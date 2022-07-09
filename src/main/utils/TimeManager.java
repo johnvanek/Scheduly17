@@ -3,12 +3,14 @@ package main.utils;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import main.DAO.models.Appointment;
-import main.database.Connection;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+
+import static main.database.Query.executeQuery;
+import static main.database.Query.getPreparedStatement;
 
 public class TimeManager {
     public static boolean isInRangeWeekly(Appointment appointment) {
@@ -43,8 +45,8 @@ public class TimeManager {
         // A.isAfter(B) || A.isEqual(B)
 
         String query = "SELECT * FROM appointments WHERE Customer_ID = " + customerID;
-
-        PreparedStatement ps = Connection.getConnection().prepareStatement(query);
+        executeQuery(query);
+        PreparedStatement ps = getPreparedStatement();
         ResultSet resultSet = ps.executeQuery();
 
         System.out.println("Comparing appointment times for potential customer overlap!!");
@@ -86,4 +88,6 @@ public class TimeManager {
         }
         return true;
     }
+
+    //TODO implement the conversion method for est for the comboboxes for the add appointment screen.
 }

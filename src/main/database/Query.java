@@ -19,10 +19,8 @@ public class Query {
         }
     }
 
-    private static PreparedStatement getPreparedStatement() {
-        if (preparedStatement != null) return preparedStatement;
-        else System.out.println("Prepared Statement Reference is null");
-        return null;
+    public static PreparedStatement getPreparedStatement() {
+        return preparedStatement;
     }
 
     public static void executeQuery(String str) {
@@ -60,6 +58,8 @@ public class Query {
     public static ResultSet getResultSet() {
         return resultSet;
     }
+
+
 }
 
 

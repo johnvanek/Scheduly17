@@ -5,10 +5,7 @@ import javafx.animation.SequentialTransition;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -22,7 +19,6 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 import main.utils.StageManager;
 
@@ -31,6 +27,9 @@ import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.util.Locale;
 import java.util.ResourceBundle;
+
+import static main.utils.LanguageManager.getLocale;
+import static main.utils.LanguageManager.getResourceBundle;
 
 /**
  * The controller for the Login-Screen View.
@@ -85,7 +84,8 @@ public class Login implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        // TODO
+        //  Need to add a new method here for the media Manager?
         Platform.runLater(this::releaseFocusFromTextBox);
         MediaPlayer player = new MediaPlayer(new Media(pathString));
         player.isMute();
@@ -94,11 +94,7 @@ public class Login implements Initializable {
         player.setCycleCount(MediaPlayer.INDEFINITE);
         VideoPlayer.setMediaPlayer(player);
 
-        try {
-            displayNativeLanguage();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+        displayLocaleLanguage();
     }
 
     //********************************************************************//
@@ -106,54 +102,43 @@ public class Login implements Initializable {
     //********************************************************************//
 
     /**
-     * Display's the Login-Form in the User's preferred language from their Window's settings.
+     * Display's the Login-Form in the User's language set from the Window's settings System Default.
      *
-     * @throws UnsupportedEncodingException
+     *
      */
     @FXML
-    public void displayNativeLanguage() throws UnsupportedEncodingException {
-        String location = "Lang";
-        Locale userLocale = Locale.getDefault();
-        System.out.println("Current Local is " + userLocale);
-        //Enable the lower line to translate to French
-        userLocale.setDefault(new Locale("fr", "France"));
-        userLocale = Locale.getDefault();
-        System.out.println("New Locale is " + userLocale);
-        ResourceBundle languageDictionary = ResourceBundle.getBundle(location, userLocale);
+    public void displayLocaleLanguage() {
 
-        if (userLocale.getLanguage() == "en" || userLocale.getLanguage().equals("fr")) {
-            //If there is a match get the keys
-            String UserNameText = languageDictionary.getString("UserNameText");
-            String PassWordText = languageDictionary.getString("PassWordText");
-            String LoginButtonText = languageDictionary.getString("LoginButtonText");
-            String ErrorHandlingText = languageDictionary.getString("ErrorHandlingText");
-            String LoginPortalText = languageDictionary.getString("LoginPortalText");
-            String RegionCodeText = languageDictionary.getString("RegionCode");
-            //Then set the keys
-            MemberText.setText(LoginPortalText);
-            PassWordTextField.setPromptText(PassWordText);
-            LoginButton.setText(LoginButtonText);
-            ErrorNotificationText.setText(ErrorHandlingText);
-            UserNameTextField.setPromptText(UserNameText);
 
-            //RegionCode is combination of two strings
-            RegionCode.setText(RegionCodeText + " " + userLocale.getCountry());
+        //Testing log statements
+        System.out.println("****************************************************");
+        System.out.println("****************************************************");
+        System.out.println("         Start-Testing Local Region Settings        ");
+        System.out.println();
+        System.out.println("Current Local -> " + getLocale());
 
-            //Confirmation of Locale geo in console. -> Check/Test in windows settings.
-            //Time and language settings and Region Settings.
-            System.out.println("The language is " + Locale.getDefault().getLanguage());
-            System.out.println("This country is " + Locale.getDefault().getCountry());
+        //If in English or French set the fields to the values in the language resources
+        if (getLocale().getLanguage().equals("en") || getLocale().getLanguage().equals("fr")) {
+            //Set the fields
+            setLanguageValueFields(getResourceBundle(), getLocale());
+
+            System.out.println("The language -> " + Locale.getDefault().getLanguage());
+            System.out.println("The country -> " + Locale.getDefault().getCountry());
+            System.out.println();
+            System.out.println("               End-Testing-Locale                   ");
+            System.out.println("****************************************************");
+            System.out.println("****************************************************");
         }
     }
 
     /**
      * Validates whether the user is Valid.
-     * Compares the Values supplied to etc.. continue this later
      *
      * @return Returns a boolean value representing whether the user is or is not Valid.
      */
     @FXML
     private boolean userIsValid() {
+        //Todo implement the functionality here make sure the user is valid.
         return true;
     }
 
@@ -174,7 +159,8 @@ public class Login implements Initializable {
     }
 
     /**
-     * Takes the focus from any object currently in focus and gives it to an image-view upper left.
+     * Takes the focus from any object currently in focus and gives it to an image-view upper left. So that the focus
+     * does not start and is removed from the text-fields.
      */
     @FXML
     private void releaseFocusFromTextBox() {
@@ -184,18 +170,15 @@ public class Login implements Initializable {
     /**
      * Attempts to Login the user.
      *
-     * @throws IOException
+     * @throws IOException Signals an I/O exception of some sort has occurred.
      */
     @FXML
     public void loginUser() throws IOException {
         //Make this work later against the database.
         if (userIsValid()) {
-            //If the user if valid we want to compare there check here with any appointments in the next 15 minutes
-            //And send up and alert that says hey you have an appointment in w/e minutes from login
-            System.out.println(StageManager.getPrimaryStage());
+            // Todo call the method here to check in the next 15 minutes perhaps at an interval.
             StageManager.setScene("appointments");
         } else {
-            //They must not be in the database this must be a wrong username or password
             displayErrorCodeStyling();
         }
     }
@@ -204,13 +187,13 @@ public class Login implements Initializable {
      * Hides the error notification Text.
      */
     @FXML
-    private void undoErrorStyling() {
+    private void hideErrorText() {
         ErrorNotificationText.setOpacity(0);
     }
 
-    //********************************************************************//
-    //Regular Functions
-    //********************************************************************//
+    //***************
+    //Regular Methods
+    //***************
 
     /**
      * Displays red color scheme And error text with a shaking animation to alert the user.
@@ -224,6 +207,25 @@ public class Login implements Initializable {
         errorCodeAnimation();
     }
 
+    private void setLanguageValueFields(ResourceBundle dictionary, Locale locale) {
+        //The main labels and Text
+        String UserNameText = dictionary.getString("UserNameText");
+        String PassWordText = dictionary.getString("PassWordText");
+        String LoginButtonText = dictionary.getString("LoginButtonText");
+        String ErrorHandlingText = dictionary.getString("ErrorHandlingText");
+        String LoginPortalText = dictionary.getString("LoginPortalText");
+        String RegionCodeText = dictionary.getString("RegionCode");
+        //The prompt text and misc text.
+        MemberText.setText(LoginPortalText);
+        PassWordTextField.setPromptText(PassWordText);
+        LoginButton.setText(LoginButtonText);
+        ErrorNotificationText.setText(ErrorHandlingText);
+        UserNameTextField.setPromptText(UserNameText);
+
+        //RegionCode in the upper left
+        RegionCode.setText(RegionCodeText + " " + locale.getCountry());
+    }
+
     /**
      * Makes the borders for the username and password text fields red.
      */
@@ -233,7 +235,7 @@ public class Login implements Initializable {
     }
 
     /**
-     * Shakes the login box left to right.
+     * Shakes the login box left to right. Normally called on an error.
      */
     private void errorCodeAnimation() {
         //Animation for a Right wiggle effect

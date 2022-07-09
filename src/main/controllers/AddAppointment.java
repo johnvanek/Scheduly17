@@ -9,6 +9,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import main.database.Connection;
+import main.database.Query;
 import main.utils.ObservableManager;
 import main.utils.StageManager;
 import main.utils.TimeManager;
@@ -21,7 +22,9 @@ import java.time.*;
 import java.util.ResourceBundle;
 import java.util.TimeZone;
 
+import static main.database.Query.*;
 import static main.utils.ObservableManager.*;
+import static main.utils.TimeManager.*;
 
 public class AddAppointment implements Initializable {
 
@@ -58,16 +61,8 @@ public class AddAppointment implements Initializable {
         populateDataComboBoxes();
         StartTimeComboBox.setItems(StartTimesAddApp);
         EndTimeComboBox.setItems(EndTimesAddApp);
-        // TODO test these values tommorow
-        //  Test the Business Hours and Set up the alert for that.
-        //This is the same code in Time manager business valid etc.
-        ZonedDateTime now = ZonedDateTime.now(ZoneId.systemDefault());
-        System.out.println("The time right now is " + LocalDateTime.now());
-        System.out.println("Your time zone is " + ZoneId.systemDefault());
-        ZonedDateTime officeEightAmStart = now.with(LocalTime.of(8, 0));
-        System.out.println("The time that the office opens in Est -> Your Time is " + officeEightAmStart);
-        ZonedDateTime officeTenPmClose = now.with(LocalTime.of(22, 0));
-        System.out.println("The time that the office closes in EST -> Your Time is " + officeTenPmClose);
+
+        //Todo Test these Values
         //Test These Values
         //Test case given an appointment in the database from 10 - 11am
         //10-1030 should overlap
@@ -76,11 +71,10 @@ public class AddAppointment implements Initializable {
         //9:30 to 11
         //9:30 - 10:30
         //9:30 - 11:30
+        System.out.println("****************************************************");
         System.out.println("**************Testing the TimeZones*****************");
 
         System.out.println("Your ZoneID is " + ZoneId.systemDefault());
-        System.out.println(ZoneId.getAvailableZoneIds());
-        System.out.println("The time zone is " + TimeZone.getTimeZone(ZoneId.systemDefault()));
 
     }
 
@@ -110,11 +104,13 @@ public class AddAppointment implements Initializable {
         LocalDateTime endDateTime = endDate.atTime(endTime);
 
         //If the customer is not already booked
-        if (TimeManager.isCustomerAvailable(custID, startDateTime, endDateTime)) {
+        if (isCustomerAvailable(custID, startDateTime, endDateTime)) {
             //Add this appointment to the database
-            String query = "INSERT INTO appointments (Title,Description,Location,Type,Start,End,Create_Date,Created_By,Last_Update,Last_Updated_By,Customer_ID,User_ID,Contact_ID) " +
+            String query = "INSERT INTO appointments (Title,Description,Location,Type,Start,End,Create_Date,Created_By," +
+                    "Last_Update,Last_Updated_By,Customer_ID,User_ID,Contact_ID) " +
                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-            PreparedStatement ps = Connection.getConnection().prepareStatement(query);
+            executeQuery(query);
+            PreparedStatement ps = getPreparedStatement();
             ps.setString(1, title);
             ps.setString(2, desc);
             ps.setString(3, loc);
@@ -136,6 +132,7 @@ public class AddAppointment implements Initializable {
             //After adding in new data clear repopulate the appointment data on the front-end
             ObservableManager.populateDataAppointmentLists();
             //If there are no errors take us back to appointments
+            cleanupResources();
             StageManager.setTitle("appointments");
             StageManager.setScene("appointments");
         }
