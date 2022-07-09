@@ -3,14 +3,12 @@ package main.utils;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import main.DAO.models.Appointment;
+import main.database.Connection;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-
-import static main.database.Query.executeQuery;
-import static main.database.Query.getPreparedStatement;
 
 public final class TimeManager {
 
@@ -49,24 +47,23 @@ public final class TimeManager {
         // A.isAfter(B) || A.isEqual(B)
 
         String query = "SELECT * FROM appointments WHERE Customer_ID = " + customerID;
-        executeQuery(query);
-        PreparedStatement ps = getPreparedStatement();
-        ResultSet resultSet = ps.executeQuery();
+        PreparedStatement ps = Connection.getConnection().prepareStatement(query);
+        ResultSet rs = ps.executeQuery();
 
         System.out.println("Comparing appointment times for potential customer overlap!!");
         Alert overlapAlert = new Alert(Alert.AlertType.ERROR, "This appointment you are trying to add overlaps" +
                 "the customer with another existing appointment.", ButtonType.CLOSE);
-        while (resultSet.next()) {
-            Appointment currentAppointment = new Appointment(resultSet.getInt("appointment_ID"),
-                    resultSet.getString("title"),
-                    resultSet.getString("description"),
-                    resultSet.getString("location"),
-                    resultSet.getString("type"),
-                    resultSet.getTimestamp("start").toLocalDateTime(), //Convert to the LocalTime
-                    resultSet.getTimestamp("end").toLocalDateTime(),
-                    resultSet.getInt("customer_ID"),
-                    resultSet.getInt("user_ID"),
-                    resultSet.getInt("Contact_ID"));
+        while (rs.next()) {
+            Appointment currentAppointment = new Appointment(rs.getInt("appointment_ID"),
+                    rs.getString("title"),
+                    rs.getString("description"),
+                    rs.getString("location"),
+                    rs.getString("type"),
+                    rs.getTimestamp("start").toLocalDateTime(), //Convert to the LocalTime
+                    rs.getTimestamp("end").toLocalDateTime(),
+                    rs.getInt("customer_ID"),
+                    rs.getInt("user_ID"),
+                    rs.getInt("Contact_ID"));
 
             //Get the data to compare from the records that have the same customer_ID
             LocalDateTime databaseStart = currentAppointment.getStartDateTime();
