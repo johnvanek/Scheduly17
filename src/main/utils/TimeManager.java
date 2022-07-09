@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 import static main.database.Query.executeQuery;
 import static main.database.Query.getPreparedStatement;
 
-public class TimeManager {
+public abstract class TimeManager {
     public static boolean isInRangeWeekly(Appointment appointment) {
         //If the appointment is within a week of the Date going forward with time rounding till the end of the last day.
         LocalDateTime currentTime = LocalDateTime.now();

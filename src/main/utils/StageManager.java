@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Objects;
 
-public class StageManager {
+public abstract class StageManager {
     private static Stage primaryStage;
 
     public static Stage getPrimaryStage() {

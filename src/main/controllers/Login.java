@@ -14,16 +14,14 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.util.Duration;
+import main.utils.MediaManager;
 import main.utils.StageManager;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -36,8 +34,6 @@ import static main.utils.LanguageManager.getResourceBundle;
  */
 public class Login implements Initializable {
 
-    private static final URL resource = Login.class.getResource("/Images/notesWriting.mp4");
-    private static final String pathString = resource.toString();
 
     //***********//
     //Fxml ID's
@@ -77,23 +73,19 @@ public class Login implements Initializable {
     private BorderPane LockImageContainer;
 
     /**
-     * Initializes the application is called after the FXML Fields have been loaded and injected.
+     * Initializes the Login Screen is called after the FXML Fields have been loaded and injected.
      *
      * @param location  The location used to resolve relative paths for the root object, or null if the location is not known.
      * @param resources The resources used to localize the root object, or null if the root object was not localized.
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // TODO
-        //  Need to add a new method here for the media Manager?
+        //Get the cursor focus out of the TextField Username.
         Platform.runLater(this::releaseFocusFromTextBox);
-        MediaPlayer player = new MediaPlayer(new Media(pathString));
-        player.isMute();
-        player.setAutoPlay(true);
-        //Runtime computer is probably not enough to run this indefinitely.
-        player.setCycleCount(MediaPlayer.INDEFINITE);
-        VideoPlayer.setMediaPlayer(player);
-
+        //Set up the Media running on the Login Screen
+        MediaManager.initMediaPlayer();
+        VideoPlayer.setMediaPlayer(MediaManager.getMediaPlayer());
+        //Display the Language Text
         displayLocaleLanguage();
     }
 
@@ -103,8 +95,6 @@ public class Login implements Initializable {
 
     /**
      * Display's the Login-Form in the User's language set from the Window's settings System Default.
-     *
-     *
      */
     @FXML
     public void displayLocaleLanguage() {
