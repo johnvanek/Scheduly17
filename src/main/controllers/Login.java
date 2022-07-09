@@ -83,6 +83,7 @@ public class Login implements Initializable {
         //Get the cursor focus out of the TextField Username.
         Platform.runLater(this::releaseFocusFromTextBox);
         //Set up the Media running on the Login Screen
+
         MediaManager.initMediaPlayer();
         VideoPlayer.setMediaPlayer(MediaManager.getMediaPlayer());
         //Display the Language Text

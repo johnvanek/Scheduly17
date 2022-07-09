@@ -11,7 +11,10 @@ import java.time.LocalTime;
 
 import static main.database.Query.*;
 
-public abstract class ObservableManager {
+public final class ObservableManager {
+
+    private ObservableManager() {
+    }
 
     //Observable List's
     //Appointment View List's

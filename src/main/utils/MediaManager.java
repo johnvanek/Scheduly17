@@ -6,7 +6,11 @@ import main.controllers.Login;
 
 import java.util.Objects;
 
-public abstract class MediaManager {
+public final class MediaManager {
+    private MediaManager() {
+
+    }
+
     public static final String resource = Objects.requireNonNull(Login.class.getResource("/Images/notesWriting.mp4")).toString();
     private static MediaPlayer mediaPlayer;
 

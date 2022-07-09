@@ -3,7 +3,10 @@ package main.utils;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-public abstract class LanguageManager {
+public final class LanguageManager {
+    private LanguageManager() {
+    }
+
     private static final String resourceLocation = "Lang";
     private static final Locale locale = Locale.getDefault();
 
