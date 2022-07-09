@@ -58,7 +58,7 @@ public class AddAppointment implements Initializable {
         StartTimeComboBox.setItems(StartTimesAddApp);
         EndTimeComboBox.setItems(EndTimesAddApp);
 
-        //Todo Test these Values
+        //Todo Test these Values to ensure the algo is working correctly
         //Test These Values
         //Test case given an appointment in the database from 10 - 11am
         //10-1030 should overlap
@@ -148,13 +148,13 @@ public class AddAppointment implements Initializable {
 
     @FXML
     void DisplayRecords(ActionEvent event) {
-        //TODO add screen change here to records
+
 
     }
 
     @FXML
     void TerminateSession(ActionEvent event) {
-        //TODO add screen change here to quit the application
+
     }
 
 }

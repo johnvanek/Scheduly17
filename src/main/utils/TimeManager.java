@@ -1,5 +1,6 @@
 package main.utils;
 
+import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import main.DAO.models.Appointment;
@@ -9,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public final class TimeManager {
 
@@ -89,6 +91,17 @@ public final class TimeManager {
         }
         return true;
     }
+    //TODO implement the conversion method for est for the combo-boxes for the add appointment screen.
+    // The comboBoxes should display the business hours adjusted to the user's time zone.
+    //
+    public static void generateValidBusinessHoursList(ObservableList<LocalTime> times) {
+        // return a new list that contains the valid business hours only
+        // and store that in Observable manager
+        // something like
+        // ValidESTOfficeHoursList
+    }
 
-    //TODO implement the conversion method for est for the comboboxes for the add appointment screen.
+    private static void isValidBusinessHours() {
+
+    }
 }
