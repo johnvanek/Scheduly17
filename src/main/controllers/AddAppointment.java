@@ -9,10 +9,8 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import main.database.Connection;
-import main.database.Query;
 import main.utils.ObservableManager;
 import main.utils.StageManager;
-import main.utils.TimeManager;
 
 import java.net.URL;
 import java.sql.PreparedStatement;
@@ -20,9 +18,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.*;
 import java.util.ResourceBundle;
-import java.util.TimeZone;
 
-import static main.database.Query.*;
 import static main.utils.ObservableManager.*;
 import static main.utils.TimeManager.*;
 
@@ -109,17 +105,15 @@ public class AddAppointment implements Initializable {
             String query = "INSERT INTO appointments (Title,Description,Location,Type,Start,End,Create_Date,Created_By," +
                     "Last_Update,Last_Updated_By,Customer_ID,User_ID,Contact_ID) " +
                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-            executeQuery(query);
-            PreparedStatement ps = getPreparedStatement();
+            PreparedStatement ps = Connection.getConnection().prepareStatement(query);
             ps.setString(1, title);
             ps.setString(2, desc);
             ps.setString(3, loc);
             ps.setString(4, type);
-            //Have to convert this to UTC before I insert it into the database currently in LocalDateTime
+            //Have to convert this to UTC before I insert it into the database
+            // The Combo boxes should be in localtime so this conversion is local time to UTC
             //With this driver should auto convert to UTC
-            System.out.println("Testing Driver Timestamp conversion: LocalTime: " + startDateTime);
             ps.setTimestamp(5, Timestamp.valueOf(startDateTime));
-            System.out.println("Testing Driver Timestamp conversion: UTCDatabaseTime: " + Timestamp.valueOf(startDateTime));
             ps.setTimestamp(6, Timestamp.valueOf(endDateTime));
             ps.setTimestamp(7, Timestamp.valueOf(LocalDateTime.now()));
             ps.setString(8, "John Vanek");
@@ -129,10 +123,10 @@ public class AddAppointment implements Initializable {
             ps.setInt(12, userID);
             ps.setInt(13, con);
             ps.executeUpdate();
-            //After adding in new data clear repopulate the appointment data on the front-end
+            //After adding in new data clear and repopulate the appointment data on the front-end
             ObservableManager.populateDataAppointmentLists();
-            //If there are no errors take us back to appointments
-            cleanupResources();
+            //If there are no errors clean up and take us back to appointments
+            ps.close();
             StageManager.setTitle("appointments");
             StageManager.setScene("appointments");
         }

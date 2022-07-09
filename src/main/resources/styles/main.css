@@ -95,7 +95,7 @@
     -fx-background-color: #FFF;
 }
 
-.regionCodeBox {
+.regionCodeBox, .zoneIdBox {
     -fx-font-family: "Montserrat";
         -fx-font-size: 1.1em;
         -fx-border-color: grey;

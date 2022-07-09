@@ -23,6 +23,7 @@ import main.utils.StageManager;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.ZoneId;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -83,7 +84,6 @@ public class Login implements Initializable {
         //Get the cursor focus out of the TextField Username.
         Platform.runLater(this::releaseFocusFromTextBox);
         //Set up the Media running on the Login Screen
-
         MediaManager.initMediaPlayer();
         VideoPlayer.setMediaPlayer(MediaManager.getMediaPlayer());
         //Display the Language Text
@@ -214,7 +214,8 @@ public class Login implements Initializable {
         UserNameTextField.setPromptText(UserNameText);
 
         //RegionCode in the upper left
-        RegionCode.setText(RegionCodeText + " " + locale.getCountry());
+        RegionCode.setText("ZoneID: " + ZoneId.systemDefault());
+
     }
 
     /**

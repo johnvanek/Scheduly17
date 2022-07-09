@@ -20,7 +20,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
-<AnchorPane fx:id="LoginScreen" maxHeight="1080.0" maxWidth="1920.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="900.0" styleClass="LoginRoot" stylesheets="@/styles/main.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.Login">
+<AnchorPane fx:id="LoginScreen" maxHeight="1080.0" maxWidth="1920.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="900.0" styleClass="LoginRoot" stylesheets="@/styles/main.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.Login">
     <children>
         <AnchorPane fx:id="LoginHolder" prefHeight="560.0" prefWidth="900.0" styleClass="parentAnchorPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -129,10 +129,10 @@
                                 <DropShadow height="15.0" radius="7.0" width="15.0" />
                             </effect>
                         </GridPane>
-                  <GridPane alignment="CENTER">
+                  <GridPane alignment="CENTER" prefWidth="210.0">
                     <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="257.00001525878906" minWidth="10.0" prefWidth="212.7999755859375" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="157.0000244140625" minWidth="10.0" prefWidth="78.4000244140625" />
                     </columnConstraints>
                     <rowConstraints>
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -140,7 +140,7 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Pane nodeOrientation="LEFT_TO_RIGHT" prefHeight="200.0" prefWidth="200.0" styleClass="regionCodeBox">
+                        <Pane nodeOrientation="LEFT_TO_RIGHT" prefHeight="200.0" prefWidth="197.0" styleClass="regionCodeBox">
                            <children>
                               <Text fx:id="RegionCode" fill="#2294f1" layoutX="25.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="regionCodeText" text="Region Code" />
                            </children>

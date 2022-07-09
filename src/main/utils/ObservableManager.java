@@ -4,40 +4,36 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import main.DAO.models.Appointment;
 import main.DAO.models.Customer;
+import main.database.Connection;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalTime;
 
-import static main.database.Query.*;
-
 public final class ObservableManager {
-
-    private ObservableManager() {
-    }
 
     //Observable List's
     //Appointment View List's
     public static ObservableList<Appointment> appointmentAllList = FXCollections.observableArrayList();
     public static ObservableList<Appointment> appointmentWeeklyList = FXCollections.observableArrayList();
     public static ObservableList<Appointment> appointmentMonthlyList = FXCollections.observableArrayList();
-
     // Appointment Add Screen Combo-Boxes
     public static ObservableList<LocalTime> StartTimesAddApp = FXCollections.observableArrayList();
     public static ObservableList<LocalTime> EndTimesAddApp = FXCollections.observableArrayList();
-
     //Customer List
     public static ObservableList<Customer> customerList = FXCollections.observableArrayList();
 
-    //Now that we are done with the ResultSet lets cleanup
+    private ObservableManager() {
+    }
 
+    //Now that we are done with the ResultSet lets cleanup
 
     public static void populateDataAppointmentLists() {
         appointmentAllList.clear(); // Clear out the old List before creating a new one
-        executeQuery("Select * FROM appointments");
-        ResultSet rs = getResultSet();
-
         try {
+            PreparedStatement ps = Connection.getConnection().prepareStatement("Select * FROM appointments");
+            ResultSet rs = ps.getResultSet();
             while (rs.next()) {
                 //Temporary Appointment reference
                 Appointment currentAppointment = new Appointment(rs.getInt("appointment_ID"),
@@ -50,8 +46,6 @@ public final class ObservableManager {
                         rs.getInt("customer_ID"),
                         rs.getInt("user_ID"),
                         rs.getInt("Contact_ID"));
-
-
                 //Add all the appointments here from the script to the data model.
                 appointmentAllList.add(currentAppointment);
 
@@ -65,13 +59,13 @@ public final class ObservableManager {
                     appointmentMonthlyList.add(currentAppointment);
                 }
             }
-            cleanupResources();
+            //don't forget to clean up the resources
+            rs.close();
+            ps.close();
         } catch (SQLException e) {
-            System.out.println("There was a problem putting the information for appointments from the database" +
-                    "into the observableList for the appointmentsAll table-view");
+            System.out.println("Error creating the Observable List for appointments");
             throw new RuntimeException(e);
         }
-
     }
 
 
