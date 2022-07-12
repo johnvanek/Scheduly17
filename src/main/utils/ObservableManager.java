@@ -27,8 +27,6 @@ public final class ObservableManager {
     private ObservableManager() {
     }
 
-    //Now that we are done with the ResultSet lets cleanup
-
     public static void populateDataAppointmentLists() {
         appointmentAllList.clear(); // Clear out the old List before creating a new one
         try {
@@ -68,7 +66,6 @@ public final class ObservableManager {
         }
     }
 
-
     public static void populateDataComboBoxes() {
         //Clear out the old data from the combo-Boxes before adding new data.
         ObservableManager.StartTimesAddApp.clear();
@@ -79,6 +76,14 @@ public final class ObservableManager {
 
     public static void createAddStartAppointmentComboBox() {
         StartTimesAddApp.addAll(
+                //TODO expand this to be all possible times at all possible hours
+                // The range here should be 00:00 to 23:00
+                // For the Close it should be shifted an hour so
+                // 01:00 to 24:00 plus the 15 minute intervals
+                // 12AM to 11PM
+                // 1AM to 12PM
+                //If Made in EST need to limit these to only the appropriate hours
+
                 LocalTime.of(8, 0),
                 LocalTime.of(8, 15),
                 LocalTime.of(8, 30),
@@ -139,6 +144,7 @@ public final class ObservableManager {
     }
 
     public static void createAddEndAppointmentComboBox() {
+        // TODO all more time here  // 01:00 to 24:00 plus the 15 minute intervals
         EndTimesAddApp.addAll(
                 LocalTime.of(8, 15),
                 LocalTime.of(8, 30),

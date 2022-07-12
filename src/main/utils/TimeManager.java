@@ -91,14 +91,15 @@ public final class TimeManager {
         }
         return true;
     }
-    //TODO implement the conversion method for est for the combo-boxes for the add appointment screen.
+    //TODO implement the conversion method for EST for the combo-boxes for the add appointment screen.
     // The comboBoxes should display the business hours adjusted to the user's time zone.
     //
     public static void generateValidBusinessHoursList(ObservableList<LocalTime> times) {
-        // return a new list that contains the valid business hours only
-        // and store that in Observable manager
-        // something like
-        // ValidESTOfficeHoursList
+        //TODO implement 2 methods here
+        // The first one should Convert all times to their EST Times
+        // The second method should then Trim to only the business hours
+        // Or this could be vice versa depending on how to set this up.
+        // All
     }
 
     private static void isValidBusinessHours() {
