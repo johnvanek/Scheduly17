@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZonedDateTime;
 
@@ -23,6 +24,10 @@ public final class ObservableManager {
     // Appointment Add Screen Combo-Boxes
     public static ObservableList<LocalTime> StartTimesAddApp = FXCollections.observableArrayList();
     public static ObservableList<LocalTime> EndTimesAddApp = FXCollections.observableArrayList();
+
+//    public static ObservableList<LocalDateTime> StartDateTimesAddApp = FXCollections.observableArrayList();
+//
+//    public static ObservableList<LocalTime> EndDateTimesAddApp = FXCollections.observableArrayList();
     //Customer List
     public static ObservableList<Customer> customerList = FXCollections.observableArrayList();
 

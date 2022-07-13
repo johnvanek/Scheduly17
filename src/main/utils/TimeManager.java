@@ -104,7 +104,7 @@ public final class TimeManager {
     public static void trimToEST() {
         //TODO provide implementation Need a method here that determines what the offset is between the users local time
         // And EST.
-
+        //loop over each value
         ObservableManager.StartTimesAddApp.forEach(localTime -> {
             System.out.println("doing something");
         });

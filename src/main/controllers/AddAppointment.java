@@ -55,6 +55,7 @@ public class AddAppointment implements Initializable {
         //initialize the combo-box data
         populateDataComboBoxes();
         StartTimeComboBox.setItems(StartTimesAddApp);
+        //TODO might have to rework how this is set or will have to filter out the data for this
         EndTimeComboBox.setItems(EndTimesAddApp);
 
         //Todo Test these Values to ensure the algo is working correctly
