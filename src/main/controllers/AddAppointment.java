@@ -11,6 +11,7 @@ import javafx.scene.input.MouseEvent;
 import main.database.Connection;
 import main.utils.ObservableManager;
 import main.utils.StageManager;
+import main.utils.TimeManager;
 
 import java.net.URL;
 import java.sql.PreparedStatement;
@@ -42,8 +43,6 @@ public class AddAppointment implements Initializable {
     private DatePicker StartDatePicker;
     @FXML
     private ComboBox<LocalTime> StartTimeComboBox;
-    @FXML
-    private DatePicker EndDatePicker;
     @FXML
     private ComboBox<LocalTime> EndTimeComboBox;
     @FXML
@@ -82,6 +81,7 @@ public class AddAppointment implements Initializable {
     }
 
     private void verifyIfValidAndSubmit() throws SQLException {
+        // TODO Reformat this similar to Appointments.Java Query to account for possible null result set
         String title = TitleTextField.getText();
         String desc = DescTextField.getText();
         String loc = LocTextField.getText();
@@ -89,19 +89,17 @@ public class AddAppointment implements Initializable {
 
         LocalDate startDate = StartDatePicker.getValue();
         LocalTime startTime = StartTimeComboBox.getValue();
-        LocalDate endDate = EndDatePicker.getValue();
         LocalTime endTime = EndTimeComboBox.getValue();
 
         int custID = Integer.parseInt(CustIDTextField.getText());
         int userID = Integer.parseInt(UserIDTextField.getText());
         int con = Integer.parseInt(ConTextField.getText());
         //assemble the LocalDateTimeObjects
-        LocalDateTime startDateTime = startDate.atTime(startTime);
-        LocalDateTime endDateTime = endDate.atTime(endTime);
-
-        //If the customer is not already booked
-        if (isCustomerAvailable(custID, startDateTime, endDateTime)) {
-            //Add this appointment to the database
+        LocalDateTime appDate = startDate.atTime(startTime);
+        LocalDateTime endDateTime = startDate.atTime(endTime);
+        TimeManager.trimToEST();//If the customer is not already booked
+        if (isCustomerAvailable(custID, appDate, endDateTime)) {
+           //Add this appointment to the database
             String query = "INSERT INTO appointments (Title,Description,Location,Type,Start,End,Create_Date,Created_By," +
                     "Last_Update,Last_Updated_By,Customer_ID,User_ID,Contact_ID) " +
                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -113,7 +111,7 @@ public class AddAppointment implements Initializable {
             //Have to convert this to UTC before I insert it into the database
             // The Combo boxes should be in localtime so this conversion is local time to UTC
             //With this driver should auto convert to UTC
-            ps.setTimestamp(5, Timestamp.valueOf(startDateTime));
+            ps.setTimestamp(5, Timestamp.valueOf(appDate));
             ps.setTimestamp(6, Timestamp.valueOf(endDateTime));
             ps.setTimestamp(7, Timestamp.valueOf(LocalDateTime.now()));
             ps.setString(8, "John Vanek");

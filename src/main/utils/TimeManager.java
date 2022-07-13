@@ -9,10 +9,10 @@ import main.database.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.time.*;
 
 public final class TimeManager {
+
 
     private TimeManager() {
     }
@@ -91,18 +91,24 @@ public final class TimeManager {
         }
         return true;
     }
-    //TODO implement the conversion method for EST for the combo-boxes for the add appointment screen.
-    // The comboBoxes should display the business hours adjusted to the user's time zone.
-    //
+
     public static void generateValidBusinessHoursList(ObservableList<LocalTime> times) {
-        //TODO implement 2 methods here
-        // The first one should Convert all times to their EST Times
-        // The second method should then Trim to only the business hours
-        // Or this could be vice versa depending on how to set this up.
-        // All
+        trimToEST();
+        //trimValidBusinessHours();
     }
 
-    private static void isValidBusinessHours() {
-
+    private static void trimValidBusinessHours() {
+        //TODO provide implementation
     }
+
+    public static void trimToEST() {
+        //TODO provide implementation Need a method here that determines what the offset is between the users local time
+        // And EST.
+
+        ObservableManager.StartTimesAddApp.forEach(localTime -> {
+            System.out.println("doing something");
+        });
+    }
+
+
 }
