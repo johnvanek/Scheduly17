@@ -29,37 +29,41 @@ public final class ObservableManager {
 
     public static void populateDataAppointmentLists() {
         appointmentAllList.clear(); // Clear out the old List before creating a new one
+
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String query = "Select * From appointments";
         try {
-            PreparedStatement ps = Connection.getConnection().prepareStatement("Select * FROM appointments");
-            ResultSet rs = ps.getResultSet();
-            while (rs.next()) {
-                //Temporary Appointment reference
-                Appointment currentAppointment = new Appointment(rs.getInt("appointment_ID"),
-                        rs.getString("title"),
-                        rs.getString("description"),
-                        rs.getString("location"),
-                        rs.getString("type"),
-                        rs.getTimestamp("start").toLocalDateTime(), //Convert to the LocalTime
-                        rs.getTimestamp("end").toLocalDateTime(),
-                        rs.getInt("customer_ID"),
-                        rs.getInt("user_ID"),
-                        rs.getInt("Contact_ID"));
-                //Add all the appointments here from the script to the data model.
-                appointmentAllList.add(currentAppointment);
+            ps = Connection.getConnection().prepareStatement(query);
+            rs = ps.executeQuery();
+            if (rs != null) {
+                while (rs.next()) {
+                    Appointment currentAppointment = new Appointment(rs.getInt("appointment_ID"),
+                            rs.getString("title"),
+                            rs.getString("description"),
+                            rs.getString("location"),
+                            rs.getString("type"),
+                            rs.getTimestamp("start").toLocalDateTime(), //Convert to the LocalTime
+                            rs.getTimestamp("end").toLocalDateTime(),
+                            rs.getInt("customer_ID"),
+                            rs.getInt("user_ID"),
+                            rs.getInt("Contact_ID"));
 
-                //Only add the weekly ones for weekly
-                if (TimeManager.isInRangeWeekly(currentAppointment)) {
-                    appointmentWeeklyList.add(currentAppointment);
+                    //Add all the appointments here from the script to the data model.
+                    appointmentAllList.add(currentAppointment);
+                    //Only add the weekly ones for weekly
+                    if (TimeManager.isInRangeWeekly(currentAppointment)) {
+                        appointmentWeeklyList.add(currentAppointment);
+                    }
+                    //Only add the Ones in the same month till the end of the month
+                    if (TimeManager.isInRangeMonthly(currentAppointment)) {
+                        appointmentMonthlyList.add(currentAppointment);
+                    }
                 }
-
-                //Only add the Ones in the same month till the end of the month
-                if (TimeManager.isInRangeMonthly(currentAppointment)) {
-                    appointmentMonthlyList.add(currentAppointment);
-                }
+                //cleanup
+                rs.close();
+                ps.close();
             }
-            //don't forget to clean up the resources
-            rs.close();
-            ps.close();
         } catch (SQLException e) {
             System.out.println("Error creating the Observable List for appointments");
             throw new RuntimeException(e);
@@ -76,14 +80,39 @@ public final class ObservableManager {
 
     public static void createAddStartAppointmentComboBox() {
         StartTimesAddApp.addAll(
-                //TODO expand this to be all possible times at all possible hours
-                // The range here should be 00:00 to 23:00
-                // For the Close it should be shifted an hour so
-                // 01:00 to 24:00 plus the 15 minute intervals
-                // 12AM to 11PM
-                // 1AM to 12PM
-                //If Made in EST need to limit these to only the appropriate hours
-
+                //These are all the available times In local.
+                LocalTime.of(0, 0),
+                LocalTime.of(0, 15),
+                LocalTime.of(0, 30),
+                LocalTime.of(0, 45),
+                LocalTime.of(1, 0),
+                LocalTime.of(1, 15),
+                LocalTime.of(1, 30),
+                LocalTime.of(1, 45),
+                LocalTime.of(2, 0),
+                LocalTime.of(2, 15),
+                LocalTime.of(2, 30),
+                LocalTime.of(2, 45),
+                LocalTime.of(3, 0),
+                LocalTime.of(3, 15),
+                LocalTime.of(3, 30),
+                LocalTime.of(3, 45),
+                LocalTime.of(4, 0),
+                LocalTime.of(4, 15),
+                LocalTime.of(4, 30),
+                LocalTime.of(4, 45),
+                LocalTime.of(5, 0),
+                LocalTime.of(5, 15),
+                LocalTime.of(5, 30),
+                LocalTime.of(5, 45),
+                LocalTime.of(6, 0),
+                LocalTime.of(6, 15),
+                LocalTime.of(6, 30),
+                LocalTime.of(6, 45),
+                LocalTime.of(7, 0),
+                LocalTime.of(7, 15),
+                LocalTime.of(7, 30),
+                LocalTime.of(7, 45),
                 LocalTime.of(8, 0),
                 LocalTime.of(8, 15),
                 LocalTime.of(8, 30),
@@ -139,13 +168,52 @@ public final class ObservableManager {
                 LocalTime.of(21, 0),
                 LocalTime.of(21, 15),
                 LocalTime.of(21, 30),
-                LocalTime.of(21, 45)
+                LocalTime.of(21, 45),
+                LocalTime.of(22, 0),
+                LocalTime.of(22, 15),
+                LocalTime.of(22, 30),
+                LocalTime.of(22, 45),
+                LocalTime.of(23, 0),
+                LocalTime.of(23, 15),
+                LocalTime.of(23, 30),
+                LocalTime.of(23, 45)
         );
     }
 
     public static void createAddEndAppointmentComboBox() {
-        // TODO all more time here  // 01:00 to 24:00 plus the 15 minute intervals
         EndTimesAddApp.addAll(
+                LocalTime.of(0, 30),
+                LocalTime.of(0, 45),
+                LocalTime.of(1, 0),
+                LocalTime.of(1, 15),
+                LocalTime.of(1, 30),
+                LocalTime.of(1, 45),
+                LocalTime.of(2, 0),
+                LocalTime.of(2, 15),
+                LocalTime.of(2, 30),
+                LocalTime.of(2, 45),
+                LocalTime.of(3, 0),
+                LocalTime.of(3, 15),
+                LocalTime.of(3, 30),
+                LocalTime.of(3, 45),
+                LocalTime.of(4, 0),
+                LocalTime.of(4, 15),
+                LocalTime.of(4, 30),
+                LocalTime.of(4, 45),
+                LocalTime.of(5, 0),
+                LocalTime.of(5, 15),
+                LocalTime.of(5, 30),
+                LocalTime.of(5, 45),
+                LocalTime.of(6, 0),
+                LocalTime.of(6, 15),
+                LocalTime.of(6, 30),
+                LocalTime.of(6, 45),
+                LocalTime.of(7, 0),
+                LocalTime.of(7, 15),
+                LocalTime.of(7, 30),
+                LocalTime.of(7, 45),
+                LocalTime.of(8, 0),
+                LocalTime.of(8, 15),
                 LocalTime.of(8, 15),
                 LocalTime.of(8, 30),
                 LocalTime.of(8, 45),
@@ -201,7 +269,15 @@ public final class ObservableManager {
                 LocalTime.of(21, 15),
                 LocalTime.of(21, 30),
                 LocalTime.of(21, 45),
-                LocalTime.of(22, 0)
+                LocalTime.of(22, 0),
+                LocalTime.of(22, 15),
+                LocalTime.of(22, 30),
+                LocalTime.of(22, 45),
+                LocalTime.of(23, 0),
+                LocalTime.of(23, 15),
+                LocalTime.of(23, 30),
+                LocalTime.of(23, 45),
+                LocalTime.of(0, 0)
         );
     }
 
