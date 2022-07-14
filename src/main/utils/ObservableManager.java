@@ -39,7 +39,8 @@ public final class ObservableManager {
 
     public static void populateDataAppointmentLists() {
         appointmentAllList.clear(); // Clear out the old List before creating a new one
-
+        appointmentWeeklyList.clear();
+        appointmentMonthlyList.clear();
         PreparedStatement ps = null;
         ResultSet rs = null;
         String query = "Select * From appointments";

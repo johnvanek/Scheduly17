@@ -126,21 +126,27 @@ public class Appointments implements Initializable {
 
     @FXML
     void ChangeSceneToAppointmentMainMenu(ActionEvent event) {
-        System.out.println("Scene-Changing-To-Appointment");
+        System.out.println();
+        System.out.println("[------------------Scene-Changing-To-Appointment------------------]");
+        System.out.println();
         StageManager.setTitle("appointments");
         StageManager.setScene("appointments");
     }
 
     @FXML
     void ChangeSceneToAddAppointment(MouseEvent event) {
-        System.out.println("Scene-Changing-To-AppointmentADD");
+        System.out.println();
+        System.out.println("[------------------Scene-Changing-To-AppointmentADD------------------]");
+        System.out.println();
         StageManager.setTitle("addappointment");
         StageManager.setScene("addAppointment");
     }
 
     @FXML
     void ChangeSceneToCustomerMainMenu(ActionEvent event) {
-        System.out.println("Scene-Changing-To-Customers");
+        System.out.println();
+        System.out.println("[------------------Scene-Changing-To-Customers------------------]");
+        System.out.println();
         StageManager.setTitle("customers");
         StageManager.setScene("customers");
     }
@@ -160,7 +166,7 @@ public class Appointments implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //I want to create the data here without throwing exceptions
 
-            ObservableManager.populateDataAppointmentLists();
+        ObservableManager.populateDataAppointmentLists();
 
 
         //Bind the Table Views

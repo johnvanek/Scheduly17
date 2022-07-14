@@ -3,6 +3,7 @@ package main.utils;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.layout.Region;
 import main.DAO.models.Appointment;
 import main.database.Connection;
 
@@ -55,8 +56,12 @@ public final class TimeManager {
         ResultSet rs = ps.executeQuery();
 
         System.out.println("Comparing appointment times for potential customer overlap!!");
-        Alert overlapAlert = new Alert(Alert.AlertType.ERROR, "This appointment you are trying to add overlaps" +
-                "the customer with another existing appointment.", ButtonType.CLOSE);
+        Alert overlapAlert = new Alert(Alert.AlertType.ERROR, "[Overlap-Error] The appointment you tried to add would overlap " +
+                "the Customer with the Customer_ID of  " + customerID + " with another existing appointment.", ButtonType.CLOSE);
+        overlapAlert.setHeaderText("[CANNOT-ADD] : [REASON]");
+        //TODO create another alert here for the incorrect fields and then list the fields and their type
+        //Resize the alert so the text does not get cut off
+        overlapAlert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
         while (rs.next()) {
             Appointment currentAppointment = new Appointment(rs.getInt("appointment_ID"),
                     rs.getString("title"),
@@ -75,19 +80,25 @@ public final class TimeManager {
             //Then check if there are any overlaps edge cases. If any of these occur disregard the appointment
             //Condition 1 --|The start of this meeting is during another existing meeting|--
             if ((appStart.isAfter(databaseStart) || appStart.isEqual(databaseStart)) && (appStart.isBefore(databaseEnd))) {
-                overlapAlert.show();
+                overlapAlert.showAndWait();
+                StageManager.setTitle("appointments");
+                StageManager.setScene("appointments");
                 return false;
             }
             //Condition 2 --|The appointment End is in between another existing meeting|--
             // (WantToAddEnd > DatabaseStart && WantToAddEnd <= DatabaseEnd)
             if ((appEnd.isAfter(databaseStart) && (appEnd.isBefore(databaseEnd) || appEnd.isEqual(databaseEnd)))) {
-                overlapAlert.show();
+                overlapAlert.showAndWait();
+                StageManager.setTitle("appointments");
+                StageManager.setScene("appointments");
                 return false;
             }
             //Condition 3 --|Start and end consumes another smaller meeting completely|--
             if ((appStart.isBefore(databaseStart) || appStart.isEqual(databaseStart))
                     && (appEnd.isAfter(databaseEnd) || appEnd.isEqual(databaseEnd))) {
-                overlapAlert.show();
+                overlapAlert.showAndWait();
+                StageManager.setTitle("appointments");
+                StageManager.setScene("appointments");
                 return false;
             }
         }
@@ -95,22 +106,22 @@ public final class TimeManager {
     }
 
     public static void generateValidBusinessHoursList() {
-        trimToEST();
         trimValidBusinessHours();
+        trimToEST();
     }
 
     public static void trimValidBusinessHours() {
 
         //The times here need to be filtered to the start times for the office which is
         // Start Time 8:AM
-        StartTimesAddAppEst.forEach(localTime -> {
+        StartTimesAddApp.forEach(localTime -> {
                     if (isValidStartBusinessHours(localTime)) {
                         StartTimesFiltered.add(localTime);
                     }
                 }
         );
         // End   Time 10:PM
-        EndTimesAddAppEst.forEach(localTime -> {
+        EndTimesAddApp.forEach(localTime -> {
                     if (isValidEndBusinessHours(localTime)) {
                         EndTimesFiltered.add(localTime);
                     }
@@ -119,46 +130,34 @@ public final class TimeManager {
     }
 
     public static void trimToEST() {
-        ObservableManager.StartTimesAddApp.forEach(localTime -> {
+        //TODO fix ordering Run the Filtered valid business first then convert those to EST.
+        ObservableManager.StartTimesFiltered.forEach(localTime -> {
             LocalDateTime localDateTime = LocalDateTime.of(LocalDate.now(), localTime);
-            System.out.println("The Local Date Time System: " + localDateTime);
             //Convert to a ZonedDateTime at the ZoneId
             ZonedDateTime zonedDateTime = localDateTime.atZone(ZoneId.systemDefault());
-            System.out.println("The Zoned Date Time System: " + zonedDateTime);
             //Convert that to a ZonedDateTime at the target ZoneId
             ZonedDateTime estZonedDateTime = zonedDateTime.withZoneSameInstant(ZoneId.of("America/New_York"));
-            System.out.println("The Zoned Date Time EST: " + estZonedDateTime);
             //Convert Back to LocalDateTime
             LocalDateTime localEstDateTime = estZonedDateTime.toLocalDateTime();
-            System.out.println("The Local version of Est Date Time: " + localEstDateTime);
             //Just Need the Time the Date is unnecessary
             LocalTime localEstTime = localEstDateTime.toLocalTime();
-            System.out.println("The local version of just EST Time: " + localEstTime);
-
+            //Add This to the est list
             ObservableManager.StartTimesAddAppEst.add(localEstTime);
-            //Add these into the new estList
         });
         //Could perform a swap here with remove followed by an add operation, but I believe just adding to another list
         // is more efficient due to the shift operations , Unless I were to use streams. I have to bind to a list for
         // the comboBox anyway. So that's kind of my justification/reasoning behind this.
-        ObservableManager.EndTimesAddApp.forEach(localTime -> {
+        ObservableManager.EndTimesFiltered.forEach(localTime -> {
             LocalDateTime localDateTime = LocalDateTime.of(LocalDate.now(), localTime);
-            System.out.println("The Local Date Time System: " + localDateTime);
             //Convert to a ZonedDateTime at the ZoneId
             ZonedDateTime zonedDateTime = localDateTime.atZone(ZoneId.systemDefault());
-            System.out.println("The Zoned Date Time System: " + zonedDateTime);
             //Convert that to a ZonedDateTime at the target ZoneId
             ZonedDateTime estZonedDateTime = zonedDateTime.withZoneSameInstant(ZoneId.of("America/New_York"));
-            System.out.println("The Zoned Date Time EST: " + estZonedDateTime);
             //Convert Back to LocalDateTime
             LocalDateTime localEstDateTime = estZonedDateTime.toLocalDateTime();
-            System.out.println("The Local version of Est Date Time: " + localEstDateTime);
             //Just Need the Time the Date is unnecessary
             LocalTime localEstTime = localEstDateTime.toLocalTime();
-            System.out.println("The local version of just EST Time: " + localEstTime);
-
             ObservableManager.EndTimesAddAppEst.add(localEstTime);
-            //Add these into the new estList
         });
     }
 

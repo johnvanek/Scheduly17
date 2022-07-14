@@ -70,27 +70,27 @@
             <TextField fx:id="UserIDTextField" layoutX="101.0" layoutY="358.0" prefHeight="25.0" prefWidth="119.0" />
          </children>
       </AnchorPane>
-      <Text layoutX="682.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reminder - User" wrappingWidth="111.3958740234375">
+      <Text layoutX="673.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reminder - User" wrappingWidth="111.3958740234375">
          <font>
             <Font size="15.0" />
          </font>
       </Text>
-      <Text layoutX="725.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&amp;" wrappingWidth="12.799975585937545">
+      <Text layoutX="721.0" layoutY="115.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&amp;" wrappingWidth="12.799975585937545">
          <font>
             <Font size="15.0" />
          </font>
       </Text>
-      <Text layoutX="699.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Time" wrappingWidth="68.0">
+      <Text layoutX="693.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Time" wrappingWidth="68.0">
          <font>
             <Font size="15.0" />
          </font>
       </Text>
-      <Text layoutX="699.0" layoutY="129.0" strokeType="OUTSIDE" strokeWidth="0.0" text="End Time" wrappingWidth="68.0">
+      <Text layoutX="695.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" text="End Time" wrappingWidth="68.0">
          <font>
             <Font size="15.0" />
          </font>
       </Text>
-      <Text layoutX="615.0" layoutY="149.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Must Conform to the Office Hours EST" wrappingWidth="256.19580078125">
+      <Text layoutX="611.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Are Adjusted to the Office Hours - EST" wrappingWidth="256.19580078125">
          <font>
             <Font size="15.0" />
          </font>
@@ -101,5 +101,10 @@
             <Image url="@../resources/Images/clockTime.png" />
          </image>
       </ImageView>
+      <Text layoutX="694.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Local" wrappingWidth="79.199951171875">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>
