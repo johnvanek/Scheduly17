@@ -1,20 +1,22 @@
 package main.controllers;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Region;
 import main.database.Connection;
-import main.utils.ObservableManager;
 import main.utils.StageManager;
-import main.utils.TimeManager;
 
 import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.*;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 import static main.utils.ObservableManager.*;
@@ -53,8 +55,8 @@ public class AddAppointment implements Initializable {
         populateDataComboBoxes();
         generateValidBusinessHoursList();
         StartTimeComboBox.setItems(StartTimesAddAppEst);
-        //TODO might have to rework how this is set or will have to filter out the data for this
         EndTimeComboBox.setItems(EndTimesAddAppEst);
+
         System.out.println("****************************************************");
         System.out.println("**************Testing the TimeZones*****************");
 
@@ -66,19 +68,18 @@ public class AddAppointment implements Initializable {
 
         System.out.println("****************************************************");
         System.out.println("****************************************************");
-        //Todo
-        // Verify that these Values when put into the database convert to UTC correctly
     }
 
     //FXML METHODS*********************************
 
     @FXML
     void submitNewAppointment(MouseEvent event) throws SQLException {
-        verifyIfValidAndSubmit();
+        if (isFieldsFilledOut()) {
+            verifyIfValidAndSubmit();
+        }
     }
 
     private void verifyIfValidAndSubmit() throws SQLException {
-        // TODO Reformat this similar to Appointments.Java Query to account for possible null result set
         String title = TitleTextField.getText();
         String desc = DescTextField.getText();
         String loc = LocTextField.getText();
@@ -94,6 +95,7 @@ public class AddAppointment implements Initializable {
         //assemble the LocalDateTimeObjects
         LocalDateTime appDate = startDate.atTime(startTime);
         LocalDateTime endDateTime = startDate.atTime(endTime);
+
 
         if (isCustomerAvailable(custID, appDate, endDateTime)) {
             String query = "INSERT INTO appointments (Title,Description,Location,Type,Start,End,Create_Date,Created_By," +
@@ -117,24 +119,90 @@ public class AddAppointment implements Initializable {
             ps.executeUpdate();
 
             ps.close();
-            //TODO
-            // Add an Alert here saying success you are being redirected back the main appointments menu.
-            //Alert success = new Alert().
+            //Let them know that it went through
+            Alert success = new Alert(Alert.AlertType.INFORMATION, "Appointment added. Redirecting you back to the " +
+                    "main menu.", ButtonType.OK);
+
+            success.setHeaderText("[SUCCESSFUL] : [SUBMISSION]");
+            success.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+            success.showAndWait();
             StageManager.setTitle("appointments");
             StageManager.setScene("appointments");
+        } else {
+            //clear all the fields if the wrong information is entered.
+
+
+            CustIDTextField.clear();
+            UserIDTextField.clear();
+            ConTextField.clear();
         }
     }
 
+    private Boolean isFieldsFilledOut() {
+        //The Alert information
+        Alert emptyFields = new Alert(Alert.AlertType.WARNING);
+        emptyFields.setHeaderText("[WARNING] [EMPTY-FIELDS]");
+        emptyFields.setContentText("Please Fill out all Fields");
+
+        String title = TitleTextField.getText();
+        String desc = DescTextField.getText();
+        String loc = LocTextField.getText();
+        String type = TypeTextField.getText();
+
+        LocalDate startDate = StartDatePicker.getValue();
+        LocalTime startTime = StartTimeComboBox.getValue();
+        LocalTime endTime = EndTimeComboBox.getValue();
+
+        if (title == null || title.trim().isEmpty()) {
+            emptyFields.showAndWait();
+            return false;
+        } else if (desc == null || desc.trim().isEmpty()) {
+            emptyFields.showAndWait();
+            return false;
+        } else if (loc == null || loc.trim().isEmpty()) {
+            emptyFields.showAndWait();
+            return false;
+        } else if (type == null || type.trim().isEmpty()) {
+            emptyFields.showAndWait();
+            return false;
+        } else if (startDate == null) {
+            emptyFields.showAndWait();
+            StartDatePicker.setValue(null);
+            return false;
+        } else if (startTime == null) {
+            emptyFields.showAndWait();
+            return false;
+            //This would mean it's not initialized
+        } else if (endTime == null) {
+            emptyFields.showAndWait();
+            return false;
+        } else if ((UserIDTextField.getText() == null) || UserIDTextField.getText().trim().isEmpty() || Objects.equals(UserIDTextField.getText(), "")) {
+            emptyFields.showAndWait();
+            return false;
+        } else if (CustIDTextField.getText() == null || CustIDTextField.getText().trim().isEmpty() || Objects.equals(CustIDTextField.getText(), "")) {
+            emptyFields.showAndWait();
+            return false;
+        } else if (ConTextField.getText() == null || ConTextField.getText().trim().isEmpty() || Objects.equals(ConTextField.getText(), "")) {
+            emptyFields.showAndWait();
+            return false;
+        }
+        return true;
+    }
 
     @FXML
     void DisplayAppointments(ActionEvent event) {
+        System.out.println();
+        System.out.println("[------------------Scene-Changing-To-Appointment------------------]");
+        System.out.println();
         StageManager.setTitle("appointments");
         StageManager.setScene("appointments");
     }
 
     @FXML
     void DisplayCustomers(ActionEvent event) {
-        System.out.println("Scene-Changing-Customers");
+        System.out.println();
+        System.out.println("[------------------Scene-Changing-To-Customers------------------]");
+        System.out.println();
         StageManager.setTitle("customers");
         StageManager.setScene("customers");
     }

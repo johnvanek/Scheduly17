@@ -59,7 +59,7 @@ public final class TimeManager {
         Alert overlapAlert = new Alert(Alert.AlertType.ERROR, "[Overlap-Error] The appointment you tried to add would overlap " +
                 "the Customer with the Customer_ID of  " + customerID + " with another existing appointment.", ButtonType.CLOSE);
         overlapAlert.setHeaderText("[CANNOT-ADD] : [REASON]");
-        //TODO create another alert here for the incorrect fields and then list the fields and their type
+
         //Resize the alert so the text does not get cut off
         overlapAlert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
         while (rs.next()) {
@@ -81,24 +81,25 @@ public final class TimeManager {
             //Condition 1 --|The start of this meeting is during another existing meeting|--
             if ((appStart.isAfter(databaseStart) || appStart.isEqual(databaseStart)) && (appStart.isBefore(databaseEnd))) {
                 overlapAlert.showAndWait();
-                StageManager.setTitle("appointments");
-                StageManager.setScene("appointments");
+                //Clear the current values out of the appointment
+//                StageManager.setTitle("appointments");
+//                StageManager.setScene("appointments");
                 return false;
             }
             //Condition 2 --|The appointment End is in between another existing meeting|--
             // (WantToAddEnd > DatabaseStart && WantToAddEnd <= DatabaseEnd)
             if ((appEnd.isAfter(databaseStart) && (appEnd.isBefore(databaseEnd) || appEnd.isEqual(databaseEnd)))) {
                 overlapAlert.showAndWait();
-                StageManager.setTitle("appointments");
-                StageManager.setScene("appointments");
+//                StageManager.setTitle("appointments");
+//                StageManager.setScene("appointments");
                 return false;
             }
             //Condition 3 --|Start and end consumes another smaller meeting completely|--
             if ((appStart.isBefore(databaseStart) || appStart.isEqual(databaseStart))
                     && (appEnd.isAfter(databaseEnd) || appEnd.isEqual(databaseEnd))) {
                 overlapAlert.showAndWait();
-                StageManager.setTitle("appointments");
-                StageManager.setScene("appointments");
+//                StageManager.setTitle("appointments");
+//                StageManager.setScene("appointments");
                 return false;
             }
         }
@@ -130,7 +131,6 @@ public final class TimeManager {
     }
 
     public static void trimToEST() {
-        //TODO fix ordering Run the Filtered valid business first then convert those to EST.
         ObservableManager.StartTimesFiltered.forEach(localTime -> {
             LocalDateTime localDateTime = LocalDateTime.of(LocalDate.now(), localTime);
             //Convert to a ZonedDateTime at the ZoneId
