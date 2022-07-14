@@ -54,9 +54,10 @@ public class AddAppointment implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //initialize the combo-box data
         populateDataComboBoxes();
-        StartTimeComboBox.setItems(StartTimesAddApp);
+        generateValidBusinessHoursList();
+        StartTimeComboBox.setItems(StartTimesFiltered);
         //TODO might have to rework how this is set or will have to filter out the data for this
-        EndTimeComboBox.setItems(EndTimesAddApp);
+        EndTimeComboBox.setItems(EndTimesFiltered);
 
         //Todo Test these Values to ensure the algo is working correctly
         //Test These Values
@@ -83,52 +84,48 @@ public class AddAppointment implements Initializable {
 
     private void verifyIfValidAndSubmit() throws SQLException {
         // TODO Reformat this similar to Appointments.Java Query to account for possible null result set
-        String title = TitleTextField.getText();
-        String desc = DescTextField.getText();
-        String loc = LocTextField.getText();
-        String type = TypeTextField.getText();
+//        String title = TitleTextField.getText();
+//        String desc = DescTextField.getText();
+//        String loc = LocTextField.getText();
+//        String type = TypeTextField.getText();
+//
+//        LocalDate startDate = StartDatePicker.getValue();
+//        LocalTime startTime = StartTimeComboBox.getValue();
+//        LocalTime endTime = EndTimeComboBox.getValue();
+//
+//        int custID = Integer.parseInt(CustIDTextField.getText());
+//        int userID = Integer.parseInt(UserIDTextField.getText());
+//        int con = Integer.parseInt(ConTextField.getText());
+//        //assemble the LocalDateTimeObjects
+//        LocalDateTime appDate = startDate.atTime(startTime);
+//        LocalDateTime endDateTime = startDate.atTime(endTime);
 
-        LocalDate startDate = StartDatePicker.getValue();
-        LocalTime startTime = StartTimeComboBox.getValue();
-        LocalTime endTime = EndTimeComboBox.getValue();
-
-        int custID = Integer.parseInt(CustIDTextField.getText());
-        int userID = Integer.parseInt(UserIDTextField.getText());
-        int con = Integer.parseInt(ConTextField.getText());
-        //assemble the LocalDateTimeObjects
-        LocalDateTime appDate = startDate.atTime(startTime);
-        LocalDateTime endDateTime = startDate.atTime(endTime);
-        TimeManager.trimToEST();//If the customer is not already booked
-        if (isCustomerAvailable(custID, appDate, endDateTime)) {
-           //Add this appointment to the database
-            String query = "INSERT INTO appointments (Title,Description,Location,Type,Start,End,Create_Date,Created_By," +
-                    "Last_Update,Last_Updated_By,Customer_ID,User_ID,Contact_ID) " +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-            PreparedStatement ps = Connection.getConnection().prepareStatement(query);
-            ps.setString(1, title);
-            ps.setString(2, desc);
-            ps.setString(3, loc);
-            ps.setString(4, type);
-            //Have to convert this to UTC before I insert it into the database
-            // The Combo boxes should be in localtime so this conversion is local time to UTC
-            //With this driver should auto convert to UTC
-            ps.setTimestamp(5, Timestamp.valueOf(appDate));
-            ps.setTimestamp(6, Timestamp.valueOf(endDateTime));
-            ps.setTimestamp(7, Timestamp.valueOf(LocalDateTime.now()));
-            ps.setString(8, "John Vanek");
-            ps.setTimestamp(9, Timestamp.valueOf(LocalDateTime.now()));
-            ps.setString(10, "John Vanek");
-            ps.setInt(11, custID);
-            ps.setInt(12, userID);
-            ps.setInt(13, con);
-            ps.executeUpdate();
-            //After adding in new data clear and repopulate the appointment data on the front-end
-            ObservableManager.populateDataAppointmentLists();
-            //If there are no errors clean up and take us back to appointments
-            ps.close();
-            StageManager.setTitle("appointments");
-            StageManager.setScene("appointments");
-        }
+//        if (isCustomerAvailable(custID, appDate, endDateTime)) {
+//            String query = "INSERT INTO appointments (Title,Description,Location,Type,Start,End,Create_Date,Created_By," +
+//                    "Last_Update,Last_Updated_By,Customer_ID,User_ID,Contact_ID) " +
+//                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+//            PreparedStatement ps = Connection.getConnection().prepareStatement(query);
+//            ps.setString(1, title);
+//            ps.setString(2, desc);
+//            ps.setString(3, loc);
+//            ps.setString(4, type);
+//
+//            ps.setTimestamp(5, Timestamp.valueOf(appDate));
+//            ps.setTimestamp(6, Timestamp.valueOf(endDateTime));
+//            ps.setTimestamp(7, Timestamp.valueOf(LocalDateTime.now()));
+//            ps.setString(8, "John Vanek");
+//            ps.setTimestamp(9, Timestamp.valueOf(LocalDateTime.now()));
+//            ps.setString(10, "John Vanek");
+//            ps.setInt(11, custID);
+//            ps.setInt(12, userID);
+//            ps.setInt(13, con);
+//            ps.executeUpdate();
+//
+//            ObservableManager.populateDataAppointmentLists();
+//            ps.close();
+//            StageManager.setTitle("appointments");
+//            StageManager.setScene("appointments");
+        //}
     }
 
 

@@ -25,9 +25,12 @@ public final class ObservableManager {
     public static ObservableList<LocalTime> StartTimesAddApp = FXCollections.observableArrayList();
     public static ObservableList<LocalTime> EndTimesAddApp = FXCollections.observableArrayList();
 
-//    public static ObservableList<LocalDateTime> StartDateTimesAddApp = FXCollections.observableArrayList();
-//
-//    public static ObservableList<LocalTime> EndDateTimesAddApp = FXCollections.observableArrayList();
+    public static ObservableList<LocalTime> StartTimesAddAppEst = FXCollections.observableArrayList();
+
+    public static ObservableList<LocalTime> EndTimesAddAppEst = FXCollections.observableArrayList();
+
+    public static ObservableList<LocalTime> StartTimesFiltered = FXCollections.observableArrayList();
+    public static ObservableList<LocalTime> EndTimesFiltered = FXCollections.observableArrayList();
     //Customer List
     public static ObservableList<Customer> customerList = FXCollections.observableArrayList();
 
@@ -81,6 +84,9 @@ public final class ObservableManager {
         //Clear out the old data from the combo-Boxes before adding new data.
         ObservableManager.StartTimesAddApp.clear();
         ObservableManager.EndTimesAddApp.clear();
+        ObservableManager.StartTimesAddAppEst.clear();
+        ObservableManager.EndTimesAddAppEst.clear();
+        ObservableManager.StartTimesFiltered.clear();
         createAddStartAppointmentComboBox();
         createAddEndAppointmentComboBox();
     }
@@ -189,6 +195,7 @@ public final class ObservableManager {
 
     public static void createAddEndAppointmentComboBox() {
         EndTimesAddApp.addAll(
+                LocalTime.of(0, 15),
                 LocalTime.of(0, 30),
                 LocalTime.of(0, 45),
                 LocalTime.of(1, 0),

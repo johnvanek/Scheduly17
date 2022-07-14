@@ -200,5 +200,7 @@ public class Appointments implements Initializable {
         AllViewCustID.setCellValueFactory(new PropertyValueFactory<>("CustomerId"));
         AllViewUserID.setCellValueFactory(new PropertyValueFactory<>("UserId"));
         AllViewCon.setCellValueFactory(new PropertyValueFactory<>("ContactId"));
+
+
     }
 }

@@ -10,9 +10,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.*;
+import java.util.stream.Collectors;
+
+import static main.utils.ObservableManager.*;
 
 public final class TimeManager {
-
 
     private TimeManager() {
     }
@@ -92,23 +94,100 @@ public final class TimeManager {
         return true;
     }
 
-    public static void generateValidBusinessHoursList(ObservableList<LocalTime> times) {
+    public static void generateValidBusinessHoursList() {
         trimToEST();
-        //trimValidBusinessHours();
+        trimValidBusinessHours();
     }
 
-    private static void trimValidBusinessHours() {
-        //TODO provide implementation
+    public static void trimValidBusinessHours() {
+
+        //The times here need to be filtered to the start times for the office which is
+        // Start Time 8:AM
+        StartTimesAddAppEst.forEach(localTime -> {
+                    if (isValidStartBusinessHours(localTime)) {
+                        StartTimesFiltered.add(localTime);
+                    }
+                }
+        );
+        // End   Time 10:PM
+        EndTimesAddAppEst.forEach(localTime -> {
+                    if (isValidEndBusinessHours(localTime)) {
+                        EndTimesFiltered.add(localTime);
+                    }
+                }
+        );
     }
 
     public static void trimToEST() {
-        //TODO provide implementation Need a method here that determines what the offset is between the users local time
-        // And EST.
-        //loop over each value
         ObservableManager.StartTimesAddApp.forEach(localTime -> {
-            System.out.println("doing something");
+            LocalDateTime localDateTime = LocalDateTime.of(LocalDate.now(), localTime);
+            System.out.println("The Local Date Time System: " + localDateTime);
+            //Convert to a ZonedDateTime at the ZoneId
+            ZonedDateTime zonedDateTime = localDateTime.atZone(ZoneId.systemDefault());
+            System.out.println("The Zoned Date Time System: " + zonedDateTime);
+            //Convert that to a ZonedDateTime at the target ZoneId
+            ZonedDateTime estZonedDateTime = zonedDateTime.withZoneSameInstant(ZoneId.of("America/New_York"));
+            System.out.println("The Zoned Date Time EST: " + estZonedDateTime);
+            //Convert Back to LocalDateTime
+            LocalDateTime localEstDateTime = estZonedDateTime.toLocalDateTime();
+            System.out.println("The Local version of Est Date Time: " + localEstDateTime);
+            //Just Need the Time the Date is unnecessary
+            LocalTime localEstTime = localEstDateTime.toLocalTime();
+            System.out.println("The local version of just EST Time: " + localEstTime);
+
+            ObservableManager.StartTimesAddAppEst.add(localEstTime);
+            //Add these into the new estList
+        });
+        //Could perform a swap here with remove followed by an add operation, but I believe just adding to another list
+        // is more efficient due to the shift operations , Unless I were to use streams. I have to bind to a list for
+        // the comboBox anyway. So that's kind of my justification/reasoning behind this.
+        ObservableManager.EndTimesAddApp.forEach(localTime -> {
+            LocalDateTime localDateTime = LocalDateTime.of(LocalDate.now(), localTime);
+            System.out.println("The Local Date Time System: " + localDateTime);
+            //Convert to a ZonedDateTime at the ZoneId
+            ZonedDateTime zonedDateTime = localDateTime.atZone(ZoneId.systemDefault());
+            System.out.println("The Zoned Date Time System: " + zonedDateTime);
+            //Convert that to a ZonedDateTime at the target ZoneId
+            ZonedDateTime estZonedDateTime = zonedDateTime.withZoneSameInstant(ZoneId.of("America/New_York"));
+            System.out.println("The Zoned Date Time EST: " + estZonedDateTime);
+            //Convert Back to LocalDateTime
+            LocalDateTime localEstDateTime = estZonedDateTime.toLocalDateTime();
+            System.out.println("The Local version of Est Date Time: " + localEstDateTime);
+            //Just Need the Time the Date is unnecessary
+            LocalTime localEstTime = localEstDateTime.toLocalTime();
+            System.out.println("The local version of just EST Time: " + localEstTime);
+
+            ObservableManager.EndTimesAddAppEst.add(localEstTime);
+            //Add these into the new estList
         });
     }
 
+    private static Boolean isValidStartBusinessHours(LocalTime time) {
+        //Methods in the LocalDateTime class
+        // A > B    /// A.isAfter(B)
+        // A == B  ///  A.isEqual(B)
+        // A < B   ///  A.isBefore(B)
 
+        //To get A <= B
+        // In LocalDateTimeMethods
+        // (A.isBefore(B) || A.isEqual(B))
+
+        //TO get A >= B
+        //InLocalDateTimeMethods
+        // A.isAfter(B) || A.isEqual(B)
+
+        //Represent the Business Hours in Est
+        return (time.isBefore(LocalTime.of(22, 0))
+                && (time.isAfter(LocalTime.of(8, 0))))
+                || (time.equals(LocalTime.of(8, 0)));
+        //have to account for the edge cases 8AM and 10PM
+    }
+
+    private static Boolean isValidEndBusinessHours(LocalTime time) {
+        //Represent the Business Hours in Est
+        //have to account for the edge cases 8AM and 10PM
+        return (time.isBefore(LocalTime.of(22, 0))
+                && (time.isAfter(LocalTime.of(8, 0))))
+                || (time.equals(LocalTime.of(22, 0)));
+    }
 }
