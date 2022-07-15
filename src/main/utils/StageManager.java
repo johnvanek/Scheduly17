@@ -5,6 +5,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import main.DAO.models.Appointment;
+import main.controllers.UpdateAppointment;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -15,15 +16,15 @@ public final class StageManager {
     private StageManager() {
     }
 
-    public static Stage getPrimaryStage() {
+    private static Stage getPrimaryStage() {
         return primaryStage;
     }
 
-    public static void setPrimaryStage(Stage primaryStage) {
+    private static void setPrimaryStage(Stage primaryStage) {
         StageManager.primaryStage = primaryStage;
     }
 
-    public static void setScene(String viewToLoad) {
+    private static void setScene(String viewToLoad) {
         String loaderString = "../views/" + viewToLoad + ".fxml";
         try {
             Parent view = FXMLLoader.load(Objects.requireNonNull(StageManager.class.getResource(loaderString)));
@@ -36,12 +37,30 @@ public final class StageManager {
         }
     }
 
-    public static void setTitle(String title) {
+    private static void setTitle(String title) {
         primaryStage.setTitle("Scheduly-17-" + Misc.makeFirstLetterUppercase(title));
     }
 
-    public static void setScenePassData(String view, Appointment selected){
-        setScene("updateAppointment");
+    private static void setLogText(String scene) {
+        System.out.println();
+        System.out.println("[------------------Scene-Changing-To-" + scene + "------------------]");
+        System.out.println();
+    }
 
+    private static void transitionNextScene(String nxtScene) {
+        setTitle(nxtScene);
+        setLogText(Misc.makeFirstLetterUppercase(nxtScene));
+        setScene(nxtScene);
+    }
+
+    public static void transitionNextScene(String nxtScene, Appointment app) {
+        setTitle(nxtScene);
+        setLogText(Misc.makeFirstLetterUppercase(nxtScene));
+        setScenePassDataUpdate(app);
+    }
+
+    private static void setScenePassDataUpdate(Appointment selected) {
+        UpdateAppointment.appSelected = selected;
+        setScene("updateAppointment");
     }
 }

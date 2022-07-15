@@ -8,11 +8,17 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
+import main.DAO.models.Appointment;
+import main.utils.StageManager;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class UpdateAppointment implements Initializable {
+
+    //local class data
+    public static Appointment appSelected;
     //FXML-ID'S*****************************************
     @FXML
     private TextField TitleTextField;
@@ -76,6 +82,6 @@ public class UpdateAppointment implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        System.out.println("The value of passing data is " + appSelected.getTitle());
     }
 }

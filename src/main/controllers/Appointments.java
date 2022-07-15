@@ -27,7 +27,7 @@ import static main.utils.ObservableManager.*;
 
 public class Appointments implements Initializable {
     //Data Local to the Class
-    UpdateAppointment updateAppointmentcontroller = new UpdateAppointment();
+    UpdateAppointment updateAppointmentcontroller;
     //FXML-ID'S**************************************************************************
     //Week-Tab - ID'S
     @FXML
@@ -179,12 +179,11 @@ public class Appointments implements Initializable {
     @FXML
     void UpdateAppointment(MouseEvent event) {
         if (AllView.getSelectionModel().getSelectedItem() != null) {
+            Appointment selection = AllView.getSelectionModel().getSelectedItem();
             System.out.println();
             System.out.println("[------------------Scene-Changing-To-AppointmentUpdate------------------]");
             System.out.println();
-            //Change and pass the selected appointment data to updateAppointment
-           /// Let StageManager handle this
-
+            StageManager.setScenePassDataUpdate(selection);
         }
     }
 
