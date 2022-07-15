@@ -3,15 +3,22 @@ package main.controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
 import main.DAO.models.Appointment;
+import main.database.Connection;
 import main.utils.ObservableManager;
 import main.utils.StageManager;
 
 import java.net.URL;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import static main.utils.ObservableManager.*;
@@ -86,7 +93,6 @@ public class Appointments implements Initializable {
     @FXML
     private TableColumn<?, ?> MonthViewUserID;
 
-
     //Modify-Tab - ID'S
     @FXML
     private TableView<Appointment> AllView;
@@ -123,6 +129,47 @@ public class Appointments implements Initializable {
 
 
     //FXML-METHODS************************************
+
+    @FXML
+    void DeselectTableRow(MouseEvent event) {
+        AllView.getSelectionModel().clearSelection();
+    }
+
+    @FXML
+    void DeleteFromAll(MouseEvent event) {
+        //The Alert Code
+        Alert confirmDelete = new Alert(Alert.AlertType.WARNING);
+        confirmDelete.setHeaderText("[WARNING] : [DELETION]");
+        confirmDelete.getButtonTypes().add(ButtonType.CANCEL);
+        confirmDelete.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+
+        Appointment selectedAppointment = null;
+        //If there is a current selection in the all view
+        if (AllView.getSelectionModel().getSelectedItem() != null) {
+            selectedAppointment = AllView.getSelectionModel().getSelectedItem();
+            confirmDelete.setContentText("[Warning!] - You are about to delete Appointment[ID]: " +
+                    selectedAppointment.getAppointmentId() + " . " +
+                    "Which is of type " + selectedAppointment.getType() + " " +
+                    "are you sure you wish to continue? This action cannot be reversed!");
+            //TODO document this lambda
+            Appointment effectivelyFinalSelectedAppointment = selectedAppointment;
+            confirmDelete.showAndWait().ifPresent(response -> {
+                if (response == ButtonType.OK) {
+                    String query = "Delete From appointments Where Appointment_ID = " + effectivelyFinalSelectedAppointment.getAppointmentId();
+                    try {
+                        PreparedStatement ps = Connection.getConnection().prepareStatement(query);
+                        System.out.println(ps.executeUpdate() + " database records have been deleted.");
+                        ps.close();
+                        //When deletion does happen repopulate the tables
+                        populateDataAppointmentLists();
+                    } catch (SQLException e) {
+                        System.out.println("There was a problem trying to perform a deletion on the modify All Appointments tab");
+                        throw new RuntimeException(e);
+                    }
+                }
+            });
+        }
+    }
 
     @FXML
     void ChangeSceneToAppointmentMainMenu(ActionEvent event) {
@@ -206,7 +253,5 @@ public class Appointments implements Initializable {
         AllViewCustID.setCellValueFactory(new PropertyValueFactory<>("CustomerId"));
         AllViewUserID.setCellValueFactory(new PropertyValueFactory<>("UserId"));
         AllViewCon.setCellValueFactory(new PropertyValueFactory<>("ContactId"));
-
-
     }
 }

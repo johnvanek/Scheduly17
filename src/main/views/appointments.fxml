@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="900.0" stylesheets="@../resources/styles/main.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.Appointments">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#DeselectTableRow" prefHeight="560.0" prefWidth="900.0" stylesheets="@../resources/styles/main.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.Appointments">
    <children>
       <TabPane layoutX="13.0" layoutY="191.0" prefHeight="347.0" prefWidth="864.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
@@ -82,7 +82,7 @@
             </Tab>
             <Tab text="Modify Appointments">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0" onMouseClicked="#DeselectTableRow" prefHeight="180.0" prefWidth="200.0">
                      <children>
                         <Button layoutX="41.0" layoutY="49.0" mnemonicParsing="false" onMouseClicked="#ChangeSceneToAddAppointment" prefHeight="25.0" prefWidth="65.0" text="Add" />
                         <Separator layoutX="100.0" layoutY="40.0" prefHeight="3.0" prefWidth="119.0" />
@@ -91,7 +91,7 @@
                         <Separator layoutX="34.0" layoutY="40.0" orientation="VERTICAL" prefHeight="80.0" prefWidth="6.0" />
                         <Text layoutX="49.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modifiers" />
                         <Separator layoutX="35.0" layoutY="40.0" prefHeight="0.0" prefWidth="14.0" />
-                        <Button layoutX="41.0" layoutY="85.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="65.0" text="Delete" />
+                        <Button layoutX="41.0" layoutY="85.0" mnemonicParsing="false" onMouseClicked="#DeleteFromAll" prefHeight="25.0" prefWidth="65.0" text="Delete" />
                         <Button layoutX="130.0" layoutY="49.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="65.0" text="Update" />
                         <ScrollPane layoutX="230.0" layoutY="40.0" prefHeight="230.0" prefWidth="625.0">
                            <content>
