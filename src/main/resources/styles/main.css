@@ -16,6 +16,30 @@
     -fx-background-radius: 12;
 }
 
+.roundedCornerLarge {
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+}
+
+.rounderCornerSmall {
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+}
+
+.borders {
+        -fx-border-color: black;
+        -fx-border-width: 1;
+}
+
+.textStroke {
+        -fx-stroke: black;
+        -fx-stroke-width: .5px;
+}
+
+.tealBackground {
+ -fx-background-color: #00a4b3
+}
+
 @font-face {
     font-family: 'Roboto Medium';
     src: url('/Fonts/Roboto/Roboto-Medium.ttf');
@@ -31,14 +55,30 @@
     src: url('/Fonts/Montserrat/Montserrat-ExtraBold.ttf');
 }
 
+.bigFont {
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+}
+
+.boldFont {
+    -fx-font-weight: bold;
+}
+
+.subheaderFont {
+    -fx-font-size: 18px;
+}
+
 .heading {
     -fx-font-family: "Roboto-Bold";
     -fx-font-weight: bold;
-    /*-fx-font-size: 2.5em;*/
 }
 
 .icon {
     /*    Icon Color #97CBFF*/
+}
+
+.robotoMedium {
+    -fx-font-family: "Roboto Medium"
 }
 
 .loginTextBox {
@@ -104,6 +144,10 @@
         -fx-background-color: #FBFCFB;
          -fx-border-radius: 4;
          -fx-background-radius: 4;
+}
+
+.montserrat {
+    -fx-font-family: "Montserrat";
 }
 
 .regionCodeText {

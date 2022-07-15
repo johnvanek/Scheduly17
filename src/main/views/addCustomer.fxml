@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -7,15 +9,15 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="900.0" style="-fx-background-color: white;" stylesheets="@../resources/styles/main.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.AddCustomer">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="900.0" styleClass="tealBackground" stylesheets="@../resources/styles/main.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.AddCustomer">
    <children>
-      <MenuBar layoutY="2.0">
+      <MenuBar layoutY="2.0" style="-fx-background-color: white;" styleClass="rounderCornerSmall">
          <menus>
             <Menu mnemonicParsing="false" text="Appointments">
                <items>
@@ -38,57 +40,72 @@
                </items>
             </Menu>
          </menus>
+         <cursor>
+            <Cursor fx:constant="OPEN_HAND" />
+         </cursor>
       </MenuBar>
-      <AnchorPane layoutX="284.0" layoutY="50.0" prefHeight="322.0" prefWidth="314.0" style="-fx-background-color: lightblue;" stylesheets="@../resources/styles/main.css">
+      <AnchorPane layoutX="280.0" layoutY="66.0" prefHeight="402.0" prefWidth="314.0" style="-fx-background-color: lightblue;" styleClass="loginBox" stylesheets="@../resources/styles/main.css">
          <children>
-            <Text layoutX="76.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add A New Customer">
+            <Text fill="WHITE" layoutX="70.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="2.0" text="Add A New Customer">
                <font>
                   <Font size="17.0" />
-               </font></Text>
-            <Label layoutX="17.0" layoutY="53.0" text="Customer-Name" />
-            <TextField layoutX="111.0" layoutY="49.0" prefHeight="25.0" prefWidth="119.0" />
-            <Label layoutX="57.0" layoutY="84.0" text="Address" />
-            <TextField layoutX="111.0" layoutY="81.0" prefHeight="25.0" prefWidth="119.0" />
-            <TextField layoutX="111.0" layoutY="113.0" prefHeight="25.0" prefWidth="119.0" />
-            <Label layoutX="40.0" layoutY="115.0" text="Postal-Code" />
-            <Label layoutX="57.0" layoutY="180.0" text="Country" />
-            <ComboBox layoutX="111.0" layoutY="177.0" prefWidth="150.0" />
-            <Label layoutX="17.0" layoutY="143.0" text="Phone-Number" />
-            <TextField layoutX="111.0" layoutY="145.0" prefHeight="25.0" prefWidth="119.0" />
-            <Button layoutX="125.0" layoutY="272.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="65.0" text="Submit" />
-            <Label layoutX="10.0" layoutY="219.0" text="Provinces/States" />
-            <ComboBox layoutX="111.0" layoutY="215.0" prefWidth="150.0" />
+               </font>
+               <styleClass>
+                  <String fx:value="heading" />
+                  <String fx:value="montserrat" />
+                  <String fx:value="textStroke" />
+               </styleClass></Text>
+            <Label layoutX="17.0" layoutY="53.0" styleClass="montserrat" text="Customer-Name">
+               <font>
+                  <Font name="Consolas Bold" size="12.0" />
+               </font></Label>
+            <TextField layoutX="111.0" layoutY="49.0" prefHeight="25.0" prefWidth="119.0" styleClass="loginTextBox">
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor></TextField>
+            <Label layoutX="57.0" layoutY="84.0" styleClass="montserrat" text="Address">
+               <font>
+                  <Font name="Consolas Bold" size="12.0" />
+               </font></Label>
+            <TextField layoutX="111.0" layoutY="81.0" prefHeight="25.0" prefWidth="119.0" styleClass="loginTextBox">
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor></TextField>
+            <TextField layoutX="111.0" layoutY="113.0" prefHeight="25.0" prefWidth="119.0" styleClass="loginTextBox">
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor></TextField>
+            <Label layoutX="38.0" layoutY="118.0" styleClass="montserrat" text="Postal-Code" />
+            <Label layoutX="57.0" layoutY="180.0" styleClass="montserrat" text="Country" />
+            <ComboBox layoutX="111.0" layoutY="177.0" prefWidth="150.0">
+               <cursor>
+                  <Cursor fx:constant="OPEN_HAND" />
+               </cursor></ComboBox>
+            <Label layoutX="16.0" layoutY="150.0" styleClass="montserrat" text="Phone-Number" />
+            <TextField layoutX="111.0" layoutY="145.0" prefHeight="25.0" prefWidth="119.0" styleClass="loginTextBox">
+               <cursor>
+                  <Cursor fx:constant="TEXT" />
+               </cursor></TextField>
+            <Button layoutX="113.0" layoutY="303.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="88.0" style="-fx-font-size: 1.5em;" styleClass="loginButton" text="Submit">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <effect>
+                  <DropShadow blurType="ONE_PASS_BOX" height="3.25" offsetX="-2.0" offsetY="4.0" radius="1.1875" width="3.5">
+                     <color>
+                        <Color red="0.11050000041723251" green="0.3323499858379364" blue="0.8500000238418579" />
+                     </color>
+                  </DropShadow>
+               </effect></Button>
+            <Label layoutX="10.0" layoutY="219.0" styleClass="montserrat" text="Provinces/States" />
+            <ComboBox layoutX="111.0" layoutY="215.0" prefWidth="150.0">
+               <cursor>
+                  <Cursor fx:constant="OPEN_HAND" />
+               </cursor></ComboBox>
          </children>
+         <effect>
+            <DropShadow height="15.0" radius="7.0" width="15.0" />
+         </effect>
       </AnchorPane>
-      <Text layoutX="674.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Take Care Of The ">
-         <font>
-            <Font size="17.0" />
-         </font>
-      </Text>
-      <Text layoutX="702.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer">
-         <font>
-            <Font size="17.0" />
-         </font>
-      </Text>
-      <Text layoutX="678.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Remember User">
-         <font>
-            <Font size="17.0" />
-         </font>
-      </Text>
-      <Text layoutX="692.0" layoutY="342.0" strokeType="OUTSIDE" strokeWidth="0.0" text="And They Will">
-         <font>
-            <Font size="17.0" />
-         </font>
-      </Text>
-      <Text layoutX="676.0" layoutY="365.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Take Care Of You!">
-         <font>
-            <Font size="17.0" />
-         </font>
-      </Text>
-      <ImageView fitHeight="221.0" fitWidth="227.0" layoutX="625.0" layoutY="104.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../resources/Images/ThumbsUp.jpg" />
-         </image>
-      </ImageView>
    </children>
 </AnchorPane>

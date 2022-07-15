@@ -184,8 +184,6 @@ public class Appointments implements Initializable {
         StageManager.transitionNextScene("appointments");
     }
 
-
-
     @FXML
     void ChangeSceneToCustomerMainMenu(ActionEvent event) {
         StageManager.transitionNextScene("customers");
