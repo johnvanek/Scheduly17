@@ -20,7 +20,7 @@ public final class StageManager {
         return primaryStage;
     }
 
-    private static void setPrimaryStage(Stage primaryStage) {
+    public static void setPrimaryStage(Stage primaryStage) {
         StageManager.primaryStage = primaryStage;
     }
 
@@ -47,7 +47,7 @@ public final class StageManager {
         System.out.println();
     }
 
-    private static void transitionNextScene(String nxtScene) {
+    public static void transitionNextScene(String nxtScene) {
         setTitle(nxtScene);
         setLogText(Misc.makeFirstLetterUppercase(nxtScene));
         setScene(nxtScene);

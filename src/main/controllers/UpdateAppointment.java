@@ -54,31 +54,30 @@ public class UpdateAppointment implements Initializable {
     private TextField UserIDTextField;
 
     @FXML
-    void DisplayAppointments(ActionEvent event) {
-
-    }
-
-    @FXML
-    void DisplayCustomers(ActionEvent event) {
-
-    }
-
-    @FXML
-    void DisplayRecords(ActionEvent event) {
-
-    }
-
-    @FXML
     void SubmitUpdate(MouseEvent event) {
 
     }
 
+    //FXML METHODS*******************************
     @FXML
-    void TerminateSession(ActionEvent event) {
-
+    void ChangeSceneToAppointmentMainMenu(ActionEvent event) {
+        StageManager.transitionNextScene("appointments");
     }
 
-    //FXML METHODS*******************************
+    @FXML
+    void ChangeSceneToCustomerMainMenu(ActionEvent event) {
+        StageManager.transitionNextScene("customers");
+    }
+
+    @FXML
+    void ChangeSceneToRecords(ActionEvent event) {
+        System.out.println("I am displaying the records");
+    }
+
+    @FXML
+    void TerminateSession(ActionEvent event) {
+        System.out.println("I am closing the session");
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

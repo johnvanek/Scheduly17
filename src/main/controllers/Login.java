@@ -168,7 +168,7 @@ public class Login implements Initializable {
         //Make this work later against the database.
         if (userIsValid()) {
             // Todo call the method here to check in the next 15 minutes perhaps at an interval.
-            StageManager.setScene("appointments");
+            StageManager.transitionNextScene("appointments");
         } else {
             displayErrorCodeStyling();
         }

@@ -2,7 +2,6 @@ package main.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -10,9 +9,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
-import javafx.stage.Stage;
 import main.DAO.models.Appointment;
 import main.database.Connection;
 import main.utils.ObservableManager;
@@ -26,8 +23,6 @@ import java.util.ResourceBundle;
 import static main.utils.ObservableManager.*;
 
 public class Appointments implements Initializable {
-    //Data Local to the Class
-    UpdateAppointment updateAppointmentcontroller;
     //FXML-ID'S**************************************************************************
     //Week-Tab - ID'S
     @FXML
@@ -177,41 +172,23 @@ public class Appointments implements Initializable {
     }
 
     @FXML
-    void UpdateAppointment(MouseEvent event) {
+    void ChangeSceneToUpdateAppointment(MouseEvent event) {
         if (AllView.getSelectionModel().getSelectedItem() != null) {
             Appointment selection = AllView.getSelectionModel().getSelectedItem();
-            System.out.println();
-            System.out.println("[------------------Scene-Changing-To-AppointmentUpdate------------------]");
-            System.out.println();
-            StageManager.setScenePassDataUpdate(selection);
+            StageManager.transitionNextScene("updateAppointment", selection);
         }
     }
 
     @FXML
     void ChangeSceneToAppointmentMainMenu(ActionEvent event) {
-        System.out.println();
-        System.out.println("[------------------Scene-Changing-To-Appointment------------------]");
-        System.out.println();
-        StageManager.setTitle("appointments");
-        StageManager.setScene("appointments");
+        StageManager.transitionNextScene("appointments");
     }
 
-    @FXML
-    void ChangeSceneToAddAppointment(MouseEvent event) {
-        System.out.println();
-        System.out.println("[------------------Scene-Changing-To-AppointmentADD------------------]");
-        System.out.println();
-        StageManager.setTitle("addappointment");
-        StageManager.setScene("addAppointment");
-    }
+
 
     @FXML
     void ChangeSceneToCustomerMainMenu(ActionEvent event) {
-        System.out.println();
-        System.out.println("[------------------Scene-Changing-To-Customers------------------]");
-        System.out.println();
-        StageManager.setTitle("customers");
-        StageManager.setScene("customers");
+        StageManager.transitionNextScene("customers");
     }
 
     @FXML
@@ -224,6 +201,10 @@ public class Appointments implements Initializable {
         System.out.println("I am closing the session");
     }
 
+    @FXML
+    void ChangeSceneToAddAppointment(MouseEvent event) {
+        StageManager.transitionNextScene("addAppointment");
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

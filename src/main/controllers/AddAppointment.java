@@ -124,8 +124,7 @@ public class AddAppointment implements Initializable {
             success.setHeaderText("[SUCCESSFUL] : [SUBMISSION]");
             success.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
             success.showAndWait();
-            StageManager.setTitle("appointments");
-            StageManager.setScene("appointments");
+            StageManager.transitionNextScene("appointments");
         } else {
             //clear all the fields if the wrong information is entered.
 
@@ -188,32 +187,23 @@ public class AddAppointment implements Initializable {
     }
     //FXML METHODS*******************************
     @FXML
-    void DisplayAppointments(ActionEvent event) {
-        System.out.println();
-        System.out.println("[------------------Scene-Changing-To-Appointment------------------]");
-        System.out.println();
-        StageManager.setTitle("appointments");
-        StageManager.setScene("appointments");
+    void ChangeSceneToAppointmentMainMenu(ActionEvent event) {
+        StageManager.transitionNextScene("appointments");
     }
 
     @FXML
-    void DisplayCustomers(ActionEvent event) {
-        System.out.println();
-        System.out.println("[------------------Scene-Changing-To-Customers------------------]");
-        System.out.println();
-        StageManager.setTitle("customers");
-        StageManager.setScene("customers");
+    void ChangeSceneToCustomerMainMenu(ActionEvent event) {
+        StageManager.transitionNextScene("customers");
     }
 
     @FXML
-    void DisplayRecords(ActionEvent event) {
-
-
+    void ChangeSceneToRecords(ActionEvent event) {
+        System.out.println("I am displaying the records");
     }
 
     @FXML
     void TerminateSession(ActionEvent event) {
-
+        System.out.println("I am closing the session");
     }
 
 }

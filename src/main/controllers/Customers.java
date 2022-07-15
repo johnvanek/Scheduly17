@@ -2,39 +2,41 @@ package main.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
 import main.utils.StageManager;
 
-public class Customers {
+import java.net.URL;
+import java.util.ResourceBundle;
 
+public class Customers implements Initializable {
+    //FXML METHODS*******************************
     @FXML
-    void DisplayAppointments(ActionEvent event) {
-        StageManager.setTitle("appointments");
-        StageManager.setScene("appointments");
+    void ChangeSceneToAppointmentMainMenu(ActionEvent event) {
+        StageManager.transitionNextScene("appointments");
     }
 
     @FXML
-    void DisplayCustomers(ActionEvent event) {
-        System.out.println("Scene-Changing-Customers");
-        StageManager.setTitle("customers");
-        StageManager.setScene("customers");
+    void ChangeSceneToCustomerMainMenu(ActionEvent event) {
+        StageManager.transitionNextScene("customers");
     }
 
     @FXML
-    void DisplayRecords(ActionEvent event) {
-        //This might be the more comfortable way to code.
+    void ChangeSceneToRecords(ActionEvent event) {
+        System.out.println("I am displaying the records");
     }
 
     @FXML
     void TerminateSession(ActionEvent event) {
-        //Add the code for this session later.
-
+        System.out.println("I am closing the session");
     }
-
     @FXML
-    void DisplayAddCustomer(MouseEvent event) {
-        StageManager.setTitle("add-Customer");
-        StageManager.setScene("addCustomer");
+    void ChangeSceneAddCustomer(MouseEvent event) {
+        StageManager.transitionNextScene("addCustomer");
     }
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+    }
 }

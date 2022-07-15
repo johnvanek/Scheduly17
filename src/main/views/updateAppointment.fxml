@@ -19,17 +19,17 @@
          <menus>
             <Menu mnemonicParsing="false" text="Appointments">
                <items>
-                  <MenuItem mnemonicParsing="false" onAction="#DisplayAppointments" text="View" />
+                  <MenuItem mnemonicParsing="false" onAction="#ChangeSceneToAppointmentMainMenu" text="View" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Customers">
                <items>
-                  <MenuItem mnemonicParsing="false" onAction="#DisplayCustomers" text="View" />
+                  <MenuItem mnemonicParsing="false" onAction="#ChangeSceneToCustomerMainMenu" text="View" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Records">
                <items>
-                  <MenuItem mnemonicParsing="false" onAction="#DisplayRecords" text="About" />
+                  <MenuItem mnemonicParsing="false" onAction="#ChangeSceneToRecords" text="About" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Signout">

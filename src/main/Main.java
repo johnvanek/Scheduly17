@@ -33,7 +33,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         StageManager.setPrimaryStage(primaryStage);
-        StageManager.setScene("login");
+        StageManager.transitionNextScene("login");
         primaryStage.setResizable(false);
         primaryStage.show();
     }

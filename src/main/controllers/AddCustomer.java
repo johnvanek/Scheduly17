@@ -15,25 +15,22 @@ public class AddCustomer implements Initializable {
     }
 
     @FXML
-    void DisplayAppointments(ActionEvent event) {
-        StageManager.setTitle("appointments");
-        StageManager.setScene("appointments");
+    void ChangeSceneToAppointmentMainMenu(ActionEvent event) {
+        StageManager.transitionNextScene("appointments");
     }
 
     @FXML
-    void DisplayCustomers(ActionEvent event) {
-        System.out.println("Scene-Changing-Customers");
-        StageManager.setTitle("customers");
-        StageManager.setScene("customers");
+    void ChangeSceneToCustomerMainMenu(ActionEvent event) {
+        StageManager.transitionNextScene("customers");
     }
 
     @FXML
-    void DisplayRecords(ActionEvent event) {
-
+    void ChangeSceneToRecords(ActionEvent event) {
+        System.out.println("I am displaying the records");
     }
 
     @FXML
     void TerminateSession(ActionEvent event) {
-
+        System.out.println("I am closing the session");
     }
 }

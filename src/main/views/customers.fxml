@@ -12,25 +12,26 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="900.0" stylesheets="@../resources/styles/main.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.Customers">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="900.0" stylesheets="@../resources/styles/main.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.Customers">
    <children>
       <MenuBar layoutY="2.0">
          <menus>
             <Menu mnemonicParsing="false" text="Appointments">
                <items>
-                  <MenuItem mnemonicParsing="false" onAction="#DisplayAppointments" text="View" />
+                  <MenuItem mnemonicParsing="false" onAction="#ChangeSceneToAppointmentMainMenu" text="View" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Customers">
                <items>
-                  <MenuItem mnemonicParsing="false" onAction="#DisplayCustomers" text="View" />
+                  <MenuItem mnemonicParsing="false" onAction="#ChangeSceneToCustomerMainMenu" text="View" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Records">
                <items>
-                  <MenuItem mnemonicParsing="false" onAction="#DisplayRecords" text="About" />
+                  <MenuItem mnemonicParsing="false" onAction="#ChangeSceneToRecords" text="About" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Signout">
@@ -58,8 +59,7 @@
             </AnchorPane>
         </content>
       </ScrollPane>
-      <Label layoutX="543.0" layoutY="56.0" text="Customers" />
-      <Button layoutX="39.0" layoutY="99.0" mnemonicParsing="false" onMouseClicked="#DisplayAddCustomer" prefHeight="25.0" prefWidth="65.0" text="Add" />
+      <Button layoutX="39.0" layoutY="99.0" mnemonicParsing="false" onMouseClicked="#ChangeSceneAddCustomer" prefHeight="25.0" prefWidth="65.0" text="Add" />
       <Separator layoutX="214.0" layoutY="90.0" orientation="VERTICAL" prefHeight="79.0" prefWidth="0.0" />
       <Button layoutX="39.0" layoutY="135.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="65.0" text="Delete" />
       <Button layoutX="128.0" layoutY="99.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="65.0" text="Update" />
@@ -83,5 +83,10 @@
       <Label layoutX="19.0" layoutY="360.0" text="Provinces" />
       <Label layoutX="19.0" layoutY="374.0" text="States" />
       <ComboBox layoutX="86.0" layoutY="362.0" prefWidth="150.0" />
+      <Label layoutX="512.0" layoutY="50.0" style="-fx-font-size: 22;" text="Customers">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
