@@ -31,13 +31,32 @@
         -fx-border-width: 1;
 }
 
+.tinyStroke {
+    -fx-stroke: black;
+    -fx-stroke-width: .25px;
+}
+
 .textStroke {
         -fx-stroke: black;
         -fx-stroke-width: .5px;
 }
 
+.inbetweenStroke {
+        -fx-stroke: black;
+        -fx-stroke-width: .75px;
+}
+
+.biggerStroke {
+        -fx-stroke: black;
+        -fx-stroke-width: 1px;
+}
+
 .tealBackground {
  -fx-background-color: #00a4b3
+}
+
+.fontSmall {
+    -fx-font-size: 18px;
 }
 
 @font-face {
