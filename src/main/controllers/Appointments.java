@@ -2,6 +2,7 @@ package main.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -11,6 +12,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
+import javafx.stage.Stage;
 import main.DAO.models.Appointment;
 import main.database.Connection;
 import main.utils.ObservableManager;
@@ -24,6 +26,8 @@ import java.util.ResourceBundle;
 import static main.utils.ObservableManager.*;
 
 public class Appointments implements Initializable {
+    //Data Local to the Class
+    UpdateAppointment updateAppointmentcontroller = new UpdateAppointment();
     //FXML-ID'S**************************************************************************
     //Week-Tab - ID'S
     @FXML
@@ -155,7 +159,8 @@ public class Appointments implements Initializable {
             Appointment effectivelyFinalSelectedAppointment = selectedAppointment;
             confirmDelete.showAndWait().ifPresent(response -> {
                 if (response == ButtonType.OK) {
-                    String query = "Delete From appointments Where Appointment_ID = " + effectivelyFinalSelectedAppointment.getAppointmentId();
+                    String query = "Delete From appointments Where Appointment_ID = " +
+                            effectivelyFinalSelectedAppointment.getAppointmentId();
                     try {
                         PreparedStatement ps = Connection.getConnection().prepareStatement(query);
                         System.out.println(ps.executeUpdate() + " database records have been deleted.");
@@ -173,14 +178,16 @@ public class Appointments implements Initializable {
 
     @FXML
     void UpdateAppointment(MouseEvent event) {
-        if(AllView.getSelectionModel().getSelectedItem() != null){
+        if (AllView.getSelectionModel().getSelectedItem() != null) {
             System.out.println();
             System.out.println("[------------------Scene-Changing-To-AppointmentUpdate------------------]");
             System.out.println();
-            StageManager.setTitle("updateappointment");
-            StageManager.setScene("UpdateAppointment");
+            //Change and pass the selected appointment data to updateAppointment
+           /// Let StageManager handle this
+
         }
     }
+
     @FXML
     void ChangeSceneToAppointmentMainMenu(ActionEvent event) {
         System.out.println();
@@ -222,10 +229,7 @@ public class Appointments implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //I want to create the data here without throwing exceptions
-
         ObservableManager.populateDataAppointmentLists();
-
-
         //Bind the Table Views
         //Initialize the Month Tab
         WeekView.setItems(appointmentWeeklyList);

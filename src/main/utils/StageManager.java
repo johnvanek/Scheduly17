@@ -4,6 +4,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import main.DAO.models.Appointment;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -37,5 +38,10 @@ public final class StageManager {
 
     public static void setTitle(String title) {
         primaryStage.setTitle("Scheduly-17-" + Misc.makeFirstLetterUppercase(title));
+    }
+
+    public static void setScenePassData(String view, Appointment selected){
+        setScene("updateAppointment");
+
     }
 }
