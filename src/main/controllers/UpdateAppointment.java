@@ -82,5 +82,13 @@ public class UpdateAppointment implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         System.out.println("The value of passing data is " + appSelected.getTitle());
+        populateData();
+        // TODO when initialized pre-fill out the fields with the data that has been passed from appointments.java
+    }
+
+    private void populateData() {
+        //Get a reference to all the local fields
+        // Assign them the values from the appSelected
+
     }
 }
