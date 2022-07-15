@@ -30,6 +30,7 @@ public class Customers implements Initializable {
     void TerminateSession(ActionEvent event) {
         System.out.println("I am closing the session");
     }
+
     @FXML
     void ChangeSceneAddCustomer(MouseEvent event) {
         StageManager.transitionNextScene("addCustomer");
