@@ -172,6 +172,16 @@ public class Appointments implements Initializable {
     }
 
     @FXML
+    void UpdateAppointment(MouseEvent event) {
+        if(AllView.getSelectionModel().getSelectedItem() != null){
+            System.out.println();
+            System.out.println("[------------------Scene-Changing-To-AppointmentUpdate------------------]");
+            System.out.println();
+            StageManager.setTitle("updateappointment");
+            StageManager.setScene("UpdateAppointment");
+        }
+    }
+    @FXML
     void ChangeSceneToAppointmentMainMenu(ActionEvent event) {
         System.out.println();
         System.out.println("[------------------Scene-Changing-To-Appointment------------------]");

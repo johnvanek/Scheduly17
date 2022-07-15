@@ -23,8 +23,6 @@ import static main.utils.ObservableManager.*;
 import static main.utils.TimeManager.*;
 
 public class AddAppointment implements Initializable {
-
-    //FXML
     //FXML ID's*************************************
     @FXML
     private TextField TitleTextField;
@@ -188,7 +186,7 @@ public class AddAppointment implements Initializable {
         }
         return true;
     }
-
+    //FXML METHODS*******************************
     @FXML
     void DisplayAppointments(ActionEvent event) {
         System.out.println();

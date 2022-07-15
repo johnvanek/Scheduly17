@@ -9,10 +9,10 @@ import java.io.IOException;
 import java.util.Objects;
 
 public final class StageManager {
+    private static Stage primaryStage;
+
     private StageManager() {
     }
-
-    private static Stage primaryStage;
 
     public static Stage getPrimaryStage() {
         return primaryStage;
