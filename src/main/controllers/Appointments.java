@@ -206,7 +206,6 @@ public class Appointments implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //I want to create the data here without throwing exceptions
         ObservableManager.populateDataAppointmentLists();
         //Bind the Table Views
         //Initialize the Month Tab

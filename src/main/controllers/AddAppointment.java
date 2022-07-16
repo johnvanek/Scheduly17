@@ -125,6 +125,9 @@ public class AddAppointment implements Initializable {
             success.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
             success.showAndWait();
             StageManager.transitionNextScene("appointments");
+            appointmentWeeklyList.clear();
+            appointmentMonthlyList.clear();
+            populateDataAppointmentLists();
         }
     }
 

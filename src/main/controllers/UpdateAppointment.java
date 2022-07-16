@@ -8,6 +8,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
 import main.DAO.models.Appointment;
 import main.database.Connection;
+import main.utils.ObservableManager;
 import main.utils.StageManager;
 import main.utils.TimeManager;
 
@@ -20,6 +21,8 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Objects;
 import java.util.ResourceBundle;
+
+import static main.utils.ObservableManager.*;
 
 public class UpdateAppointment implements Initializable {
 
@@ -62,11 +65,6 @@ public class UpdateAppointment implements Initializable {
     @FXML
     private TextField UserIDTextField;
 
-    @FXML
-    void SubmitUpdate(MouseEvent event) {
-
-    }
-
     //FXML METHODS*******************************
     @FXML
     void ChangeSceneToAppointmentMainMenu(ActionEvent event) {
@@ -91,15 +89,15 @@ public class UpdateAppointment implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         System.out.println("The value of passing data is " + appSelected.getTitle());
+        ObservableManager.populateDataComboBoxes();
+        TimeManager.generateValidBusinessHoursList();
+        StartTimeComboBox.setItems(StartTimesAddAppEst);
+        EndTimeComboBox.setItems(EndTimesAddAppEst);
         prefillData();
-        // TODO when initialized pre-fill out the fields with the data that has been passed from appointments.java
-        //  Copy over as much code as possible from Appointments add or move some of it into a separate class.
-
     }
 
     private void prefillData() {
         //Get that is stored.
-        Appointment data = appSelected;
         //Get a reference to all the fields
         // And assign the values
         TitleTextField.setText(appSelected.getTitle());
@@ -167,10 +165,14 @@ public class UpdateAppointment implements Initializable {
         return true;
     }
 
-    private void submitUpdate() throws SQLException {
+    @FXML
+    private void SubmitUpdate(MouseEvent event) throws SQLException {
         if (isFieldsFilledOut()) {
             verifyIfValidAndSubmit();
         }
+        appointmentWeeklyList.clear();
+        appointmentMonthlyList.clear();
+        populateDataAppointmentLists();
     }
 
     private void verifyIfValidAndSubmit() throws SQLException {
@@ -190,15 +192,15 @@ public class UpdateAppointment implements Initializable {
         LocalDateTime appDate = startDate.atTime(startTime);
         LocalDateTime endDateTime = startDate.atTime(endTime);
 
-        // TODO make a another version of this that ignores the current appointment for overlap test this out
-        //  have to ignore the current record in order to get an update without modifying the time.
-        if (TimeManager.isCustomerAvailableForUpdate(custID, appDate, endDateTime)) {
+        System.out.println("Attempting to determine if valid");
+        if (TimeManager.isCustomerAvailableForUpdate(custID, appDate, endDateTime, title, desc, appSelected.getAppointmentId())) {
             // TODO change this to an Update Statement
-            String query = "UPDATE appointments " +
-                    "SET (Title,Description,Location,Type,Start,End,Create_Date,Created_By," +
-                    "Last_Update,Last_Updated_By,Customer_ID,User_ID,Contact_ID) " +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            //String query2 = "update DemoTable set FirstName=? where Id=? ";
+            String query = "UPDATE appointments SET Title = ?, Description =?, Location =?, Type =?, Start =?, End =?, " +
+                    "Create_Date =?, Created_By =?, Last_Update =?, Last_Updated_By =?, Customer_ID =?, User_ID =?, " +
+                    "Contact_ID =? WHERE Appointment_ID =?";
             PreparedStatement ps = Connection.getConnection().prepareStatement(query);
+
             ps.setString(1, title);
             ps.setString(2, desc);
             ps.setString(3, loc);
@@ -213,11 +215,12 @@ public class UpdateAppointment implements Initializable {
             ps.setInt(11, custID);
             ps.setInt(12, userID);
             ps.setInt(13, con);
+            ps.setInt(14, appSelected.getAppointmentId());
             ps.executeUpdate();
 
             ps.close();
             //Let them know that it went through
-            Alert success = new Alert(Alert.AlertType.INFORMATION, "Appointment added. Redirecting you back to the " +
+            Alert success = new Alert(Alert.AlertType.INFORMATION, "Appointment Updated. Redirecting you back to the " +
                     "main menu.", ButtonType.OK);
 
             success.setHeaderText("[SUCCESSFUL] : [SUBMISSION]");

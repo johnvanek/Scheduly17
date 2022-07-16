@@ -10,6 +10,7 @@ import main.database.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.*;
 import java.util.stream.Collectors;
 
@@ -20,13 +21,14 @@ public final class TimeManager {
     private TimeManager() {
     }
 
+    //Might need to figure out the current work week.
     public static boolean isInRangeWeekly(Appointment appointment) {
-        //If the appointment is within a week of the Date going forward with time rounding till the end of the last day.
+        //This just checks if it is within 7 days
         LocalDateTime currentTime = LocalDateTime.now();
         LocalDateTime appStartDateTime = appointment.getStartDateTime();
         LocalDateTime sevenDaysForward = currentTime.plusDays(7);
-        int endOfTheWorkWeek = sevenDaysForward.getDayOfYear();
-        return ((currentTime.isBefore(appStartDateTime) && (currentTime.isBefore(sevenDaysForward) && appStartDateTime.isAfter(currentTime)) || currentTime.getDayOfYear() == endOfTheWorkWeek));
+
+        return ((currentTime.isBefore(appStartDateTime) && (appStartDateTime.isBefore(sevenDaysForward) && appStartDateTime.isAfter(currentTime))));
     }
 
     public static boolean isInRangeMonthly(Appointment appointment) {
@@ -107,7 +109,7 @@ public final class TimeManager {
     }
 
 
-    public static boolean isCustomerAvailableForUpdate(int customerID, LocalDateTime appStart, LocalDateTime appEnd) throws SQLException {
+    public static boolean isCustomerAvailableForUpdate(int customerID, LocalDateTime appStart, LocalDateTime appEnd, String title, String description, int appId) throws SQLException {
         //Methods in the LocalDateTime class
         // A > B    /// A.isAfter(B)
         // A == B  ///  A.isEqual(B)
@@ -121,9 +123,18 @@ public final class TimeManager {
         //InLocalDateTimeMethods
         // A.isAfter(B) || A.isEqual(B)
 
-        String query = "SELECT * FROM appointments WHERE Customer_ID = " + customerID;
+        //Select all the record for comparison except the current record
+        String query = "SELECT * FROM appointments " +
+                "WHERE  Appointment_ID not in " +
+                "(" +
+                "Select Appointment_ID " +
+                "FROM appointments " +
+                "WHERE Appointment_ID = " + appId +
+                ")";
+
         PreparedStatement ps = Connection.getConnection().prepareStatement(query);
         ResultSet rs = ps.executeQuery();
+        //Cant use query here that is a update statement
 
         System.out.println("Comparing appointment times for potential customer overlap!!");
         Alert overlapAlert = new Alert(Alert.AlertType.ERROR, "[Overlap-Error] The appointment you tried to add would overlap " +
@@ -175,6 +186,7 @@ public final class TimeManager {
         }
         return true;
     }
+
     public static void generateValidBusinessHoursList() {
         trimValidBusinessHours();
         trimToEST();
