@@ -194,8 +194,6 @@ public class UpdateAppointment implements Initializable {
 
         System.out.println("Attempting to determine if valid");
         if (TimeManager.isCustomerAvailableForUpdate(custID, appDate, endDateTime, title, desc, appSelected.getAppointmentId())) {
-            // TODO change this to an Update Statement
-            //String query2 = "update DemoTable set FirstName=? where Id=? ";
             String query = "UPDATE appointments SET Title = ?, Description =?, Location =?, Type =?, Start =?, End =?, " +
                     "Create_Date =?, Created_By =?, Last_Update =?, Last_Updated_By =?, Customer_ID =?, User_ID =?, " +
                     "Contact_ID =? WHERE Appointment_ID =?";

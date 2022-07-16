@@ -132,9 +132,6 @@ public class Login implements Initializable {
         //Todo implement the functionality here make sure the user is valid.
         return true;
     }
-        // TODO could go through the css and break it down into components so that I can have uniform syling across
-        //  all pages. Or could just copy and paste the already existing classes.
-        //  Break the classes down into just the elements and just add them where you want them.
     /**
      * Resets the red borders from the username text-field to the original color.
      */
