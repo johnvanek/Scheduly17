@@ -50,6 +50,8 @@ public class AddAppointment implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //initialize the combo-box data
+        //This is probably the problem initialize gets called everytime the screen comes in
+        //Seems to only be a problem for the endTime Combobox is not getting cleared
         ObservableManager.populateDataComboBoxes();
         TimeManager.generateValidBusinessHoursList();
         StartTimeComboBox.setItems(StartTimesAddAppEst);
@@ -63,6 +65,10 @@ public class AddAppointment implements Initializable {
         System.out.println("StartTimesAll      : " + StartTimesAddApp);
         System.out.println("StartTimesFiltered : " + StartTimesFiltered);
         System.out.println("StartTimesEST      : " + StartTimesAddAppEst);
+        System.out.println();
+        System.out.println("EndTimesAll      : " + EndTimesAddApp);
+        System.out.println("EndTimesFiltered : " + EndTimesFiltered);
+        System.out.println("EndTimesEST      : " + EndTimesAddAppEst);
 
         System.out.println("****************************************************");
         System.out.println("****************************************************");
@@ -125,8 +131,7 @@ public class AddAppointment implements Initializable {
             success.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
             success.showAndWait();
             StageManager.transitionNextScene("appointments");
-            appointmentWeeklyList.clear();
-            appointmentMonthlyList.clear();
+            //Repopulate the data
             populateDataAppointmentLists();
         }
     }

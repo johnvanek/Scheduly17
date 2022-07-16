@@ -38,7 +38,7 @@ public final class ObservableManager {
     }
 
     public static void populateDataAppointmentLists() {
-        appointmentAllList.clear(); // Clear out the old List before creating a new one
+        appointmentAllList.clear(); // Clear out the old List before creating new ones
         appointmentWeeklyList.clear();
         appointmentMonthlyList.clear();
         PreparedStatement ps = null;
@@ -88,6 +88,7 @@ public final class ObservableManager {
         ObservableManager.StartTimesAddAppEst.clear();
         ObservableManager.EndTimesAddAppEst.clear();
         ObservableManager.StartTimesFiltered.clear();
+        ObservableManager.EndTimesFiltered.clear();
         createAddStartAppointmentComboBox();
         createAddEndAppointmentComboBox();
     }
@@ -228,7 +229,6 @@ public final class ObservableManager {
                 LocalTime.of(7, 30),
                 LocalTime.of(7, 45),
                 LocalTime.of(8, 0),
-                LocalTime.of(8, 15),
                 LocalTime.of(8, 15),
                 LocalTime.of(8, 30),
                 LocalTime.of(8, 45),
