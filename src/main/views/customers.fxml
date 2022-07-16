@@ -93,7 +93,7 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="285.0" prefWidth="667.0">
                      <children>
-                        <TableView prefHeight="298.0" prefWidth="666.0">
+                        <TableView fx:id="CustomersTableView" prefHeight="298.0" prefWidth="666.0">
                           <columns>
                             <TableColumn prefWidth="39.0" text="ID" />
                             <TableColumn prefWidth="112.79998397827148" text="Name" />

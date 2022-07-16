@@ -89,7 +89,7 @@ public class UpdateAppointment implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         System.out.println("The value of passing data is " + appSelected.getTitle());
-        ObservableManager.populateDataComboBoxes();
+        ObservableManager.populateDataAppointmentComboBoxes();
         TimeManager.generateValidBusinessHoursList();
         StartTimeComboBox.setItems(StartTimesAddAppEst);
         EndTimeComboBox.setItems(EndTimesAddAppEst);

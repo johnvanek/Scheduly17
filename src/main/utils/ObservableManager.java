@@ -9,10 +9,7 @@ import main.database.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.ZonedDateTime;
 
 public final class ObservableManager {
 
@@ -81,7 +78,7 @@ public final class ObservableManager {
         }
     }
 
-    public static void populateDataComboBoxes() {
+    public static void populateDataAppointmentComboBoxes() {
         //Clear out the old data from the combo-Boxes before adding new data.
         ObservableManager.StartTimesAddApp.clear();
         ObservableManager.EndTimesAddApp.clear();
@@ -91,6 +88,10 @@ public final class ObservableManager {
         ObservableManager.EndTimesFiltered.clear();
         createAddStartAppointmentComboBox();
         createAddEndAppointmentComboBox();
+    }
+
+    public static void populateDataCustomerList() {
+
     }
 
     public static void createAddStartAppointmentComboBox() {

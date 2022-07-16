@@ -52,7 +52,7 @@ public class AddAppointment implements Initializable {
         //initialize the combo-box data
         //This is probably the problem initialize gets called everytime the screen comes in
         //Seems to only be a problem for the endTime Combobox is not getting cleared
-        ObservableManager.populateDataComboBoxes();
+        ObservableManager.populateDataAppointmentComboBoxes();
         TimeManager.generateValidBusinessHoursList();
         StartTimeComboBox.setItems(StartTimesAddAppEst);
         EndTimeComboBox.setItems(EndTimesAddAppEst);

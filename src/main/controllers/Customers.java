@@ -3,14 +3,20 @@ package main.controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
+import main.DAO.models.Customer;
+import main.utils.ObservableManager;
 import main.utils.StageManager;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class Customers implements Initializable {
-    //FXML METHODS*******************************
+    //FXML ID's
+    @FXML
+    private TableView<Customer> CustomersTableView;
+    //FXML METHODS
     @FXML
     void ChangeSceneToAppointmentMainMenu(ActionEvent event) {
         StageManager.transitionNextScene("appointments");
@@ -38,6 +44,7 @@ public class Customers implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        // Bind the data
+        CustomersTableView.setItems(ObservableManager.customerList);
     }
 }
