@@ -143,18 +143,18 @@
                            </effect></Button>
                         <ScrollPane layoutX="230.0" layoutY="40.0" prefHeight="271.0" prefWidth="626.0">
                            <content>
-                              <TableView fx:id="AllView" prefHeight="269.0" prefWidth="1100.0">
+                              <TableView fx:id="AllView" prefHeight="270.0" prefWidth="920.0">
                                 <columns>
-                                  <TableColumn fx:id="AllViewAppID" prefWidth="100.0" text="Appointment_ID" />
-                                  <TableColumn fx:id="AllViewTitle" prefWidth="100.0" text="Title" />
-                                    <TableColumn fx:id="AllViewDes" prefWidth="100.0" text="Description" />
-                                    <TableColumn fx:id="AllViewLoc" prefWidth="100.0" text="Location" />
-                                    <TableColumn fx:id="AllViewCon" prefWidth="100.0" text="Contact" />
-                                    <TableColumn fx:id="AllViewType" prefWidth="100.0" text="Type" />
-                                    <TableColumn fx:id="AllViewDateStart" prefWidth="150.0" text="Start Date / Start Time" />
-                                    <TableColumn fx:id="AllViewDateEnd" prefWidth="150.0" text="End Date / End Time" />
-                                    <TableColumn fx:id="AllViewCustID" prefWidth="100.0" text="Customer_ID" />
-                                    <TableColumn fx:id="AllViewUserID" prefWidth="100.0" text="User_ID" />
+                                  <TableColumn fx:id="AllViewAppID" prefWidth="25.599976360797882" text="ID" />
+                                  <TableColumn fx:id="AllViewTitle" prefWidth="71.20006942749023" text="Title" />
+                                    <TableColumn fx:id="AllViewDes" prefWidth="109.5999755859375" text="Description" />
+                                    <TableColumn fx:id="AllViewLoc" prefWidth="113.59996032714844" text="Location" />
+                                    <TableColumn fx:id="AllViewCon" prefWidth="49.599853515625" text="Contact" />
+                                    <TableColumn fx:id="AllViewType" prefWidth="116.0001220703125" text="Type" />
+                                    <TableColumn fx:id="AllViewDateStart" prefWidth="144.800048828125" text="Start Date / Start Time" />
+                                    <TableColumn fx:id="AllViewDateEnd" prefWidth="146.400146484375" text="End Date / End Time" />
+                                    <TableColumn fx:id="AllViewCustID" prefWidth="78.39990234375" text="Customer_ID" />
+                                    <TableColumn fx:id="AllViewUserID" prefWidth="58.400146484375" text="User_ID" />
                                 </columns>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />

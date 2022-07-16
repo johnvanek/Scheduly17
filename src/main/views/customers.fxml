@@ -95,12 +95,12 @@
                      <children>
                         <TableView fx:id="CustomersTableView" prefHeight="298.0" prefWidth="666.0">
                           <columns>
-                            <TableColumn prefWidth="39.0" text="ID" />
-                            <TableColumn prefWidth="112.79998397827148" text="Name" />
-                              <TableColumn prefWidth="170.40000915527344" text="Address" />
-                              <TableColumn prefWidth="77.5999755859375" text="Postal-Code" />
-                              <TableColumn prefWidth="116.79998779296875" text="Country" />
-                              <TableColumn prefWidth="158.39996337890625" text="Province/State" />
+                            <TableColumn fx:id="CustomerID" prefWidth="39.0" text="ID" />
+                            <TableColumn fx:id="CustomerName" prefWidth="168.00011825561523" text="Name" />
+                              <TableColumn fx:id="CustomerAddress" prefWidth="138.39988708496094" text="Address" />
+                              <TableColumn fx:id="CustomerPostalCode" prefWidth="84.0" text="Postal-Code" />
+                              <TableColumn fx:id="CustomerPhoneNumber" prefWidth="142.4000244140625" text="Phone-Number" />
+                              <TableColumn fx:id="CustomerCountryCode" prefWidth="86.4000244140625" text="DivisionID" />
                           </columns>
                            <cursor>
                               <Cursor fx:constant="HAND" />

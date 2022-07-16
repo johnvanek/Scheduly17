@@ -46,7 +46,8 @@ public final class ObservableManager {
             rs = ps.executeQuery();
             if (rs != null) {
                 while (rs.next()) {
-                    Appointment currentAppointment = new Appointment(rs.getInt("appointment_ID"),
+                    Appointment currentAppointment = new Appointment(
+                            rs.getInt("appointment_ID"),
                             rs.getString("title"),
                             rs.getString("description"),
                             rs.getString("location"),
@@ -55,7 +56,8 @@ public final class ObservableManager {
                             rs.getTimestamp("end").toLocalDateTime(),
                             rs.getInt("customer_ID"),
                             rs.getInt("user_ID"),
-                            rs.getInt("Contact_ID"));
+                            rs.getInt("Contact_ID")
+                    );
 
                     //Add all the appointments here from the script to the data model.
                     appointmentAllList.add(currentAppointment);
@@ -91,7 +93,36 @@ public final class ObservableManager {
     }
 
     public static void populateDataCustomerList() {
+        //Clear out the old list before creating a new one
+        customerList.clear();
 
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String query = "SELECT * FROM customers";
+        try {
+            ps = Connection.getConnection().prepareStatement(query);
+            rs = ps.executeQuery();
+            if (rs != null) {
+                while (rs.next()) {
+                    Customer currentCustomer = new Customer(
+                            rs.getInt("Customer_ID"),
+                            rs.getString("Customer_Name"),
+                            rs.getString("Address"),
+                            rs.getString("Postal_Code"),
+                            rs.getString("Phone"),
+                            rs.getInt("Division_ID")
+                    );
+                    //Add all the Customers
+                    customerList.add(currentCustomer);
+                }
+                //cleanup
+                rs.close();
+                ps.close();
+            }
+        } catch (SQLException e) {
+            System.out.println("Error creating the Customer-List");
+            throw new RuntimeException(e);
+        }
     }
 
     public static void createAddStartAppointmentComboBox() {
