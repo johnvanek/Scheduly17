@@ -20,7 +20,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#DeselectTableRow" prefHeight="560.0" prefWidth="900.0" styleClass="tealBackground" stylesheets="@../resources/styles/main.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.Appointments">
    <children>
-      <TabPane layoutX="13.0" layoutY="178.0" prefHeight="354.0" prefWidth="875.0" style="-fx-background-color: white;" styleClass="roundedCornerLarge" tabClosingPolicy="UNAVAILABLE">
+      <TabPane layoutX="13.0" layoutY="178.0" prefHeight="354.0" prefWidth="875.0" style="-fx-background-color: white;" tabClosingPolicy="UNAVAILABLE">
         <tabs>
             <Tab text="Weekly">
                <content>
