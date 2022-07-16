@@ -3,6 +3,7 @@ package main.utils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import main.DAO.models.Appointment;
+import main.DAO.models.Country;
 import main.DAO.models.Customer;
 import main.database.Connection;
 
@@ -15,9 +16,9 @@ public final class ObservableManager {
 
     //Observable List's
     //Appointment View List's
-    public static ObservableList<Appointment> appointmentAllList = FXCollections.observableArrayList();
-    public static ObservableList<Appointment> appointmentWeeklyList = FXCollections.observableArrayList();
-    public static ObservableList<Appointment> appointmentMonthlyList = FXCollections.observableArrayList();
+    public static ObservableList<Appointment> AppointmentAllList = FXCollections.observableArrayList();
+    public static ObservableList<Appointment> AppointmentWeeklyList = FXCollections.observableArrayList();
+    public static ObservableList<Appointment> AppointmentMonthlyList = FXCollections.observableArrayList();
     // Appointment Add Screen Combo-Boxes
     public static ObservableList<LocalTime> StartTimesAddApp = FXCollections.observableArrayList();
     public static ObservableList<LocalTime> EndTimesAddApp = FXCollections.observableArrayList();
@@ -29,15 +30,17 @@ public final class ObservableManager {
     public static ObservableList<LocalTime> StartTimesFiltered = FXCollections.observableArrayList();
     public static ObservableList<LocalTime> EndTimesFiltered = FXCollections.observableArrayList();
     //Customer List
-    public static ObservableList<Customer> customerList = FXCollections.observableArrayList();
+    public static ObservableList<Customer> CustomerList = FXCollections.observableArrayList();
+
+    public static ObservableList<Country> CountryList = FXCollections.observableArrayList();
 
     private ObservableManager() {
     }
 
     public static void populateDataAppointmentLists() {
-        appointmentAllList.clear(); // Clear out the old List before creating new ones
-        appointmentWeeklyList.clear();
-        appointmentMonthlyList.clear();
+        AppointmentAllList.clear(); // Clear out the old List before creating new ones
+        AppointmentWeeklyList.clear();
+        AppointmentMonthlyList.clear();
         PreparedStatement ps = null;
         ResultSet rs = null;
         String query = "Select * From appointments";
@@ -60,14 +63,14 @@ public final class ObservableManager {
                     );
 
                     //Add all the appointments here from the script to the data model.
-                    appointmentAllList.add(currentAppointment);
+                    AppointmentAllList.add(currentAppointment);
                     //Only add the weekly ones for weekly
                     if (TimeManager.isInRangeWeekly(currentAppointment)) {
-                        appointmentWeeklyList.add(currentAppointment);
+                        AppointmentWeeklyList.add(currentAppointment);
                     }
                     //Only add the Ones in the same month till the end of the month
                     if (TimeManager.isInRangeMonthly(currentAppointment)) {
-                        appointmentMonthlyList.add(currentAppointment);
+                        AppointmentMonthlyList.add(currentAppointment);
                     }
                 }
                 //cleanup
@@ -92,9 +95,13 @@ public final class ObservableManager {
         createAddEndAppointmentComboBox();
     }
 
+    public static void populateDataCustomerComboBoxes(){
+
+    };
+
     public static void populateDataCustomerList() {
         //Clear out the old list before creating a new one
-        customerList.clear();
+        CustomerList.clear();
 
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -113,7 +120,7 @@ public final class ObservableManager {
                             rs.getInt("Division_ID")
                     );
                     //Add all the Customers
-                    customerList.add(currentCustomer);
+                    CustomerList.add(currentCustomer);
                 }
                 //cleanup
                 rs.close();

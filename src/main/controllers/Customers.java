@@ -70,7 +70,7 @@ public class Customers implements Initializable {
         //Create the Data-List
         ObservableManager.populateDataCustomerList();
         // Bind the Data
-        CustomersTableView.setItems(ObservableManager.customerList);
+        CustomersTableView.setItems(ObservableManager.CustomerList);
         CustomerID.setCellValueFactory(new PropertyValueFactory<>("customerId"));
         CustomerName.setCellValueFactory(new PropertyValueFactory<>("customerName"));
         CustomerAddress.setCellValueFactory(new PropertyValueFactory<>("address"));

@@ -170,8 +170,8 @@ public class UpdateAppointment implements Initializable {
         if (isFieldsFilledOut()) {
             verifyIfValidAndSubmit();
         }
-        appointmentWeeklyList.clear();
-        appointmentMonthlyList.clear();
+        AppointmentWeeklyList.clear();
+        AppointmentMonthlyList.clear();
         populateDataAppointmentLists();
     }
 

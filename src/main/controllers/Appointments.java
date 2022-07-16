@@ -209,7 +209,7 @@ public class Appointments implements Initializable {
         ObservableManager.populateDataAppointmentLists();
         //Bind the Table Views
         //Initialize the Month Tab
-        WeekView.setItems(appointmentWeeklyList);
+        WeekView.setItems(AppointmentWeeklyList);
         WeekViewAppID.setCellValueFactory(new PropertyValueFactory<>("AppointmentId"));
         WeekViewTitle.setCellValueFactory(new PropertyValueFactory<>("Title"));
         WeekViewDes.setCellValueFactory(new PropertyValueFactory<>("Description"));
@@ -221,7 +221,7 @@ public class Appointments implements Initializable {
         WeekViewUserID.setCellValueFactory(new PropertyValueFactory<>("UserId"));
         WeekViewCon.setCellValueFactory(new PropertyValueFactory<>("ContactId"));
         //Initialize the Month Tab
-        MonthView.setItems(appointmentMonthlyList);
+        MonthView.setItems(AppointmentMonthlyList);
         MonthViewAppID.setCellValueFactory(new PropertyValueFactory<>("AppointmentId"));
         MonthViewTitle.setCellValueFactory(new PropertyValueFactory<>("Title"));
         MonthViewDes.setCellValueFactory(new PropertyValueFactory<>("Description"));
@@ -233,7 +233,7 @@ public class Appointments implements Initializable {
         MonthViewUserID.setCellValueFactory(new PropertyValueFactory<>("UserId"));
         MonthViewCon.setCellValueFactory(new PropertyValueFactory<>("ContactId"));
         //Initialize all Tab
-        AllView.setItems(appointmentAllList);
+        AllView.setItems(AppointmentAllList);
         AllViewAppID.setCellValueFactory(new PropertyValueFactory<>("AppointmentId"));
         AllViewTitle.setCellValueFactory(new PropertyValueFactory<>("Title"));
         AllViewDes.setCellValueFactory(new PropertyValueFactory<>("Description"));
