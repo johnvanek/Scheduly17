@@ -3,18 +3,22 @@ package main.controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Region;
 import main.DAO.models.Appointment;
+import main.database.Connection;
 import main.utils.StageManager;
+import main.utils.TimeManager;
 
 import java.net.URL;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class UpdateAppointment implements Initializable {
@@ -110,13 +114,117 @@ public class UpdateAppointment implements Initializable {
         CustIDTextField.setText(String.valueOf(appSelected.getCustomerId()));
         UserIDTextField.setText(String.valueOf(appSelected.getUserId()));
         ConTextField.setText(String.valueOf(appSelected.getContactId()));
-
         //And assign these w/e there is a change from the fields in case they immediately resubmit
     }
 
-    private void submitUpdate() {
-        //perform update sql operation
-        //only perform the update is the customer is available ignoring the current appointment
+    private Boolean isFieldsFilledOut() {
+        //The Alert information
+        Alert emptyFields = new Alert(Alert.AlertType.WARNING);
+        emptyFields.setHeaderText("[WARNING] [EMPTY-FIELDS]");
+        emptyFields.setContentText("Please Fill out all Fields");
+
+        String title = TitleTextField.getText();
+        String desc = DescTextField.getText();
+        String loc = LocTextField.getText();
+        String type = TypeTextField.getText();
+
+        LocalDate startDate = StartDatePicker.getValue();
+        LocalTime startTime = StartTimeComboBox.getValue();
+        LocalTime endTime = EndTimeComboBox.getValue();
+
+        if (title == null || title.trim().isEmpty()) {
+            emptyFields.showAndWait();
+            return false;
+        } else if (desc == null || desc.trim().isEmpty()) {
+            emptyFields.showAndWait();
+            return false;
+        } else if (loc == null || loc.trim().isEmpty()) {
+            emptyFields.showAndWait();
+            return false;
+        } else if (type == null || type.trim().isEmpty()) {
+            emptyFields.showAndWait();
+            return false;
+        } else if (startDate == null) {
+            emptyFields.showAndWait();
+            return false;
+        } else if (startTime == null) {
+            emptyFields.showAndWait();
+            return false;
+            //This would mean it's not initialized
+        } else if (endTime == null) {
+            emptyFields.showAndWait();
+            return false;
+        } else if ((UserIDTextField.getText() == null) || UserIDTextField.getText().trim().isEmpty() || Objects.equals(UserIDTextField.getText(), "")) {
+            emptyFields.showAndWait();
+            return false;
+        } else if (CustIDTextField.getText() == null || CustIDTextField.getText().trim().isEmpty() || Objects.equals(CustIDTextField.getText(), "")) {
+            emptyFields.showAndWait();
+            return false;
+        } else if (ConTextField.getText() == null || ConTextField.getText().trim().isEmpty() || Objects.equals(ConTextField.getText(), "")) {
+            emptyFields.showAndWait();
+            return false;
+        }
+        return true;
+    }
+
+    private void submitUpdate() throws SQLException {
+        if (isFieldsFilledOut()) {
+            verifyIfValidAndSubmit();
+        }
+    }
+
+    private void verifyIfValidAndSubmit() throws SQLException {
+        String title = TitleTextField.getText();
+        String desc = DescTextField.getText();
+        String loc = LocTextField.getText();
+        String type = TypeTextField.getText();
+
+        LocalDate startDate = StartDatePicker.getValue();
+        LocalTime startTime = StartTimeComboBox.getValue();
+        LocalTime endTime = EndTimeComboBox.getValue();
+
+        int custID = Integer.parseInt(CustIDTextField.getText());
+        int userID = Integer.parseInt(UserIDTextField.getText());
+        int con = Integer.parseInt(ConTextField.getText());
+        //assemble the LocalDateTimeObjects
+        LocalDateTime appDate = startDate.atTime(startTime);
+        LocalDateTime endDateTime = startDate.atTime(endTime);
+
+        // TODO make a another version of this that ignores the current appointment for overlap test this out
+        //  have to ignore the current record in order to get an update without modifying the time.
+        if (TimeManager.isCustomerAvailableForUpdate(custID, appDate, endDateTime)) {
+            // TODO change this to an Update Statement
+            String query = "UPDATE appointments " +
+                    "SET (Title,Description,Location,Type,Start,End,Create_Date,Created_By," +
+                    "Last_Update,Last_Updated_By,Customer_ID,User_ID,Contact_ID) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            PreparedStatement ps = Connection.getConnection().prepareStatement(query);
+            ps.setString(1, title);
+            ps.setString(2, desc);
+            ps.setString(3, loc);
+            ps.setString(4, type);
+
+            ps.setTimestamp(5, Timestamp.valueOf(appDate));
+            ps.setTimestamp(6, Timestamp.valueOf(endDateTime));
+            ps.setTimestamp(7, Timestamp.valueOf(LocalDateTime.now()));
+            ps.setString(8, "John Vanek");
+            ps.setTimestamp(9, Timestamp.valueOf(LocalDateTime.now()));
+            ps.setString(10, "John Vanek");
+            ps.setInt(11, custID);
+            ps.setInt(12, userID);
+            ps.setInt(13, con);
+            ps.executeUpdate();
+
+            ps.close();
+            //Let them know that it went through
+            Alert success = new Alert(Alert.AlertType.INFORMATION, "Appointment added. Redirecting you back to the " +
+                    "main menu.", ButtonType.OK);
+
+            success.setHeaderText("[SUCCESSFUL] : [SUBMISSION]");
+            success.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+            success.showAndWait();
+            StageManager.transitionNextScene("appointments");
+        }
     }
 
 

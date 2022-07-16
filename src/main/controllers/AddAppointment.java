@@ -1,7 +1,5 @@
 package main.controllers;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -9,7 +7,9 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
 import main.database.Connection;
+import main.utils.ObservableManager;
 import main.utils.StageManager;
+import main.utils.TimeManager;
 
 import java.net.URL;
 import java.sql.PreparedStatement;
@@ -20,7 +20,7 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 import static main.utils.ObservableManager.*;
-import static main.utils.TimeManager.*;
+
 
 public class AddAppointment implements Initializable {
     //FXML ID's*************************************
@@ -50,8 +50,8 @@ public class AddAppointment implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //initialize the combo-box data
-        populateDataComboBoxes();
-        generateValidBusinessHoursList();
+        ObservableManager.populateDataComboBoxes();
+        TimeManager.generateValidBusinessHoursList();
         StartTimeComboBox.setItems(StartTimesAddAppEst);
         EndTimeComboBox.setItems(EndTimesAddAppEst);
 
@@ -95,7 +95,7 @@ public class AddAppointment implements Initializable {
         LocalDateTime endDateTime = startDate.atTime(endTime);
 
 
-        if (isCustomerAvailable(custID, appDate, endDateTime)) {
+        if (TimeManager.isCustomerAvailable(custID, appDate, endDateTime)) {
             String query = "INSERT INTO appointments (Title,Description,Location,Type,Start,End,Create_Date,Created_By," +
                     "Last_Update,Last_Updated_By,Customer_ID,User_ID,Contact_ID) " +
                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -125,13 +125,6 @@ public class AddAppointment implements Initializable {
             success.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
             success.showAndWait();
             StageManager.transitionNextScene("appointments");
-        } else {
-            //clear all the fields if the wrong information is entered.
-
-
-            CustIDTextField.clear();
-            UserIDTextField.clear();
-            ConTextField.clear();
         }
     }
 
@@ -164,7 +157,6 @@ public class AddAppointment implements Initializable {
             return false;
         } else if (startDate == null) {
             emptyFields.showAndWait();
-            StartDatePicker.setValue(null);
             return false;
         } else if (startTime == null) {
             emptyFields.showAndWait();
@@ -185,6 +177,7 @@ public class AddAppointment implements Initializable {
         }
         return true;
     }
+
     //FXML METHODS*******************************
     @FXML
     void ChangeSceneToAppointmentMainMenu(ActionEvent event) {
