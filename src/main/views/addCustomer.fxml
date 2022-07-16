@@ -59,7 +59,7 @@
                <font>
                   <Font name="Consolas Bold" size="12.0" />
                </font></Label>
-            <TextField layoutX="111.0" layoutY="49.0" prefHeight="25.0" prefWidth="119.0" styleClass="loginTextBox">
+            <TextField fx:id="CustomerNameTextField" layoutX="111.0" layoutY="49.0" prefHeight="25.0" prefWidth="119.0" styleClass="loginTextBox">
                <cursor>
                   <Cursor fx:constant="TEXT" />
                </cursor></TextField>
@@ -67,22 +67,22 @@
                <font>
                   <Font name="Consolas Bold" size="12.0" />
                </font></Label>
-            <TextField layoutX="111.0" layoutY="81.0" prefHeight="25.0" prefWidth="119.0" styleClass="loginTextBox">
+            <TextField fx:id="AddressTextField" layoutX="111.0" layoutY="81.0" prefHeight="25.0" prefWidth="119.0" styleClass="loginTextBox">
                <cursor>
                   <Cursor fx:constant="TEXT" />
                </cursor></TextField>
-            <TextField layoutX="111.0" layoutY="113.0" prefHeight="25.0" prefWidth="119.0" styleClass="loginTextBox">
+            <TextField fx:id="PostalCodeTextField" layoutX="111.0" layoutY="113.0" prefHeight="25.0" prefWidth="119.0" styleClass="loginTextBox">
                <cursor>
                   <Cursor fx:constant="TEXT" />
                </cursor></TextField>
             <Label layoutX="38.0" layoutY="118.0" styleClass="montserrat" text="Postal-Code" />
             <Label layoutX="57.0" layoutY="180.0" styleClass="montserrat" text="Country" />
-            <ComboBox layoutX="111.0" layoutY="177.0" prefWidth="150.0">
+            <ComboBox fx:id="CountryComboBox" layoutX="111.0" layoutY="177.0" prefWidth="150.0">
                <cursor>
-                  <Cursor fx:constant="OPEN_HAND" />
+                  <Cursor fx:constant="CLOSED_HAND" />
                </cursor></ComboBox>
             <Label layoutX="16.0" layoutY="150.0" styleClass="montserrat" text="Phone-Number" />
-            <TextField layoutX="111.0" layoutY="145.0" prefHeight="25.0" prefWidth="119.0" styleClass="loginTextBox">
+            <TextField fx:id="PhoneNumberTextField" layoutX="111.0" layoutY="145.0" prefHeight="25.0" prefWidth="119.0" styleClass="loginTextBox">
                <cursor>
                   <Cursor fx:constant="TEXT" />
                </cursor></TextField>
@@ -98,9 +98,9 @@
                   </DropShadow>
                </effect></Button>
             <Label layoutX="10.0" layoutY="219.0" styleClass="montserrat" text="Provinces/States" />
-            <ComboBox layoutX="111.0" layoutY="215.0" prefWidth="150.0">
+            <ComboBox fx:id="ProvincesComboBox" layoutX="111.0" layoutY="215.0" prefWidth="150.0">
                <cursor>
-                  <Cursor fx:constant="OPEN_HAND" />
+                  <Cursor fx:constant="CLOSED_HAND" />
                </cursor></ComboBox>
          </children>
          <effect>

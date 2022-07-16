@@ -3,6 +3,8 @@ package main.controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 import main.utils.StageManager;
 
 import java.net.URL;
@@ -11,15 +13,32 @@ import java.util.ResourceBundle;
 public class AddCustomer implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // TODO The combo box for countries in add needs to be backed in an observable List
-        //  Then it needs to be set here in initialized
-        //  The more difficult task is populating the provinces and states comboBox
-        //  the second combo box has to be disabled and only enabled after a country is picked in which case it then
-        //  Shows the correct observable list.
-        //  Probably going to need an observable list for each country, or some way to filter once list of counties
-        //  And return a new list
-    }
 
+    }
+    //FXML ID'S
+    @FXML
+    private TextField CustomerNameTextField;
+
+    @FXML
+    private TextField AddressTextField;
+
+    @FXML
+    private TextField PostalCodeTextField;
+
+    @FXML
+    private TextField PhoneNumberTextField;
+
+    //TODO make the data-models for Country and Provinces
+    @FXML
+    private ComboBox<?> CountryComboBox;
+
+    @FXML
+    private ComboBox<?> ProvincesComboBox;
+
+
+
+
+    //FXML METHODS
     @FXML
     void ChangeSceneToAppointmentMainMenu(ActionEvent event) {
         StageManager.transitionNextScene("appointments");
