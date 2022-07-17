@@ -12,8 +12,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.stream.Collectors;
 
 public final class ObservableManager {
@@ -47,8 +45,8 @@ public final class ObservableManager {
         AppointmentAllList.clear(); // Clear out the old List before creating new ones
         AppointmentWeeklyList.clear();
         AppointmentMonthlyList.clear();
-        PreparedStatement ps = null;
-        ResultSet rs = null;
+        PreparedStatement ps;
+        ResultSet rs;
         String query = "Select * From appointments";
         try {
             ps = Connection.getConnection().prepareStatement(query);
@@ -108,8 +106,8 @@ public final class ObservableManager {
     public static void populateDataCountryList() {
 
         CountryList.clear(); // Clear out the old List before creating new ones
-        PreparedStatement ps = null;
-        ResultSet rs = null;
+        PreparedStatement ps;
+        ResultSet rs;
         String query = "Select * From countries";
         try {
             ps = Connection.getConnection().prepareStatement(query);
@@ -134,10 +132,9 @@ public final class ObservableManager {
     }
 
     public static void populateDataDivisionList() {
-        DivisionList.clear(); // Clear out the old List before creating new ones
-        //Probably have to clear the sublists as well
-        PreparedStatement ps = null;
-        ResultSet rs = null;
+        DivisionList.clear(); // Clear out the old List before creating new one
+        PreparedStatement ps;
+        ResultSet rs;
         String query = "Select * From first_level_divisions";
         try {
             ps = Connection.getConnection().prepareStatement(query);
@@ -149,7 +146,6 @@ public final class ObservableManager {
                             rs.getString("Division"),
                             rs.getInt("COUNTRY_ID")
                     );
-                    //Add all the Divisions here to the appropriate sub-List
                     DivisionList.add(currentDivision);
                 }
                 //cleanup
@@ -169,13 +165,12 @@ public final class ObservableManager {
                 .collect(Collectors.toCollection(FXCollections::observableArrayList));
     }
 
-
     public static void populateDataCustomerList() {
         //Clear out the old list before creating a new one
         CustomerList.clear();
 
-        PreparedStatement ps = null;
-        ResultSet rs = null;
+        PreparedStatement ps;
+        ResultSet rs;
         String query = "SELECT * FROM customers";
         try {
             ps = Connection.getConnection().prepareStatement(query);
