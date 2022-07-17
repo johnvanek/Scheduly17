@@ -86,7 +86,7 @@
                <cursor>
                   <Cursor fx:constant="TEXT" />
                </cursor></TextField>
-            <Button layoutX="113.0" layoutY="303.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="88.0" style="-fx-font-size: 1.5em;" styleClass="loginButton" text="Submit">
+            <Button layoutX="113.0" layoutY="303.0" mnemonicParsing="false" onMouseClicked="#Submit" prefHeight="35.0" prefWidth="88.0" style="-fx-font-size: 1.5em;" styleClass="loginButton" text="Submit">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>

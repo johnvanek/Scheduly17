@@ -1,12 +1,11 @@
 package main.controllers;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import main.DAO.models.Country;
 import main.DAO.models.Division;
 import main.utils.ObservableManager;
@@ -14,7 +13,6 @@ import main.utils.StageManager;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
 public class AddCustomer implements Initializable {
     //FXML ID'S
@@ -30,7 +28,6 @@ public class AddCustomer implements Initializable {
     @FXML
     private TextField PhoneNumberTextField;
 
-    //TODO make the data-models for Country and Divisions
     @FXML
     private ComboBox<Country> CountryComboBox;
 
@@ -67,6 +64,12 @@ public class AddCustomer implements Initializable {
 
     }
 
+    @FXML
+    void Submit(MouseEvent event) {
+        // Just for testing
+        System.out.println("Current Value Province ComboBox " + DivisionComboBox.getValue());
+    }
+
 
     private void populateDataDivisionComboBox(Country country) {
         DivisionComboBox.setItems(ObservableManager.searchByCountryCode(ObservableManager.DivisionList, country.getCountryId()));
@@ -78,9 +81,5 @@ public class AddCustomer implements Initializable {
         ObservableManager.populateDataCustomerComboBoxes();
         ObservableManager.populateDataDivisionList();
         CountryComboBox.setItems(ObservableManager.CountryList);
-
-
-        //TODO add an event listener to the country comboBox
-
     }
 }

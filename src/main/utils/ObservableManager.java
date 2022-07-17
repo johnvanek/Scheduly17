@@ -16,8 +16,7 @@ import java.util.stream.Collectors;
 
 public final class ObservableManager {
 
-    //Observable List's
-    //Appointment View List's
+    //AppointmentObservable List's
     public static ObservableList<Appointment> AppointmentAllList = FXCollections.observableArrayList();
     public static ObservableList<Appointment> AppointmentWeeklyList = FXCollections.observableArrayList();
     public static ObservableList<Appointment> AppointmentMonthlyList = FXCollections.observableArrayList();
@@ -31,7 +30,7 @@ public final class ObservableManager {
 
     public static ObservableList<LocalTime> StartTimesFiltered = FXCollections.observableArrayList();
     public static ObservableList<LocalTime> EndTimesFiltered = FXCollections.observableArrayList();
-    //Customer List
+    //Customer Observables
     public static ObservableList<Customer> CustomerList = FXCollections.observableArrayList();
 
     public static ObservableList<Country> CountryList = FXCollections.observableArrayList();
