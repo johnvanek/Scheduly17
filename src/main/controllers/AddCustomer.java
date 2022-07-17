@@ -14,19 +14,14 @@ import main.DAO.models.Division;
 import main.database.Connection;
 import main.utils.ObservableManager;
 import main.utils.StageManager;
-import main.utils.TimeManager;
 
 import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
-import static main.utils.ObservableManager.populateDataAppointmentLists;
 import static main.utils.ObservableManager.populateDataCustomerList;
 
 public class AddCustomer implements Initializable {
@@ -129,9 +124,7 @@ public class AddCustomer implements Initializable {
         String custAddress = AddressTextField.getText();
         String custPostalCode = PostalCodeTextField.getText();
         String custPhone = PhoneNumberTextField.getText();
-
         Division divisionSelected = DivisionComboBox.getValue();
-
 
         String query = "INSERT INTO customers (" +
                 "Customer_Name," +
