@@ -4,21 +4,34 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Region;
 import main.DAO.models.Country;
 import main.DAO.models.Division;
+import main.database.Connection;
 import main.utils.ObservableManager;
 import main.utils.StageManager;
+import main.utils.TimeManager;
 
 import java.net.URL;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+import static main.utils.ObservableManager.populateDataAppointmentLists;
+import static main.utils.ObservableManager.populateDataCustomerList;
+
 public class AddCustomer implements Initializable {
+    //Reference Variables
+
     //FXML ID'S
     @FXML
     private TextField CustomerNameTextField;
@@ -69,22 +82,14 @@ public class AddCustomer implements Initializable {
     }
 
     @FXML
-    void Submit(MouseEvent event) {
-        // Just for testing if the second box value is changing
-        System.out.println("Current Value Province ComboBox " + DivisionComboBox.getValue());
-        // TODO copy and paste the method from verify and submit from one of the other appointment
+    void Submit(MouseEvent event) throws SQLException {
         if (isFieldsFilledOut()) {
-            System.out.println("performing verification of null values");
-            //verifyIfValidAndSubmit();
+            verifyIfValidAndSubmit();
         }
     }
 
     private Boolean isFieldsFilledOut() {
-        //The Alert information
-        Alert emptyFields = new Alert(Alert.AlertType.WARNING);
-        emptyFields.setHeaderText("[WARNING] [EMPTY-FIELDS]");
-        emptyFields.setContentText("Please Fill out all Fields");
-
+        //Reference variables
         String custName = CustomerNameTextField.getText();
         String custAddress = AddressTextField.getText();
         String custPostalCode = PostalCodeTextField.getText();
@@ -92,6 +97,10 @@ public class AddCustomer implements Initializable {
 
         Country countrySelected = CountryComboBox.getValue();
         Division divisionSelected = DivisionComboBox.getValue();
+        //The Alert information
+        Alert emptyFields = new Alert(Alert.AlertType.WARNING);
+        emptyFields.setHeaderText("[WARNING] [EMPTY-FIELDS]");
+        emptyFields.setContentText("Please Fill out all Fields");
 
         if (custName == null || custName.trim().isEmpty()) {
             emptyFields.showAndWait();
@@ -113,6 +122,53 @@ public class AddCustomer implements Initializable {
             return false;
         }
         return true;
+    }
+
+    private void verifyIfValidAndSubmit() throws SQLException {
+        String custName = CustomerNameTextField.getText();
+        String custAddress = AddressTextField.getText();
+        String custPostalCode = PostalCodeTextField.getText();
+        String custPhone = PhoneNumberTextField.getText();
+
+        Division divisionSelected = DivisionComboBox.getValue();
+
+
+        String query = "INSERT INTO customers (" +
+                "Customer_Name," +
+                "Address," +
+                "Postal_Code," +
+                "Phone," +
+                "Create_Date," +
+                "Created_By," +
+                "Last_Update," +
+                "Last_Updated_By," +
+                "Division_ID) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        PreparedStatement ps = Connection.getConnection().prepareStatement(query);
+        ps.setString(1, custName);
+        ps.setString(2, custAddress);
+        ps.setString(3, custPostalCode);
+        ps.setString(4, custPhone);
+        ps.setTimestamp(5, Timestamp.valueOf(LocalDateTime.now()));
+        ps.setString(6, "John Vanek");
+        ps.setTimestamp(7, Timestamp.valueOf(LocalDateTime.now()));
+        ps.setString(8, "John Vanek");
+        ps.setInt(9, divisionSelected.getDivisionId());
+
+        ps.executeUpdate();
+
+        ps.close();
+        //Let them know that it went through
+        Alert success = new Alert(Alert.AlertType.INFORMATION, "Customer added. Redirecting you back to the " +
+                "main menu.", ButtonType.OK);
+
+        success.setHeaderText("[SUCCESSFUL] : [SUBMISSION]");
+        success.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+        success.showAndWait();
+        StageManager.transitionNextScene("customers");
+        //Repopulate the data
+        populateDataCustomerList();
     }
 
 
