@@ -65,6 +65,16 @@ public class Customers implements Initializable {
         StageManager.transitionNextScene("addCustomer");
     }
 
+    @FXML
+    void ChangeSceneUpdateCustomer(MouseEvent event) {
+        StageManager.transitionNextScene("updateCustomer");
+    }
+
+    @FXML
+    void DeleteCustomer(MouseEvent event) {
+
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //Create the Data-List

@@ -24,7 +24,12 @@ import java.util.ResourceBundle;
 
 import static main.utils.ObservableManager.populateDataCustomerList;
 
-public class AddCustomer implements Initializable {
+public class UpdateCustomer implements Initializable {
+    //TODO add the functionality for customer.java
+    // and make the scene in scene builder
+    // pull from update appointment.
+    // rename the fields the same as add customer.
+
     //FXML ID'S
     @FXML
     private TextField CustomerNameTextField;
@@ -63,15 +68,6 @@ public class AddCustomer implements Initializable {
     @FXML
     void TerminateSession(ActionEvent event) {
         System.out.println("I am closing the session");
-    }
-
-    @FXML
-    void SetValueForDivisionBasedOnCountry(ActionEvent event) {
-        if (CountryComboBox.getValue() != null) {
-            System.out.println("A Selection had been made in Country Combo-Box");
-            populateDataDivisionComboBox(CountryComboBox.getValue());
-        }
-
     }
 
     @FXML
@@ -166,11 +162,17 @@ public class AddCustomer implements Initializable {
         DivisionComboBox.setItems(ObservableManager.searchByCountryCode(ObservableManager.DivisionList, country.getCountryId()));
     }
 
+    @FXML
+    void SetValueForDivisionBasedOnCountry(ActionEvent event) {
+        if (CountryComboBox.getValue() != null) {
+            System.out.println("A Selection had been made in Country Combo-Box");
+            populateDataDivisionComboBox(CountryComboBox.getValue());
+        }
+
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //Add the data
-        ObservableManager.populateDataCustomerComboBoxes();
-        ObservableManager.populateDataDivisionList();
-        CountryComboBox.setItems(ObservableManager.CountryList);
+
     }
 }
