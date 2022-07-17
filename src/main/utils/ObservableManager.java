@@ -95,17 +95,42 @@ public final class ObservableManager {
         populateDataAppointmentEndComboBox();
     }
 
-    public static void populateDataCustomerComboBoxes(){
+    public static void populateDataCustomerComboBoxes() {
         // TODO have to populate the data for:
         //  CountryList:
         populateDataCountryList();
         //TODO populate the data for the divisions
         // And somehow set that out programmatically.
-    };
+    }
 
     public static void populateDataCountryList() {
 
+        CountryList.clear(); // Clear out the old List before creating new ones
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String query = "Select * From countries";
+        try {
+            ps = Connection.getConnection().prepareStatement(query);
+            rs = ps.executeQuery();
+            if (rs != null) {
+                while (rs.next()) {
+                    Country currentCountry = new Country(
+                            rs.getInt("Country_ID"),
+                            rs.getString("Country")
+                    );
+                    //Add all the countries here from the script to the data model.
+                    CountryList.add(currentCountry);
+                }
+                //cleanup
+                rs.close();
+                ps.close();
+            }
+        } catch (SQLException e) {
+            System.out.println("Error creating the Observable List for Countries");
+            throw new RuntimeException(e);
+        }
     }
+
 
     public static void populateDataCustomerList() {
         //Clear out the old list before creating a new one
