@@ -25,8 +25,6 @@ import java.util.ResourceBundle;
 import static main.utils.ObservableManager.populateDataCustomerList;
 
 public class AddCustomer implements Initializable {
-    //Reference Variables
-
     //FXML ID'S
     @FXML
     private TextField CustomerNameTextField;
