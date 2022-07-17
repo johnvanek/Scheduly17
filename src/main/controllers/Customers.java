@@ -69,6 +69,7 @@ public class Customers implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //Create the Data-List
         ObservableManager.populateDataCustomerList();
+        ObservableManager.populateDataCustomerComboBoxes();
         // Bind the Data
         CustomersTableView.setItems(ObservableManager.CustomerList);
         CustomerID.setCellValueFactory(new PropertyValueFactory<>("customerId"));

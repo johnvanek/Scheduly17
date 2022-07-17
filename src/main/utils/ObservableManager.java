@@ -91,13 +91,21 @@ public final class ObservableManager {
         ObservableManager.EndTimesAddAppEst.clear();
         ObservableManager.StartTimesFiltered.clear();
         ObservableManager.EndTimesFiltered.clear();
-        createAddStartAppointmentComboBox();
-        createAddEndAppointmentComboBox();
+        populateDataAppointmentStartComboBox();
+        populateDataAppointmentEndComboBox();
     }
 
     public static void populateDataCustomerComboBoxes(){
-
+        // TODO have to populate the data for:
+        //  CountryList:
+        populateDataCountryList();
+        //TODO populate the data for the divisions
+        // And somehow set that out programmatically.
     };
+
+    public static void populateDataCountryList() {
+
+    }
 
     public static void populateDataCustomerList() {
         //Clear out the old list before creating a new one
@@ -132,7 +140,7 @@ public final class ObservableManager {
         }
     }
 
-    public static void createAddStartAppointmentComboBox() {
+    public static void populateDataAppointmentStartComboBox() {
         StartTimesAddApp.addAll(
                 //These are all the available times In local.
                 LocalTime.of(0, 0),
@@ -234,7 +242,7 @@ public final class ObservableManager {
         );
     }
 
-    public static void createAddEndAppointmentComboBox() {
+    public static void populateDataAppointmentEndComboBox() {
         EndTimesAddApp.addAll(
                 LocalTime.of(0, 15),
                 LocalTime.of(0, 30),
