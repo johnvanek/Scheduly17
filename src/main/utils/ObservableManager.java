@@ -159,7 +159,8 @@ public final class ObservableManager {
 
     //TODO document this as my second lambda expression
     public static ObservableList<Division> searchByCountryCode(ObservableList<Division> divisionList, int countryID) {
-        return divisionList.stream()
+        return divisionList
+                .stream()
                 .filter(division -> division.getCountryId() == countryID)
                 .collect(Collectors.toCollection(FXCollections::observableArrayList));
     }
