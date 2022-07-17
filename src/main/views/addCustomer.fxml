@@ -98,7 +98,7 @@
                   </DropShadow>
                </effect></Button>
             <Label layoutX="10.0" layoutY="219.0" styleClass="montserrat" text="Provinces/States" />
-            <ComboBox fx:id="ProvincesComboBox" layoutX="111.0" layoutY="215.0" prefWidth="150.0">
+            <ComboBox fx:id="DivisionComboBox" layoutX="111.0" layoutY="215.0" prefWidth="150.0">
                <cursor>
                   <Cursor fx:constant="CLOSED_HAND" />
                </cursor></ComboBox>

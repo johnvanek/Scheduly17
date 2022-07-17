@@ -5,6 +5,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import main.DAO.models.Country;
+import main.DAO.models.Division;
 import main.utils.StageManager;
 
 import java.net.URL;
@@ -28,12 +30,12 @@ public class AddCustomer implements Initializable {
     @FXML
     private TextField PhoneNumberTextField;
 
-    //TODO make the data-models for Country and Provinces
+    //TODO make the data-models for Country and Divisions
     @FXML
-    private ComboBox<?> CountryComboBox;
+    private ComboBox<Country> CountryComboBox;
 
     @FXML
-    private ComboBox<?> ProvincesComboBox;
+    private ComboBox<Division> DivisionComboBox;
 
 
 
