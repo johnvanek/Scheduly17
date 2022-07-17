@@ -5,12 +5,16 @@ import javafx.collections.ObservableList;
 import main.DAO.models.Appointment;
 import main.DAO.models.Country;
 import main.DAO.models.Customer;
+import main.DAO.models.Division;
 import main.database.Connection;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public final class ObservableManager {
 
@@ -33,6 +37,8 @@ public final class ObservableManager {
     public static ObservableList<Customer> CustomerList = FXCollections.observableArrayList();
 
     public static ObservableList<Country> CountryList = FXCollections.observableArrayList();
+
+    public static ObservableList<Division> DivisionList = FXCollections.observableArrayList();
 
     private ObservableManager() {
     }
@@ -96,11 +102,7 @@ public final class ObservableManager {
     }
 
     public static void populateDataCustomerComboBoxes() {
-        // TODO have to populate the data for:
-        //  CountryList:
         populateDataCountryList();
-        //TODO populate the data for the divisions
-        // And somehow set that out programmatically.
     }
 
     public static void populateDataCountryList() {
@@ -129,6 +131,42 @@ public final class ObservableManager {
             System.out.println("Error creating the Observable List for Countries");
             throw new RuntimeException(e);
         }
+    }
+
+    public static void populateDataDivisionList() {
+        DivisionList.clear(); // Clear out the old List before creating new ones
+        //Probably have to clear the sublists as well
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String query = "Select * From first_level_divisions";
+        try {
+            ps = Connection.getConnection().prepareStatement(query);
+            rs = ps.executeQuery();
+            if (rs != null) {
+                while (rs.next()) {
+                    Division currentDivision = new Division(
+                            rs.getInt("Division_ID"),
+                            rs.getString("Division"),
+                            rs.getInt("COUNTRY_ID")
+                    );
+                    //Add all the Divisions here to the appropriate sub-List
+                    DivisionList.add(currentDivision);
+                }
+                //cleanup
+                rs.close();
+                ps.close();
+            }
+        } catch (SQLException e) {
+            System.out.println("Error creating the Observable List for Divisions");
+            throw new RuntimeException(e);
+        }
+    }
+
+    //TODO document this as my second lambda expression
+    public static ObservableList<Division> searchByCountryCode(ObservableList<Division> divisionList, int countryID) {
+        return divisionList.stream()
+                .filter(division -> division.getCountryId() == countryID)
+                .collect(Collectors.toCollection(FXCollections::observableArrayList));
     }
 
 

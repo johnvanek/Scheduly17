@@ -1,5 +1,7 @@
 package main.controllers;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -7,16 +9,14 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import main.DAO.models.Country;
 import main.DAO.models.Division;
+import main.utils.ObservableManager;
 import main.utils.StageManager;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class AddCustomer implements Initializable {
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
-    }
     //FXML ID'S
     @FXML
     private TextField CustomerNameTextField;
@@ -37,9 +37,6 @@ public class AddCustomer implements Initializable {
     @FXML
     private ComboBox<Division> DivisionComboBox;
 
-
-
-
     //FXML METHODS
     @FXML
     void ChangeSceneToAppointmentMainMenu(ActionEvent event) {
@@ -59,5 +56,31 @@ public class AddCustomer implements Initializable {
     @FXML
     void TerminateSession(ActionEvent event) {
         System.out.println("I am closing the session");
+    }
+
+    @FXML
+    void SetValueForDivisionBasedOnCountry(ActionEvent event) {
+        if (CountryComboBox.getValue() != null) {
+            System.out.println("A Selection had been made in Country Combo-Box");
+            populateDataDivisionComboBox(CountryComboBox.getValue());
+        }
+
+    }
+
+
+    private void populateDataDivisionComboBox(Country country) {
+        DivisionComboBox.setItems(ObservableManager.searchByCountryCode(ObservableManager.DivisionList, country.getCountryId()));
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        //Add the data
+        ObservableManager.populateDataCustomerComboBoxes();
+        ObservableManager.populateDataDivisionList();
+        CountryComboBox.setItems(ObservableManager.CountryList);
+
+
+        //TODO add an event listener to the country comboBox
+
     }
 }
