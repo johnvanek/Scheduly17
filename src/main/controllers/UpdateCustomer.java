@@ -15,6 +15,7 @@ import main.DAO.models.Division;
 import main.database.Connection;
 import main.utils.ObservableManager;
 import main.utils.StageManager;
+import main.utils.TimeManager;
 
 import java.net.URL;
 import java.sql.PreparedStatement;
@@ -128,18 +129,18 @@ public class UpdateCustomer implements Initializable {
         String custPostalCode = PostalCodeTextField.getText();
         String custPhone = PhoneNumberTextField.getText();
         Division divisionSelected = DivisionComboBox.getValue();
-        //TODO the update This is an insert replace with add from Update appointment
-        String query = "INSERT INTO customers (" +
-                "Customer_Name," +
-                "Address," +
-                "Postal_Code," +
-                "Phone," +
-                "Create_Date," +
-                "Created_By," +
-                "Last_Update," +
-                "Last_Updated_By," +
-                "Division_ID) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        String query = "UPDATE customers SET " +
+                "Customer_Name = ?, " +
+                "Address = ?, " +
+                "Postal_Code =?, " +
+                "Phone =?, " +
+                "Create_Date =?, " +
+                "Created_By =?, " +
+                "Last_Update =?, " +
+                "Last_Updated_By =?, " +
+                "Division_ID =?" +
+                " WHERE Customer_ID =?";
 
         PreparedStatement ps = Connection.getConnection().prepareStatement(query);
         ps.setString(1, custName);
@@ -151,7 +152,7 @@ public class UpdateCustomer implements Initializable {
         ps.setTimestamp(7, Timestamp.valueOf(LocalDateTime.now()));
         ps.setString(8, "John Vanek");
         ps.setInt(9, divisionSelected.getDivisionId());
-
+        ps.setInt(10, customerSelected.getCustomerId());
         ps.executeUpdate();
 
         ps.close();
