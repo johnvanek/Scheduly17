@@ -10,7 +10,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
-import main.DAO.models.Appointment;
 import main.DAO.models.Customer;
 import main.database.Connection;
 import main.utils.ObservableManager;
@@ -61,8 +60,8 @@ public class Customers implements Initializable {
     }
 
     @FXML
-    void ChangeSceneToRecords(ActionEvent event) {
-        System.out.println("I am displaying the records");
+    void ChangeSceneToReports(ActionEvent event) {
+        StageManager.transitionNextScene("reports");
     }
 
     @FXML

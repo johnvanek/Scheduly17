@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#DeselectTableRow" prefHeight="560.0" prefWidth="900.0" styleClass="tealBackground" stylesheets="@../resources/styles/main.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.Reports">
+   <children>
+      <TabPane layoutX="13.0" layoutY="178.0" prefHeight="354.0" prefWidth="875.0" style="-fx-background-color: white;" tabClosingPolicy="UNAVAILABLE">
+         <tabs>
+            <Tab text="Monthly Total">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="314.0" prefWidth="875.0" style="-fx-background-color: lightblue;">
+                     <children>
+                        <ScrollPane layoutX="313.0" layoutY="26.0" prefHeight="286.0" prefWidth="237.0" styleClass="rounderCornerSmall">
+                           <content>
+                              <TableView fx:id="ReportCustomerPerMonthTable" prefHeight="283.0" prefWidth="238.0">
+                                 <columns>
+                                    <TableColumn fx:id="ReportCustomerPerMonthMonthColumn" prefWidth="119.99999696016312" text="Month" />
+                                    <TableColumn fx:id="ReportCustomerPerMonthTotalAmountColumn" prefWidth="101.59994506835938" text="Total Amount" />
+                                 </columns>
+                              </TableView>
+                           </content>
+                        </ScrollPane>
+                        <Text fill="WHITE" layoutX="313.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customers Per Month Report">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                           <styleClass>
+                              <String fx:value="montserrat" />
+                              <String fx:value="boldFont" />
+                              <String fx:value="subheaderFont" />
+                              <String fx:value="inbetweenStroke" />
+                           </styleClass>
+                        </Text>
+                     </children>
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab text="Type Total">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="314.0" prefWidth="875.0" style="-fx-background-color: lightblue;">
+                     <children>
+                        <Text fill="WHITE" layoutX="313.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customers Per Type Report">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                           <styleClass>
+                              <String fx:value="boldFont" />
+                              <String fx:value="montserrat" />
+                              <String fx:value="subheaderFont" />
+                              <String fx:value="inbetweenStroke" />
+                           </styleClass>
+                        </Text>
+                        <ScrollPane layoutX="313.0" layoutY="26.0" prefHeight="286.0" prefWidth="237.0" styleClass="rounderCornerSmall">
+                           <content>
+                              <TableView fx:id="ReportCustomerPerTypeTable" prefHeight="283.0" prefWidth="238.0">
+                                 <columns>
+                                    <TableColumn fx:id="ReportCustomerPerTypeTypeColumn" prefWidth="119.99999696016312" text="Type" />
+                                    <TableColumn fx:id="ReportCustomerPerTypeTotalAmountColumn" prefWidth="101.59994506835938" text="Total Amount" />
+                                 </columns>
+                              </TableView>
+                           </content>
+                        </ScrollPane>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab text="Contact Schedules">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" onMouseClicked="#DeselectTableRow" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: lightblue;">
+                     <children>
+                        <ScrollPane layoutX="14.0" layoutY="40.0" prefHeight="271.0" prefWidth="846.0">
+                           <content>
+                              <TableView fx:id="ReportContactScheduleTable" prefHeight="269.0" prefWidth="844.0">
+                                 <columns>
+                                    <TableColumn fx:id="ReportContactScheduleAppIdColumn" prefWidth="58.399962246418" text="App_ID" />
+                                    <TableColumn fx:id="ReportContactScheduleTitleColumn" prefWidth="104.79993057250977" text="Title" />
+                                    <TableColumn fx:id="ReportContactScheduleTypeColumn" prefWidth="116.00001525878906" text="Type" />
+                                    <TableColumn fx:id="ReportContactScheduleDescriptionColumn" prefWidth="170.39990234375" text="Description" />
+                                    <TableColumn fx:id="ReportContactScheduleStartDateTimeColumn" prefWidth="148.79989624023438" text="Start Date / Start Time" />
+                                    <TableColumn fx:id="ReportContactScheduleEndDateTimeColumn" prefWidth="144.0001220703125" text="End Date / End Time" />
+                                    <TableColumn fx:id="ReportContactScheduleCustomerID" prefWidth="93.5999755859375" text="Customer_ID" />
+                                 </columns>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </TableView>
+                           </content>
+                        </ScrollPane>
+                        <Text fill="WHITE" layoutX="350.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contact Schedules">
+                           <font>
+                              <Font size="21.0" />
+                           </font>
+                           <styleClass>
+                              <String fx:value="montserrat" />
+                              <String fx:value="boldFont" />
+                              <String fx:value="subheaderFont" />
+                              <String fx:value="inbetweenStroke" />
+                           </styleClass>
+                        </Text>
+                        <ComboBox fx:id="ContactSelectionComboBox" layoutX="95.0" layoutY="3.0" onMouseClicked="#PopulateContactSchedule" prefWidth="150.0">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ComboBox>
+                        <Text fill="WHITE" layoutX="14.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contacts">
+                           <font>
+                              <Font size="21.0" />
+                           </font>
+                           <styleClass>
+                              <String fx:value="montserrat" />
+                              <String fx:value="boldFont" />
+                              <String fx:value="subheaderFont" />
+                              <String fx:value="inbetweenStroke" />
+                           </styleClass>
+                        </Text>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+         </tabs>
+      </TabPane>
+      <MenuBar layoutY="2.0" styleClass="rounderCornerSmall">
+         <menus>
+            <Menu mnemonicParsing="false" text="Appointments">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#ChangeSceneToAppointmentMainMenu" text="View" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Customers">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#ChangeSceneToCustomerMainMenu" text="View" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Reports">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#ChangeSceneToReports" text="View" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Signout">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#TerminateSession" text="Quit" />
+               </items>
+            </Menu>
+         </menus>
+         <cursor>
+            <Cursor fx:constant="OPEN_HAND" />
+         </cursor>
+      </MenuBar>
+      <Text fill="WHITE" layoutX="401.0" layoutY="143.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reports" wrappingWidth="97.33676147460938">
+         <styleClass>
+            <String fx:value="heading" />
+            <String fx:value="bigFont" />
+            <String fx:value="biggerStroke" />
+         </styleClass>
+      </Text>
+   </children>
+</AnchorPane>

@@ -56,8 +56,8 @@ public class AddCustomer implements Initializable {
     }
 
     @FXML
-    void ChangeSceneToRecords(ActionEvent event) {
-        System.out.println("I am displaying the records");
+    void ChangeSceneToReports(ActionEvent event) {
+        StageManager.transitionNextScene("reports");
     }
 
     @FXML

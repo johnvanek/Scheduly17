@@ -29,9 +29,9 @@
                   <MenuItem mnemonicParsing="false" onAction="#ChangeSceneToCustomerMainMenu" text="View" />
                </items>
             </Menu>
-            <Menu mnemonicParsing="false" text="Records">
+            <Menu mnemonicParsing="false" text="Reports">
                <items>
-                  <MenuItem mnemonicParsing="false" onAction="#ChangeSceneToRecords" text="About" />
+                  <MenuItem mnemonicParsing="false" onAction="#ChangeSceneToReports" text="View" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Signout">

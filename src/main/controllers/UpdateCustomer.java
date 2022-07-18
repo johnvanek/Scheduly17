@@ -62,8 +62,8 @@ public class UpdateCustomer implements Initializable {
     }
 
     @FXML
-    void ChangeSceneToRecords(ActionEvent event) {
-        System.out.println("I am displaying the records");
+    void ChangeSceneToReports(ActionEvent event) {
+        StageManager.transitionNextScene("reports");
     }
 
     @FXML
@@ -171,7 +171,6 @@ public class UpdateCustomer implements Initializable {
     private void populateDataDivisionComboBox(Country country) {
         DivisionComboBox.setItems(ObservableManager.searchByCountryCode(ObservableManager.DivisionList, country.getCountryId()));
     }
-
 
     private Division getDivisionFromDivisionID(int divisionID) {
         List<Division> division = DivisionList
