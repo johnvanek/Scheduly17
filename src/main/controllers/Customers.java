@@ -105,7 +105,6 @@ public class Customers implements Initializable {
             Customer effectivelyFinalSelectedCustomer = selectedCustomer;
             confirmDelete.showAndWait().ifPresent(response -> {
                 if (response == ButtonType.OK) {
-                    //TODO first have to delete all the appointments from the Customer
                     String query = "DELETE FROM appointments WHERE Customer_ID = " +
                             effectivelyFinalSelectedCustomer.getCustomerId();
 
@@ -116,7 +115,7 @@ public class Customers implements Initializable {
                         //Try the first query
                         PreparedStatement ps = Connection.getConnection().prepareStatement(query);
                         System.out.println(ps.executeUpdate() + " database records have been deleted. From appointments.");
-                        //Attempt the second
+                        //Attempt the second by reassigning the prepared statement's query
                         ps = Connection.getConnection().prepareStatement(query2);
                         System.out.println(ps.executeUpdate() + " database records have been deleted. From customers.");
                         //Cleanup
