@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public final class ObservableManager {
@@ -37,6 +38,11 @@ public final class ObservableManager {
 
     public static ObservableList<Division> DivisionList = FXCollections.observableArrayList();
 
+    //Report Observables
+
+    //public static ObservableList<>
+
+    //public static List<ObservableList<>>
     private ObservableManager() {
     }
 
@@ -400,5 +406,15 @@ public final class ObservableManager {
                 LocalTime.of(0, 0)
         );
     }
+
+    // TODO add the functionality for the reporting features.
+    //  What needs to be done is Loop through the appointmentsList
+    //  The Monthly Report Feature.
+    //  and filter the ones there by start data into a monthly list could use count for this.
+    //  Streams.count()
+    //  If each month is its own list.
+    //  To be shown in the table I need one list observable.
+    //  Create the logic for this in ObservableManager
+
 
 }
