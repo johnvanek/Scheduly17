@@ -5,7 +5,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import main.DAO.models.Appointment;
+import main.DAO.models.Customer;
 import main.controllers.UpdateAppointment;
+import main.controllers.UpdateCustomer;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -59,8 +61,20 @@ public final class StageManager {
         setScenePassDataUpdate(app);
     }
 
+    public static void transitionNextScene(String nxtScene, Customer customer) {
+        setTitle(nxtScene);
+        setLogText(Misc.makeFirstLetterUppercase(nxtScene));
+        setScenePassDataUpdate(customer);
+    }
+
     private static void setScenePassDataUpdate(Appointment selected) {
         UpdateAppointment.appSelected = selected;
         setScene("updateAppointment");
+
+    }
+
+    private static void setScenePassDataUpdate(Customer selected) {
+        UpdateCustomer.customerSelected = selected;
+        setScene("updateCustomer");
     }
 }

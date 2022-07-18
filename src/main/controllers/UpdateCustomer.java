@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
 import main.DAO.models.Country;
+import main.DAO.models.Customer;
 import main.DAO.models.Division;
 import main.database.Connection;
 import main.utils.ObservableManager;
@@ -20,15 +21,14 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.ResourceBundle;
 
-import static main.utils.ObservableManager.populateDataCustomerList;
+import static main.utils.ObservableManager.*;
 
 public class UpdateCustomer implements Initializable {
-    //TODO add the functionality for customer.java
-    // and make the scene in scene builder
-    // pull from update appointment.
-    // rename the fields the same as add customer.
+    //referenceData
+    public static Customer customerSelected;
 
     //FXML ID'S
     @FXML
@@ -71,12 +71,21 @@ public class UpdateCustomer implements Initializable {
     }
 
     @FXML
+    void SetValueForDivisionBasedOnCountry(ActionEvent event) {
+        if (CountryComboBox.getValue() != null) {
+            System.out.println("A Selection had been made in Country Combo-Box");
+            populateDataDivisionComboBox(CountryComboBox.getValue());
+        }
+    }
+
+    @FXML
     void Submit(MouseEvent event) throws SQLException {
         if (isFieldsFilledOut()) {
             verifyIfValidAndSubmit();
         }
     }
 
+    //LocalMethods
     private Boolean isFieldsFilledOut() {
         //Reference variables
         String custName = CustomerNameTextField.getText();
@@ -119,7 +128,7 @@ public class UpdateCustomer implements Initializable {
         String custPostalCode = PostalCodeTextField.getText();
         String custPhone = PhoneNumberTextField.getText();
         Division divisionSelected = DivisionComboBox.getValue();
-
+        //TODO the update This is an insert replace with add from Update appointment
         String query = "INSERT INTO customers (" +
                 "Customer_Name," +
                 "Address," +
@@ -147,10 +156,10 @@ public class UpdateCustomer implements Initializable {
 
         ps.close();
         //Let them know that it went through
-        Alert success = new Alert(Alert.AlertType.INFORMATION, "Customer added. Redirecting you back to the " +
+        Alert success = new Alert(Alert.AlertType.INFORMATION, "Customer Updated. Redirecting you back to the " +
                 "main menu.", ButtonType.OK);
 
-        success.setHeaderText("[SUCCESSFUL] : [SUBMISSION]");
+        success.setHeaderText("[SUCCESSFUL] : [UPDATE]");
         success.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
         success.showAndWait();
         StageManager.transitionNextScene("customers");
@@ -162,17 +171,60 @@ public class UpdateCustomer implements Initializable {
         DivisionComboBox.setItems(ObservableManager.searchByCountryCode(ObservableManager.DivisionList, country.getCountryId()));
     }
 
-    @FXML
-    void SetValueForDivisionBasedOnCountry(ActionEvent event) {
-        if (CountryComboBox.getValue() != null) {
-            System.out.println("A Selection had been made in Country Combo-Box");
-            populateDataDivisionComboBox(CountryComboBox.getValue());
-        }
 
+    private Division getDivisionFromDivisionID(int divisionID) {
+        List<Division> division = DivisionList
+                .stream()
+                .filter(div -> div.getDivisionId() == divisionID).toList();
+        return division.get(0);
+    }
+
+//    Country getCountryFromDivisionID(int divisionID) {
+//        //get the division from DivisionID then
+//        List<Division> divisionList = DivisionList
+//                .stream()
+//                .filter(div -> div.getDivisionId() == divisionID)
+//                .toList();
+//        Division divForCountryID = divisionList.get(0);
+//        //Use that division to get a countryID to return a Country List
+//        int countryID = divForCountryID.getCountryId();
+//        List<Country> countryList = CountryList
+//                .stream()
+//                .filter(country -> country.getCountryId() == countryID)
+//                .toList();
+//        return countryList.get(0);
+//    }
+
+    private void prepopulateDivisionComboBox(Division division) {
+        DivisionComboBox.setValue(division);
+    }
+
+    private void prepopulateCountryComboBox() {
+        Division div = getDivisionFromDivisionID(customerSelected.getDivisionId());
+        int countryID = div.getCountryId();
+        List<Country> country = CountryList
+                .stream()
+                .filter(con -> con.getCountryId() == countryID).toList();
+        CountryComboBox.setValue(country.get(0));
+        populateDataDivisionComboBox(CountryComboBox.getValue());
+    }
+
+    private void prefillData() {
+        CustomerNameTextField.setText(customerSelected.getCustomerName());
+        AddressTextField.setText(customerSelected.getAddress());
+        PostalCodeTextField.setText(customerSelected.getPostalCode());
+        PhoneNumberTextField.setText(customerSelected.getPhoneNumber());
+        prepopulateCountryComboBox();
+        prepopulateDivisionComboBox(getDivisionFromDivisionID(customerSelected.getDivisionId()));
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        //On init pull the data
+        ObservableManager.populateDataCustomerComboBoxes();
+        ObservableManager.populateDataDivisionList();
+        CountryComboBox.setItems(ObservableManager.CountryList);
+        prefillData();
+        //Take the passed data and prepopulate the fields.
     }
 }

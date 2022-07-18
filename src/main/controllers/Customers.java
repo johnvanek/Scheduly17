@@ -7,6 +7,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import main.DAO.models.Appointment;
 import main.DAO.models.Customer;
 import main.utils.ObservableManager;
 import main.utils.StageManager;
@@ -67,7 +68,10 @@ public class Customers implements Initializable {
 
     @FXML
     void ChangeSceneUpdateCustomer(MouseEvent event) {
-        StageManager.transitionNextScene("updateCustomer");
+        if (CustomersTableView.getSelectionModel().getSelectedItem() != null) {
+            Customer selection = CustomersTableView.getSelectionModel().getSelectedItem();
+            StageManager.transitionNextScene("updateCustomer", selection);
+        }
     }
 
     @FXML
