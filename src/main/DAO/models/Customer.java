@@ -8,6 +8,11 @@ public class Customer {
     private String phoneNumber;
     private final int divisionId;
 
+    @Override
+    public String toString() {
+        return "ID[" + getCustomerId() + "] - " + getCustomerName();
+    }
+
     public Customer(int customerId, String customerName, String address, String postalCode, String phoneNumber, int divisionId) {
         //Only the fields customerId and division are without their own setter.
         //Those fields are set in the constructor and then that is it.

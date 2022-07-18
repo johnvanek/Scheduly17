@@ -3,9 +3,7 @@ package main.controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import main.DAO.models.Customer;
 import main.utils.ObservableManager;
@@ -17,6 +15,9 @@ import java.util.ResourceBundle;
 public class Reports implements Initializable {
 
     @FXML
+    private Tab CustomerMonthShowAllButton;
+
+    @FXML
     private TableView<?> ReportCustomerPerMonthTable;
 
     @FXML
@@ -26,6 +27,9 @@ public class Reports implements Initializable {
     private TableColumn<?, ?> ReportCustomerPerMonthTotalAmountColumn;
 
     @FXML
+    private ComboBox<Customer> CustomerReportMonthComboBox;
+
+    @FXML
     private TableView<?> ReportCustomerPerTypeTable;
 
     @FXML
@@ -33,6 +37,12 @@ public class Reports implements Initializable {
 
     @FXML
     private TableColumn<?, ?> ReportCustomerPerTypeTotalAmountColumn;
+
+    @FXML
+    private ComboBox<Customer> CustomerReportTypeComboBox;
+
+    @FXML
+    private RadioButton CustomerTypeShowAllButton;
 
     @FXML
     private TableView<?> ReportContactScheduleTable;
@@ -60,6 +70,8 @@ public class Reports implements Initializable {
 
     @FXML
     private ComboBox<?> ContactSelectionComboBox;
+
+
 
     @FXML
     void ChangeSceneToAppointmentMainMenu(ActionEvent event) {
@@ -97,9 +109,10 @@ public class Reports implements Initializable {
         ObservableManager.populateDataCustomerList();
         System.out.println("Reports initialized");
         System.out.println("CustomerList");
-        for (Customer customer: ObservableManager.CustomerList) {
-            System.out.println(customer);
-            System.out.println();
-        }
+
+        //Bind the values for the comboBoxes
+        CustomerReportMonthComboBox.setItems(ObservableManager.CustomerList);
+        // This will be a problem for all of them
+        CustomerReportTypeComboBox.setItems(ObservableManager.CustomerList);
     }
 }

@@ -40,7 +40,7 @@ public final class ObservableManager {
 
     //Report Observables
 
-    //public static ObservableList<>
+    //public static ObservableList<Cu>
 
     //public static List<ObservableList<>>
     private ObservableManager() {

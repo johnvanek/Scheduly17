@@ -6,6 +6,7 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
@@ -19,7 +20,7 @@
    <children>
       <TabPane layoutX="13.0" layoutY="178.0" prefHeight="354.0" prefWidth="875.0" style="-fx-background-color: white;" tabClosingPolicy="UNAVAILABLE">
          <tabs>
-            <Tab text="Monthly Total">
+            <Tab fx:id="CustomerMonthShowAllButton" text="Monthly Total">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="314.0" prefWidth="875.0" style="-fx-background-color: lightblue;">
                      <children>
@@ -33,9 +34,41 @@
                               </TableView>
                            </content>
                         </ScrollPane>
-                        <Text fill="WHITE" layoutX="313.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customers Per Month Report">
+                        <Text fill="WHITE" layoutX="251.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customers Appointments Per Month Report">
                            <font>
                               <Font size="20.0" />
+                           </font>
+                           <styleClass>
+                              <String fx:value="montserrat" />
+                              <String fx:value="boldFont" />
+                              <String fx:value="subheaderFont" />
+                              <String fx:value="inbetweenStroke" />
+                           </styleClass>
+                        </Text>
+                        <ComboBox fx:id="CustomerReportMonthComboBox" layoutX="105.0" layoutY="50.0" onMouseClicked="#PopulateContactSchedule" prefWidth="150.0">
+                           <cursor>
+                              <Cursor fx:constant="CLOSED_HAND" />
+                           </cursor>
+                        </ComboBox>
+                        <Text fill="WHITE" layoutX="20.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer">
+                           <font>
+                              <Font size="21.0" />
+                           </font>
+                           <styleClass>
+                              <String fx:value="montserrat" />
+                              <String fx:value="boldFont" />
+                              <String fx:value="subheaderFont" />
+                              <String fx:value="inbetweenStroke" />
+                           </styleClass>
+                        </Text>
+                        <RadioButton layoutX="105.0" layoutY="17.0" mnemonicParsing="false" selected="true">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </RadioButton>
+                        <Text fill="WHITE" layoutX="20.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Show All">
+                           <font>
+                              <Font size="21.0" />
                            </font>
                            <styleClass>
                               <String fx:value="montserrat" />
@@ -55,7 +88,7 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="314.0" prefWidth="875.0" style="-fx-background-color: lightblue;">
                      <children>
-                        <Text fill="WHITE" layoutX="313.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customers Per Type Report">
+                        <Text fill="WHITE" layoutX="251.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer Appointments Per Type Report">
                            <font>
                               <Font size="20.0" />
                            </font>
@@ -76,6 +109,38 @@
                               </TableView>
                            </content>
                         </ScrollPane>
+                        <ComboBox fx:id="CustomerReportTypeComboBox" layoutX="105.0" layoutY="50.0" onMouseClicked="#PopulateContactSchedule" prefWidth="150.0">
+                           <cursor>
+                              <Cursor fx:constant="CLOSED_HAND" />
+                           </cursor>
+                        </ComboBox>
+                        <Text fill="WHITE" layoutX="20.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer">
+                           <font>
+                              <Font size="21.0" />
+                           </font>
+                           <styleClass>
+                              <String fx:value="montserrat" />
+                              <String fx:value="boldFont" />
+                              <String fx:value="subheaderFont" />
+                              <String fx:value="inbetweenStroke" />
+                           </styleClass>
+                        </Text>
+                        <RadioButton fx:id="CustomerTypeShowAllButton" layoutX="105.0" layoutY="17.0" mnemonicParsing="false" selected="true">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </RadioButton>
+                        <Text fill="WHITE" layoutX="20.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Show All">
+                           <font>
+                              <Font size="21.0" />
+                           </font>
+                           <styleClass>
+                              <String fx:value="montserrat" />
+                              <String fx:value="boldFont" />
+                              <String fx:value="subheaderFont" />
+                              <String fx:value="inbetweenStroke" />
+                           </styleClass>
+                        </Text>
                      </children>
                   </AnchorPane>
                </content>
@@ -115,7 +180,7 @@
                         </Text>
                         <ComboBox fx:id="ContactSelectionComboBox" layoutX="95.0" layoutY="3.0" onMouseClicked="#PopulateContactSchedule" prefWidth="150.0">
                            <cursor>
-                              <Cursor fx:constant="HAND" />
+                              <Cursor fx:constant="CLOSED_HAND" />
                            </cursor>
                         </ComboBox>
                         <Text fill="WHITE" layoutX="14.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contacts">
