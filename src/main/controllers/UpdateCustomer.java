@@ -180,22 +180,6 @@ public class UpdateCustomer implements Initializable {
         return division.get(0);
     }
 
-//    Country getCountryFromDivisionID(int divisionID) {
-//        //get the division from DivisionID then
-//        List<Division> divisionList = DivisionList
-//                .stream()
-//                .filter(div -> div.getDivisionId() == divisionID)
-//                .toList();
-//        Division divForCountryID = divisionList.get(0);
-//        //Use that division to get a countryID to return a Country List
-//        int countryID = divForCountryID.getCountryId();
-//        List<Country> countryList = CountryList
-//                .stream()
-//                .filter(country -> country.getCountryId() == countryID)
-//                .toList();
-//        return countryList.get(0);
-//    }
-
     private void prepopulateDivisionComboBox(Division division) {
         DivisionComboBox.setValue(division);
     }
@@ -225,7 +209,7 @@ public class UpdateCustomer implements Initializable {
         ObservableManager.populateDataCustomerComboBoxes();
         ObservableManager.populateDataDivisionList();
         CountryComboBox.setItems(ObservableManager.CountryList);
+        //Prefill the passed data
         prefillData();
-        //Take the passed data and prepopulate the fields.
     }
 }
