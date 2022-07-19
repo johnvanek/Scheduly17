@@ -2,17 +2,16 @@ package main.utils;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import main.DAO.models.Appointment;
-import main.DAO.models.Country;
-import main.DAO.models.Customer;
-import main.DAO.models.Division;
+import main.DAO.models.*;
 import main.database.Connection;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalTime;
+import java.time.Month;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 public final class ObservableManager {
@@ -40,10 +39,47 @@ public final class ObservableManager {
 
     //Report Observables
 
-    //public static ObservableList<Cu>
+    public static ObservableList<MonthReport> MonthReportList = FXCollections.observableArrayList();
 
-    //public static List<ObservableList<>>
     private ObservableManager() {
+    }
+
+    public static void generateMonthReport() {
+        //Init all the MonthReport Data Objects
+        MonthReport January = new MonthReport(Month.JANUARY);
+        MonthReport February = new MonthReport(Month.FEBRUARY);
+        MonthReport March = new MonthReport(Month.MARCH);
+        MonthReport April = new MonthReport(Month.APRIL);
+        MonthReport May = new MonthReport(Month.MAY);
+        MonthReport June = new MonthReport(Month.JUNE);
+        MonthReport July = new MonthReport(Month.JULY);
+        MonthReport August = new MonthReport(Month.AUGUST);
+        MonthReport September = new MonthReport(Month.SEPTEMBER);
+        MonthReport October = new MonthReport(Month.OCTOBER);
+        MonthReport November = new MonthReport(Month.NOVEMBER);
+        MonthReport December = new MonthReport(Month.DECEMBER);
+
+        for (Appointment app : AppointmentAllList) {
+            //There are not any appointments currently This is working as intended
+            switch (app.getStartDateTime().getMonth()) {
+                // TODO document to Lambda
+                // case statements lambda makes this more readable
+                case JANUARY -> January.incrementAppointmentCount();
+                case FEBRUARY -> February.incrementAppointmentCount();
+                case MARCH -> March.incrementAppointmentCount();
+                case APRIL -> April.incrementAppointmentCount();
+                case MAY -> May.incrementAppointmentCount();
+                case JUNE -> June.incrementAppointmentCount();
+                case JULY -> July.incrementAppointmentCount();
+                case AUGUST -> August.incrementAppointmentCount();
+                case SEPTEMBER -> September.incrementAppointmentCount();
+                case OCTOBER -> October.incrementAppointmentCount();
+                case NOVEMBER -> November.incrementAppointmentCount();
+                case DECEMBER -> December.incrementAppointmentCount();
+            }
+        }
+        //Make another lambda her given a month report add it to the MonthReportList
+        MonthReportList.addAll(January,February,March,April,May,June,July,August,September,October,November,December);
     }
 
     public static void populateDataAppointmentLists() {
@@ -406,6 +442,9 @@ public final class ObservableManager {
                 LocalTime.of(0, 0)
         );
     }
+
+    //Report Data Methods
+
 
     // TODO add the functionality for the reporting features.
     //  What needs to be done is Loop through the appointmentsList

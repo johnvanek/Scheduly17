@@ -4,21 +4,22 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import main.DAO.models.Customer;
+import main.DAO.models.MonthReport;
 import main.utils.ObservableManager;
 import main.utils.StageManager;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import static main.utils.ObservableManager.AppointmentWeeklyList;
+
 public class Reports implements Initializable {
 
     @FXML
-    private Tab CustomerMonthShowAllButton;
-
-    @FXML
-    private TableView<?> ReportCustomerPerMonthTable;
+    private TableView<MonthReport> ReportCustomerPerMonthTable;
 
     @FXML
     private TableColumn<?, ?> ReportCustomerPerMonthMonthColumn;
@@ -40,9 +41,6 @@ public class Reports implements Initializable {
 
     @FXML
     private ComboBox<Customer> CustomerReportTypeComboBox;
-
-    @FXML
-    private RadioButton CustomerTypeShowAllButton;
 
     @FXML
     private TableView<?> ReportContactScheduleTable;
@@ -103,16 +101,15 @@ public class Reports implements Initializable {
 
     }
 
+    //Local Methods
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //Init the data
-        ObservableManager.populateDataCustomerList();
         System.out.println("Reports initialized");
-        System.out.println("CustomerList");
-
-        //Bind the values for the comboBoxes
-        CustomerReportMonthComboBox.setItems(ObservableManager.CustomerList);
-        // This will be a problem for all of them
-        CustomerReportTypeComboBox.setItems(ObservableManager.CustomerList);
+        ObservableManager.generateMonthReport();
+        ReportCustomerPerMonthTable.setItems(ObservableManager.MonthReportList);
+        ReportCustomerPerMonthMonthColumn.setCellValueFactory(new PropertyValueFactory<>("Month"));
+        ReportCustomerPerMonthTotalAmountColumn.setCellValueFactory(new PropertyValueFactory<>("AppointmentCount"));
     }
 }
