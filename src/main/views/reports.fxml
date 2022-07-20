@@ -39,7 +39,7 @@
                               <TableColumn fx:id="TotalColumnMonthType" prefWidth="125.0" text="Total Amount" />
                            </columns>
                         </TableView>
-                        <ComboBox fx:id="MonthSelectComboBox" layoutX="268.0" layoutY="37.0" onMouseClicked="#PopulateContactSchedule" prefHeight="25.0" prefWidth="120.0">
+                        <ComboBox fx:id="MonthSelectComboBox" layoutX="268.0" layoutY="37.0" onMouseClicked="#PopulateContactSchedule" prefHeight="25.0" prefWidth="135.0">
                            <cursor>
                               <Cursor fx:constant="CLOSED_HAND" />
                            </cursor>
@@ -55,7 +55,7 @@
                               <String fx:value="inbetweenStroke" />
                            </styleClass>
                         </Text>
-                        <ComboBox fx:id="TypeSelectComboBox" layoutX="268.0" layoutY="81.0" onMouseClicked="#PopulateContactSchedule" prefHeight="25.0" prefWidth="120.0">
+                        <ComboBox fx:id="TypeSelectComboBox" layoutX="268.0" layoutY="81.0" onMouseClicked="#PopulateContactSchedule" prefHeight="25.0" prefWidth="135.0">
                            <cursor>
                               <Cursor fx:constant="CLOSED_HAND" />
                            </cursor>

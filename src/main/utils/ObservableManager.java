@@ -8,6 +8,7 @@ import main.database.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.time.LocalTime;
 import java.time.Month;
 import java.util.stream.Collectors;
@@ -37,6 +38,7 @@ public final class ObservableManager {
 
     //Report Observables
 
+    public static ObservableList<Month> MonthList = FXCollections.observableArrayList();
     public static ObservableList<MonthReport> MonthReportList = FXCollections.observableArrayList();
 
     public static ObservableList<String> TypeList = FXCollections.observableArrayList();
@@ -50,8 +52,24 @@ public final class ObservableManager {
         TypeList.clear();
         //Then for each appointment loop over and add each type if unique
         AppointmentAllList.forEach(app -> determineIfInList(app));
+        //Finally Add one Type of All Types in case they wish to see the count for all appointments
+        TypeList.add("All Types");
     }
 
+    public static void generateMonthList() {
+        MonthList.add(Month.JANUARY);
+        MonthList.add(Month.FEBRUARY);
+        MonthList.add(Month.MARCH);
+        MonthList.add(Month.APRIL);
+        MonthList.add(Month.MAY);
+        MonthList.add(Month.JUNE);
+        MonthList.add(Month.JULY);
+        MonthList.add(Month.AUGUST);
+        MonthList.add(Month.SEPTEMBER);
+        MonthList.add(Month.OCTOBER);
+        MonthList.add(Month.NOVEMBER);
+        MonthList.add(Month.DECEMBER);
+    }
     private static void determineIfInList(Appointment app) {
         boolean isUnique = true;
         for (String type : TypeList) {

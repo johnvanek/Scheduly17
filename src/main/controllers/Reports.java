@@ -9,8 +9,10 @@ import main.utils.ObservableManager;
 import main.utils.StageManager;
 
 import java.net.URL;
+import java.time.Month;
 import java.util.ResourceBundle;
 
+import static main.utils.ObservableManager.MonthList;
 import static main.utils.ObservableManager.TypeList;
 
 public class Reports implements Initializable {
@@ -22,7 +24,7 @@ public class Reports implements Initializable {
     private TableColumn<?, ?> TotalColumnMonthType;
 
     @FXML
-    private ComboBox<?> MonthSelectComboBox;
+    private ComboBox<Month> MonthSelectComboBox;
 
     @FXML
     private ComboBox<String> TypeSelectComboBox;
@@ -94,9 +96,11 @@ public class Reports implements Initializable {
         System.out.println("Reports initialized");
         ObservableManager.generateMonthReport();
 
+        ObservableManager.generateMonthList();
         ObservableManager.generateTypeList();
 
         //Bind the typeList
+        MonthSelectComboBox.setItems(MonthList);
         TypeSelectComboBox.setItems(TypeList);
     }
 }
