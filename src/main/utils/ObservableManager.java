@@ -10,8 +10,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalTime;
 import java.time.Month;
-import java.util.List;
-import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 public final class ObservableManager {
@@ -41,7 +39,30 @@ public final class ObservableManager {
 
     public static ObservableList<MonthReport> MonthReportList = FXCollections.observableArrayList();
 
+    public static ObservableList<String> TypeList = FXCollections.observableArrayList();
+
     private ObservableManager() {
+    }
+
+    // TODO Document this lambda
+    public static void generateTypeList() {
+        //First clear the old list
+        TypeList.clear();
+        //Then for each appointment loop over and add each type if unique
+        AppointmentAllList.forEach(app -> determineIfInList(app));
+    }
+
+    private static void determineIfInList(Appointment app) {
+        boolean isUnique = true;
+        for (String type : TypeList) {
+            if (app.getType().equals(type)) {
+                isUnique = false;
+                break;
+            }
+        }
+        if(isUnique) {
+            TypeList.add(app.getType());
+        }
     }
 
     public static void generateMonthReport() {
@@ -59,8 +80,14 @@ public final class ObservableManager {
         MonthReport November = new MonthReport(Month.NOVEMBER);
         MonthReport December = new MonthReport(Month.DECEMBER);
 
+
         for (Appointment app : AppointmentAllList) {
             //There are not any appointments currently This is working as intended
+            //Figure out here to change this to be filtered by the type
+            // Need to put in an observable list so that I can show it in some sort of view.
+            // The only column in the data-model needs to be a count.
+            // This is probably a use case for a lambda where I pass A function to this which will return the count.
+            // Given a function that will evaluate to true or false.
             switch (app.getStartDateTime().getMonth()) {
                 // TODO document to Lambda
                 // case statements lambda makes this more readable
@@ -77,9 +104,10 @@ public final class ObservableManager {
                 case NOVEMBER -> November.incrementAppointmentCount();
                 case DECEMBER -> December.incrementAppointmentCount();
             }
+            // Also get the type and add them to the list if they are not already in the List
         }
         //Make another lambda her given a month report add it to the MonthReportList
-        MonthReportList.addAll(January,February,March,April,May,June,July,August,September,October,November,December);
+        MonthReportList.addAll(January, February, March, April, May, June, July, August, September, October, November, December);
     }
 
     public static void populateDataAppointmentLists() {

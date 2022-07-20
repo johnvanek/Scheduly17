@@ -23,7 +23,7 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="314.0" prefWidth="875.0" style="-fx-background-color: lightblue;">
                      <children>
-                        <Text fill="WHITE" layoutX="251.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customers Appointments Per Month Report">
+                        <Text fill="WHITE" layoutX="251.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customers Appointments Per Month-Type Report">
                            <font>
                               <Font size="20.0" />
                            </font>
@@ -34,45 +34,47 @@
                               <String fx:value="inbetweenStroke" />
                            </styleClass>
                         </Text>
-                        <TableView fx:id="ReportCustomerPerMonthTable" layoutX="318.0" layoutY="26.0" prefHeight="290.0" prefWidth="222.0">
+                        <TableView fx:id="ReportMonthTypeView" layoutX="421.0" layoutY="37.0" prefHeight="251.0" prefWidth="126.0">
                            <columns>
-                              <TableColumn fx:id="ReportCustomerPerMonthMonthColumn" prefWidth="119.99999696016312" text="Month" />
-                              <TableColumn fx:id="ReportCustomerPerMonthTotalAmountColumn" prefWidth="101.59994506835938" text="Total Amount" />
+                              <TableColumn fx:id="TotalColumnMonthType" prefWidth="125.0" text="Total Amount" />
                            </columns>
                         </TableView>
+                        <ComboBox fx:id="MonthSelectComboBox" layoutX="268.0" layoutY="37.0" onMouseClicked="#PopulateContactSchedule" prefHeight="25.0" prefWidth="120.0">
+                           <cursor>
+                              <Cursor fx:constant="CLOSED_HAND" />
+                           </cursor>
+                        </ComboBox>
+                        <Text fill="WHITE" layoutX="198.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Month:">
+                           <font>
+                              <Font size="21.0" />
+                           </font>
+                           <styleClass>
+                              <String fx:value="montserrat" />
+                              <String fx:value="boldFont" />
+                              <String fx:value="subheaderFont" />
+                              <String fx:value="inbetweenStroke" />
+                           </styleClass>
+                        </Text>
+                        <ComboBox fx:id="TypeSelectComboBox" layoutX="268.0" layoutY="81.0" onMouseClicked="#PopulateContactSchedule" prefHeight="25.0" prefWidth="120.0">
+                           <cursor>
+                              <Cursor fx:constant="CLOSED_HAND" />
+                           </cursor>
+                        </ComboBox>
+                        <Text fill="WHITE" layoutX="202.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type:">
+                           <font>
+                              <Font size="21.0" />
+                           </font>
+                           <styleClass>
+                              <String fx:value="montserrat" />
+                              <String fx:value="boldFont" />
+                              <String fx:value="subheaderFont" />
+                              <String fx:value="inbetweenStroke" />
+                           </styleClass>
+                        </Text>
                      </children>
                      <cursor>
                         <Cursor fx:constant="DEFAULT" />
                      </cursor>
-                  </AnchorPane>
-               </content>
-            </Tab>
-            <Tab text="Type Total">
-               <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="314.0" prefWidth="875.0" style="-fx-background-color: lightblue;">
-                     <children>
-                        <Text fill="WHITE" layoutX="251.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer Appointments Per Type Report">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                           <styleClass>
-                              <String fx:value="boldFont" />
-                              <String fx:value="montserrat" />
-                              <String fx:value="subheaderFont" />
-                              <String fx:value="inbetweenStroke" />
-                           </styleClass>
-                        </Text>
-                        <ScrollPane layoutX="313.0" layoutY="26.0" prefHeight="286.0" prefWidth="237.0" styleClass="rounderCornerSmall">
-                           <content>
-                              <TableView fx:id="ReportCustomerPerTypeTable" prefHeight="283.0" prefWidth="238.0">
-                                 <columns>
-                                    <TableColumn fx:id="ReportCustomerPerTypeTypeColumn" prefWidth="119.99999696016312" text="Type" />
-                                    <TableColumn fx:id="ReportCustomerPerTypeTotalAmountColumn" prefWidth="101.59994506835938" text="Total Amount" />
-                                 </columns>
-                              </TableView>
-                           </content>
-                        </ScrollPane>
-                     </children>
                   </AnchorPane>
                </content>
             </Tab>
@@ -82,7 +84,7 @@
                      <children>
                         <ScrollPane layoutX="14.0" layoutY="40.0" prefHeight="271.0" prefWidth="846.0">
                            <content>
-                              <TableView fx:id="ReportContactScheduleTable" prefHeight="269.0" prefWidth="844.0">
+                              <TableView fx:id="ReportContactScheduleView" prefHeight="269.0" prefWidth="844.0">
                                  <columns>
                                     <TableColumn fx:id="ReportContactScheduleAppIdColumn" prefWidth="58.399962246418" text="App_ID" />
                                     <TableColumn fx:id="ReportContactScheduleTitleColumn" prefWidth="104.79993057250977" text="Title" />

@@ -6,6 +6,8 @@ public class MonthReport {
     private final Month month;
     private int appointmentCount;
 
+    //TODO figure out how to filter this data by type. Watch the webinar about it.
+
     public MonthReport(Month month) {
         this.month = month;
     }

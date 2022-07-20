@@ -4,46 +4,31 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import main.DAO.models.Customer;
-import main.DAO.models.MonthReport;
 import main.utils.ObservableManager;
 import main.utils.StageManager;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static main.utils.ObservableManager.AppointmentWeeklyList;
+import static main.utils.ObservableManager.TypeList;
 
 public class Reports implements Initializable {
 
     @FXML
-    private TableView<MonthReport> ReportCustomerPerMonthTable;
+    private TableView<?> ReportMonthTypeView;
 
     @FXML
-    private TableColumn<?, ?> ReportCustomerPerMonthMonthColumn;
+    private TableColumn<?, ?> TotalColumnMonthType;
 
     @FXML
-    private TableColumn<?, ?> ReportCustomerPerMonthTotalAmountColumn;
+    private ComboBox<?> MonthSelectComboBox;
 
     @FXML
-    private ComboBox<Customer> CustomerReportMonthComboBox;
+    private ComboBox<String> TypeSelectComboBox;
 
     @FXML
-    private TableView<?> ReportCustomerPerTypeTable;
-
-    @FXML
-    private TableColumn<?, ?> ReportCustomerPerTypeTypeColumn;
-
-    @FXML
-    private TableColumn<?, ?> ReportCustomerPerTypeTotalAmountColumn;
-
-    @FXML
-    private ComboBox<Customer> CustomerReportTypeComboBox;
-
-    @FXML
-    private TableView<?> ReportContactScheduleTable;
+    private TableView<?> ReportContactScheduleView;
 
     @FXML
     private TableColumn<?, ?> ReportContactScheduleAppIdColumn;
@@ -108,8 +93,10 @@ public class Reports implements Initializable {
         //Init the data
         System.out.println("Reports initialized");
         ObservableManager.generateMonthReport();
-        ReportCustomerPerMonthTable.setItems(ObservableManager.MonthReportList);
-        ReportCustomerPerMonthMonthColumn.setCellValueFactory(new PropertyValueFactory<>("Month"));
-        ReportCustomerPerMonthTotalAmountColumn.setCellValueFactory(new PropertyValueFactory<>("AppointmentCount"));
+
+        ObservableManager.generateTypeList();
+
+        //Bind the typeList
+        TypeSelectComboBox.setItems(TypeList);
     }
 }
