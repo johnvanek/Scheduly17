@@ -8,7 +8,6 @@ import main.database.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Time;
 import java.time.LocalTime;
 import java.time.Month;
 import java.util.stream.Collectors;
@@ -39,7 +38,7 @@ public final class ObservableManager {
     //Report Observables
 
     public static ObservableList<Month> MonthList = FXCollections.observableArrayList();
-    public static ObservableList<MonthReport> MonthReportList = FXCollections.observableArrayList();
+
 
     public static ObservableList<String> TypeList = FXCollections.observableArrayList();
 
@@ -53,10 +52,10 @@ public final class ObservableManager {
         //Then for each appointment loop over and add each type if unique
         AppointmentAllList.forEach(app -> determineIfInList(app));
         //Finally Add one Type of All Types in case they wish to see the count for all appointments
-        TypeList.add("All Types");
     }
 
     public static void generateMonthList() {
+        MonthList.clear();
         MonthList.add(Month.JANUARY);
         MonthList.add(Month.FEBRUARY);
         MonthList.add(Month.MARCH);
@@ -83,50 +82,7 @@ public final class ObservableManager {
         }
     }
 
-    public static void generateMonthReport() {
-        //Init all the MonthReport Data Objects
-        MonthReport January = new MonthReport(Month.JANUARY);
-        MonthReport February = new MonthReport(Month.FEBRUARY);
-        MonthReport March = new MonthReport(Month.MARCH);
-        MonthReport April = new MonthReport(Month.APRIL);
-        MonthReport May = new MonthReport(Month.MAY);
-        MonthReport June = new MonthReport(Month.JUNE);
-        MonthReport July = new MonthReport(Month.JULY);
-        MonthReport August = new MonthReport(Month.AUGUST);
-        MonthReport September = new MonthReport(Month.SEPTEMBER);
-        MonthReport October = new MonthReport(Month.OCTOBER);
-        MonthReport November = new MonthReport(Month.NOVEMBER);
-        MonthReport December = new MonthReport(Month.DECEMBER);
 
-
-        for (Appointment app : AppointmentAllList) {
-            //There are not any appointments currently This is working as intended
-            //Figure out here to change this to be filtered by the type
-            // Need to put in an observable list so that I can show it in some sort of view.
-            // The only column in the data-model needs to be a count.
-            // This is probably a use case for a lambda where I pass A function to this which will return the count.
-            // Given a function that will evaluate to true or false.
-            switch (app.getStartDateTime().getMonth()) {
-                // TODO document to Lambda
-                // case statements lambda makes this more readable
-                case JANUARY -> January.incrementAppointmentCount();
-                case FEBRUARY -> February.incrementAppointmentCount();
-                case MARCH -> March.incrementAppointmentCount();
-                case APRIL -> April.incrementAppointmentCount();
-                case MAY -> May.incrementAppointmentCount();
-                case JUNE -> June.incrementAppointmentCount();
-                case JULY -> July.incrementAppointmentCount();
-                case AUGUST -> August.incrementAppointmentCount();
-                case SEPTEMBER -> September.incrementAppointmentCount();
-                case OCTOBER -> October.incrementAppointmentCount();
-                case NOVEMBER -> November.incrementAppointmentCount();
-                case DECEMBER -> December.incrementAppointmentCount();
-            }
-            // Also get the type and add them to the list if they are not already in the List
-        }
-        //Make another lambda her given a month report add it to the MonthReportList
-        MonthReportList.addAll(January, February, March, April, May, June, July, August, September, October, November, December);
-    }
 
     public static void populateDataAppointmentLists() {
         AppointmentAllList.clear(); // Clear out the old List before creating new ones

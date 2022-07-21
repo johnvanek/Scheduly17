@@ -7,10 +7,12 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
@@ -34,12 +36,7 @@
                               <String fx:value="inbetweenStroke" />
                            </styleClass>
                         </Text>
-                        <TableView fx:id="ReportMonthTypeView" layoutX="421.0" layoutY="37.0" prefHeight="251.0" prefWidth="126.0">
-                           <columns>
-                              <TableColumn fx:id="TotalColumnMonthType" prefWidth="125.0" text="Total Amount" />
-                           </columns>
-                        </TableView>
-                        <ComboBox fx:id="MonthSelectComboBox" layoutX="268.0" layoutY="37.0" onMouseClicked="#PopulateContactSchedule" prefHeight="25.0" prefWidth="135.0">
+                        <ComboBox fx:id="MonthSelectComboBox" layoutX="268.0" layoutY="37.0" onAction="#DetermineSelectionReturnTotal" prefHeight="25.0" prefWidth="135.0">
                            <cursor>
                               <Cursor fx:constant="CLOSED_HAND" />
                            </cursor>
@@ -55,7 +52,7 @@
                               <String fx:value="inbetweenStroke" />
                            </styleClass>
                         </Text>
-                        <ComboBox fx:id="TypeSelectComboBox" layoutX="268.0" layoutY="81.0" onMouseClicked="#PopulateContactSchedule" prefHeight="25.0" prefWidth="135.0">
+                        <ComboBox fx:id="TypeSelectComboBox" layoutX="268.0" layoutY="81.0" onAction="#DetermineSelectionReturnTotal" prefHeight="25.0" prefWidth="135.0">
                            <cursor>
                               <Cursor fx:constant="CLOSED_HAND" />
                            </cursor>
@@ -71,6 +68,19 @@
                               <String fx:value="inbetweenStroke" />
                            </styleClass>
                         </Text>
+                        <TextField fx:id="TotalTextBox" editable="false" layoutX="438.0" layoutY="80.0" prefHeight="26.0" prefWidth="47.0" styleClass="rounderCornerSmall" />
+                        <Text fill="WHITE" layoutX="440.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total">
+                           <font>
+                              <Font size="21.0" />
+                           </font>
+                           <styleClass>
+                              <String fx:value="montserrat" />
+                              <String fx:value="boldFont" />
+                              <String fx:value="subheaderFont" />
+                              <String fx:value="inbetweenStroke" />
+                           </styleClass>
+                        </Text>
+                        <Separator layoutX="412.0" layoutY="39.0" orientation="VERTICAL" prefHeight="67.0" prefWidth="6.0" />
                      </children>
                      <cursor>
                         <Cursor fx:constant="DEFAULT" />

@@ -12,16 +12,12 @@ import java.net.URL;
 import java.time.Month;
 import java.util.ResourceBundle;
 
-import static main.utils.ObservableManager.MonthList;
-import static main.utils.ObservableManager.TypeList;
+import static main.utils.ObservableManager.*;
 
 public class Reports implements Initializable {
 
     @FXML
-    private TableView<?> ReportMonthTypeView;
-
-    @FXML
-    private TableColumn<?, ?> TotalColumnMonthType;
+    private TextField TotalTextBox;
 
     @FXML
     private ComboBox<Month> MonthSelectComboBox;
@@ -57,7 +53,8 @@ public class Reports implements Initializable {
     private ComboBox<?> ContactSelectionComboBox;
 
 
-
+    //FXML Methods
+    //Menu-Bar-Methods
     @FXML
     void ChangeSceneToAppointmentMainMenu(ActionEvent event) {
         StageManager.transitionNextScene("appointments");
@@ -74,6 +71,11 @@ public class Reports implements Initializable {
     }
 
     @FXML
+    void TerminateSession(ActionEvent event) {
+
+    }
+
+    @FXML
     void DeselectTableRow(MouseEvent event) {
 
     }
@@ -84,23 +86,38 @@ public class Reports implements Initializable {
     }
 
     @FXML
-    void TerminateSession(ActionEvent event) {
+    void DetermineSelectionReturnTotal() {
+        if (MonthSelectComboBox.getValue() != null && TypeSelectComboBox.getValue() != null) {
+            // first get the values of both of the boxs
+            Month monthSelected = MonthSelectComboBox.getValue();
+            String typeSelected = TypeSelectComboBox.getValue();
 
+            TotalTextBox.setText(CalculateMonthTypeAppointments(monthSelected,typeSelected));
+        }
     }
+
+    //Local Methods
+    private String CalculateMonthTypeAppointments(Month monthSelected, String typeSelected) {
+        AppointmentAllList.forEach(appointment -> {
+
+        });
+        return "Hi";
+    }
+
+    //Add method to determine what type of total to show based on the combobox selections.
 
     //Local Methods
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //Init the data
-        System.out.println("Reports initialized");
-        ObservableManager.generateMonthReport();
-
         ObservableManager.generateMonthList();
         ObservableManager.generateTypeList();
 
         //Bind the typeList
         MonthSelectComboBox.setItems(MonthList);
         TypeSelectComboBox.setItems(TypeList);
+        //Need to set listeners
+        TotalTextBox.setText("5");
     }
 }
