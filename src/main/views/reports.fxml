@@ -68,8 +68,13 @@
                               <String fx:value="inbetweenStroke" />
                            </styleClass>
                         </Text>
-                        <TextField fx:id="TotalTextBox" editable="false" layoutX="438.0" layoutY="80.0" prefHeight="26.0" prefWidth="47.0" styleClass="rounderCornerSmall" />
-                        <Text fill="WHITE" layoutX="440.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total">
+                        <TextField fx:id="TotalTextBox" editable="false" layoutX="438.0" layoutY="80.0" prefHeight="29.0" prefWidth="129.0">
+                           <styleClass>
+                              <String fx:value="rounderCornerSmall" />
+                              <String fx:value="loginTextBox" />
+                           </styleClass>
+                        </TextField>
+                        <Text fill="WHITE" layoutX="481.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total">
                            <font>
                               <Font size="21.0" />
                            </font>

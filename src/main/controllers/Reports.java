@@ -92,20 +92,30 @@ public class Reports implements Initializable {
             Month monthSelected = MonthSelectComboBox.getValue();
             String typeSelected = TypeSelectComboBox.getValue();
 
-            TotalTextBox.setText(CalculateMonthTypeAppointments(monthSelected,typeSelected));
+            TotalTextBox.setText(CalculateMonthTypeAppointments(monthSelected, typeSelected));
+
+            if (Integer.parseInt(TotalTextBox.getText()) > 0) {
+                TotalTextBox.setStyle("-fx-text-fill: #24a6f4");
+            } else TotalTextBox.setStyle("-fx-text-fill: black");
+
         }
     }
 
     //Local Methods
     private String CalculateMonthTypeAppointments(Month monthSelected, String typeSelected) {
-        AppointmentAllList.forEach(appointment -> {
+        int count = 0;
+        //TODO document this lambda the use of count.
+        if (typeSelected.equals("All Types!")) {
+            count = (int) AppointmentAllList.stream().filter(appointment ->
+                    appointment.getStartDateTime().getMonth().equals(monthSelected)).count();
+        } else {
+            count = (int) AppointmentAllList.stream().filter(appointment ->
+                    appointment.getStartDateTime().getMonth().equals(monthSelected)
+                            && appointment.getType().equals(typeSelected)).count();
+        }
 
-        });
-        return "Hi";
+        return String.valueOf(count);
     }
-
-    //Add method to determine what type of total to show based on the combobox selections.
-
     //Local Methods
 
     @Override
@@ -118,6 +128,6 @@ public class Reports implements Initializable {
         MonthSelectComboBox.setItems(MonthList);
         TypeSelectComboBox.setItems(TypeList);
         //Need to set listeners
-        TotalTextBox.setText("5");
+        TotalTextBox.setText("Total_AMT");
     }
 }

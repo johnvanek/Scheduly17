@@ -51,6 +51,8 @@ public final class ObservableManager {
         TypeList.clear();
         //Then for each appointment loop over and add each type if unique
         AppointmentAllList.forEach(app -> determineIfInList(app));
+        //Add this to the end To show the amount in each Month with regard to Type.
+        TypeList.add("All Types!");
         //Finally Add one Type of All Types in case they wish to see the count for all appointments
     }
 
