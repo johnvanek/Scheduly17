@@ -4,7 +4,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import main.DAO.models.Appointment;
 import main.DAO.models.Contact;
 import main.utils.ObservableManager;
 import main.utils.StageManager;
@@ -27,7 +29,7 @@ public class Reports implements Initializable {
     private ComboBox<String> TypeSelectComboBox;
 
     @FXML
-    private TableView<?> ReportContactScheduleView;
+    private TableView<Appointment> ReportContactScheduleView;
 
     @FXML
     private TableColumn<?, ?> ReportContactScheduleAppIdColumn;
@@ -102,6 +104,14 @@ public class Reports implements Initializable {
         }
     }
 
+    @FXML
+    void ShowSchedule(ActionEvent event) {
+        if(ContactSelectionComboBox.getValue() != null)  {
+            ObservableManager.generateContactAppointmentList(ContactSelectionComboBox.getValue());
+            ShowContactSchedule();
+        }
+    }
+
     //Local Methods
     private String CalculateMonthTypeAppointments(Month monthSelected, String typeSelected) {
         int count = 0;
@@ -119,6 +129,16 @@ public class Reports implements Initializable {
     }
     //Local Methods
 
+    private void ShowContactSchedule(){
+        ReportContactScheduleView.setItems(ContactAppointmentList);
+        ReportContactScheduleAppIdColumn.setCellValueFactory(new PropertyValueFactory<>("AppointmentId"));
+        ReportContactScheduleTitleColumn.setCellValueFactory(new PropertyValueFactory<>("Title"));
+        ReportContactScheduleTypeColumn.setCellValueFactory(new PropertyValueFactory<>("Type"));
+        ReportContactScheduleDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("Description"));
+        ReportContactScheduleStartDateTimeColumn.setCellValueFactory(new PropertyValueFactory<>("StartDateTime"));
+        ReportContactScheduleEndDateTimeColumn.setCellValueFactory(new PropertyValueFactory<>("EndDateTime"));
+        ReportContactScheduleCustomerID.setCellValueFactory(new PropertyValueFactory<>("CustomerId"));
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //Init the data for the First Tab
