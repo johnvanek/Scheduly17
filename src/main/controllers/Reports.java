@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import main.DAO.models.Contact;
 import main.utils.ObservableManager;
 import main.utils.StageManager;
 
@@ -50,7 +51,7 @@ public class Reports implements Initializable {
     private TableColumn<?, ?> ReportContactScheduleCustomerID;
 
     @FXML
-    private ComboBox<?> ContactSelectionComboBox;
+    private ComboBox<Contact> ContactSelectionComboBox;
 
 
     //FXML Methods
@@ -120,14 +121,20 @@ public class Reports implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //Init the data
+        //Init the data for the First Tab
         ObservableManager.generateMonthList();
         ObservableManager.generateTypeList();
 
-        //Bind the typeList
+        //Bind the data for the First Tab
         MonthSelectComboBox.setItems(MonthList);
         TypeSelectComboBox.setItems(TypeList);
-        //Need to set listeners
+        //Placeholder text First Tab
         TotalTextBox.setText("Total_AMT");
+
+        //Init the data for the Second Tab
+        ObservableManager.generateContactListFromDatabase();
+
+        //Bind the data for the Second Tab
+        ContactSelectionComboBox.setItems(ContactList);
     }
 }

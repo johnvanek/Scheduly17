@@ -42,6 +42,8 @@ public final class ObservableManager {
 
     public static ObservableList<String> TypeList = FXCollections.observableArrayList();
 
+    public static ObservableList<Contact> ContactList = FXCollections.observableArrayList();
+
     private ObservableManager() {
     }
 
@@ -50,7 +52,7 @@ public final class ObservableManager {
         //First clear the old list
         TypeList.clear();
         //Then for each appointment loop over and add each type if unique
-        AppointmentAllList.forEach(app -> determineIfInList(app));
+        AppointmentAllList.forEach(app -> determineIfInListAddType(app));
         //Add this to the end To show the amount in each Month with regard to Type.
         TypeList.add("All Types!");
         //Finally Add one Type of All Types in case they wish to see the count for all appointments
@@ -71,7 +73,34 @@ public final class ObservableManager {
         MonthList.add(Month.NOVEMBER);
         MonthList.add(Month.DECEMBER);
     }
-    private static void determineIfInList(Appointment app) {
+
+    public static void generateContactListFromDatabase() {
+        ContactList.clear();
+        PreparedStatement ps;
+        ResultSet rs;
+        String query = "Select * From contacts";
+        try {
+            ps = Connection.getConnection().prepareStatement(query);
+            rs = ps.executeQuery();
+            if (rs != null) {
+                while (rs.next()) {
+                    Contact currentContact = new Contact(
+                            rs.getInt("Contact_ID"),
+                            rs.getString("Contact_Name"),
+                            rs.getString("Email")
+                    );
+
+                    //Add all the appointments here from the script to the data model.
+                    ContactList.add(currentContact);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error creating the Observable List for ContactList");
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static void determineIfInListAddType(Appointment app) {
         boolean isUnique = true;
         for (String type : TypeList) {
             if (app.getType().equals(type)) {
@@ -79,12 +108,10 @@ public final class ObservableManager {
                 break;
             }
         }
-        if(isUnique) {
+        if (isUnique) {
             TypeList.add(app.getType());
         }
     }
-
-
 
     public static void populateDataAppointmentLists() {
         AppointmentAllList.clear(); // Clear out the old List before creating new ones
@@ -446,18 +473,4 @@ public final class ObservableManager {
                 LocalTime.of(0, 0)
         );
     }
-
-    //Report Data Methods
-
-
-    // TODO add the functionality for the reporting features.
-    //  What needs to be done is Loop through the appointmentsList
-    //  The Monthly Report Feature.
-    //  and filter the ones there by start data into a monthly list could use count for this.
-    //  Streams.count()
-    //  If each month is its own list.
-    //  To be shown in the table I need one list observable.
-    //  Create the logic for this in ObservableManager
-
-
 }
