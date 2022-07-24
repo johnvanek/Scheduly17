@@ -26,6 +26,6 @@ public class Contact {
 
     @Override
     public String toString() {
-        return getContactName() + " -Id: " + getContactID();
+        return "ID[" + getContactID() + "] - " + getContactName();
     }
 }

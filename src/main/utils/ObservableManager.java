@@ -46,6 +46,8 @@ public final class ObservableManager {
 
     public static ObservableList<Appointment> ContactAppointmentList = FXCollections.observableArrayList();
 
+    public static ObservableList<Appointment> CustomerAppointmentList = FXCollections.observableArrayList();
+
     private ObservableManager() {
     }
 
@@ -99,6 +101,15 @@ public final class ObservableManager {
         } catch (SQLException e) {
             System.out.println("Error creating the Observable List for ContactList");
             throw new RuntimeException(e);
+        }
+    }
+
+    public static void generateCustomerAppointmentList(Customer customer) {
+        CustomerAppointmentList.clear();
+        for (Appointment app : AppointmentAllList) {
+            if (app.getCustomerId() == customer.getCustomerId()) {
+                CustomerAppointmentList.add(app);
+            }
         }
     }
 

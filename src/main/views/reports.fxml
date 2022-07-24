@@ -146,6 +146,59 @@
                   </AnchorPane>
                </content>
             </Tab>
+            <Tab text="Customer Schedules">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" onMouseClicked="#DeselectTableRow" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: lightblue;">
+                     <children>
+                        <ScrollPane layoutX="14.0" layoutY="40.0" prefHeight="271.0" prefWidth="846.0">
+                           <content>
+                              <TableView fx:id="CustomerScheduleView" prefHeight="269.0" prefWidth="844.0">
+                                 <columns>
+                                    <TableColumn fx:id="CustomerScheduleAppId" prefWidth="58.399962246418" text="App_ID" />
+                                    <TableColumn fx:id="CustomerScheduleTitle" prefWidth="104.79993057250977" text="Title" />
+                                    <TableColumn fx:id="CustomerScheduleType" prefWidth="116.00001525878906" text="Type" />
+                                    <TableColumn fx:id="CustomerScheduleLocation" prefWidth="170.39990234375" text="Location" />
+                                    <TableColumn fx:id="CustomerScheduleStart" prefWidth="148.79989624023438" text="Start Date / Start Time" />
+                                    <TableColumn fx:id="CustomerScheduleEnd" prefWidth="144.0001220703125" text="End Date / End Time" />
+                                    <TableColumn fx:id="CustomerScheduleContactID" prefWidth="93.5999755859375" text="ContactID" />
+                                 </columns>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </TableView>
+                           </content>
+                        </ScrollPane>
+                        <Text fill="WHITE" layoutX="350.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer Schedules">
+                           <font>
+                              <Font size="21.0" />
+                           </font>
+                           <styleClass>
+                              <String fx:value="montserrat" />
+                              <String fx:value="boldFont" />
+                              <String fx:value="subheaderFont" />
+                              <String fx:value="inbetweenStroke" />
+                           </styleClass>
+                        </Text>
+                        <ComboBox fx:id="CustomerSelectionComboBox" layoutX="114.0" layoutY="3.0" onAction="#ShowCustomerSchedule" onMouseClicked="#PopulateContactSchedule" prefHeight="26.0" prefWidth="183.0">
+                           <cursor>
+                              <Cursor fx:constant="CLOSED_HAND" />
+                           </cursor>
+                        </ComboBox>
+                        <Text fill="WHITE" layoutX="14.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customers">
+                           <font>
+                              <Font size="21.0" />
+                           </font>
+                           <styleClass>
+                              <String fx:value="montserrat" />
+                              <String fx:value="boldFont" />
+                              <String fx:value="subheaderFont" />
+                              <String fx:value="inbetweenStroke" />
+                           </styleClass>
+                        </Text>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
          </tabs>
       </TabPane>
       <MenuBar layoutY="2.0" styleClass="rounderCornerSmall">

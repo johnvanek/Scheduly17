@@ -8,6 +8,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import main.DAO.models.Appointment;
 import main.DAO.models.Contact;
+import main.DAO.models.Customer;
 import main.utils.ObservableManager;
 import main.utils.StageManager;
 
@@ -27,6 +28,32 @@ public class Reports implements Initializable {
 
     @FXML
     private ComboBox<String> TypeSelectComboBox;
+    @FXML
+    private TableView<Appointment> CustomerScheduleView;
+
+    @FXML
+    private TableColumn<?, ?> CustomerScheduleAppId;
+
+    @FXML
+    private TableColumn<?, ?> CustomerScheduleTitle;
+
+    @FXML
+    private TableColumn<?, ?> CustomerScheduleType;
+
+    @FXML
+    private TableColumn<?, ?> CustomerScheduleLocation;
+
+    @FXML
+    private TableColumn<?, ?> CustomerScheduleStart;
+
+    @FXML
+    private TableColumn<?, ?> CustomerScheduleEnd;
+
+    @FXML
+    private TableColumn<?, ?> CustomerScheduleContactID;
+
+    @FXML
+    private ComboBox<Customer> CustomerSelectionComboBox;
 
     @FXML
     private TableView<Appointment> ReportContactScheduleView;
@@ -112,6 +139,25 @@ public class Reports implements Initializable {
         }
     }
 
+    @FXML
+    void ShowCustomerSchedule(ActionEvent event) {
+        if(CustomerSelectionComboBox.getValue() != null)  {
+            ObservableManager.generateCustomerAppointmentList(CustomerSelectionComboBox.getValue());
+            ShowSelectedCustomerSchedule();
+        }
+    }
+
+    private void ShowSelectedCustomerSchedule() {
+        CustomerScheduleView.setItems(CustomerAppointmentList);
+        CustomerScheduleAppId.setCellValueFactory(new PropertyValueFactory<>("AppointmentId"));
+        CustomerScheduleTitle.setCellValueFactory(new PropertyValueFactory<>("Title"));
+        CustomerScheduleType.setCellValueFactory(new PropertyValueFactory<>("Type"));
+        CustomerScheduleLocation.setCellValueFactory(new PropertyValueFactory<>("Location"));
+        CustomerScheduleStart.setCellValueFactory(new PropertyValueFactory<>("StartDateTime"));
+        CustomerScheduleEnd.setCellValueFactory(new PropertyValueFactory<>("EndDateTime"));
+        CustomerScheduleContactID.setCellValueFactory(new PropertyValueFactory<>("ContactId"));
+    }
+
     //Local Methods
     private String CalculateMonthTypeAppointments(Month monthSelected, String typeSelected) {
         int count = 0;
@@ -156,5 +202,10 @@ public class Reports implements Initializable {
 
         //Bind the data for the Second Tab
         ContactSelectionComboBox.setItems(ContactList);
+
+        //Third Tab
+        ObservableManager.populateDataCustomerList();
+        CustomerSelectionComboBox.setItems(CustomerList);
+
     }
 }
