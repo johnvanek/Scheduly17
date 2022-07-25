@@ -12,18 +12,48 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.*;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static main.utils.ObservableManager.*;
 
 public final class TimeManager {
 
-    public static void checkForUpcomingAppointment(){
-        // TODO implement this method.
+    private TimeManager() {
     }
 
+    public static void checkForUpcomingAppointment() {
+        //The Alert are defined at the top of the namespace
+            Alert noUpcomingAlert = new Alert(Alert.AlertType.INFORMATION, "This is a message to " +
+                    "inform you that user[" + currentlyLoggedInUser.getUserName() + "] + does not have any upcoming " +
+                    "appointments within the next 15 minutes.", ButtonType.OK);
 
-    private TimeManager() {
+            noUpcomingAlert.setHeaderText("[INFO] : [TIME]");
+            noUpcomingAlert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+
+        Alert lessThanFifteenAlert; //Defined as needed
+
+        boolean flag = true;
+        for (Appointment app : AppointmentAllList) {
+            Duration timeTillAppointmentStartInMinutes = Duration.between(LocalDateTime.now(), app.getStartDateTime());
+            long timeDifferenceMinutes = timeTillAppointmentStartInMinutes.toMinutes();
+            System.out.println("Running analysis! On appointments to see if there is a upcoming appointment in 15 minutes!");
+            if (timeDifferenceMinutes > 0 && timeDifferenceMinutes <= 15) {
+                lessThanFifteenAlert = new Alert(Alert.AlertType.WARNING, "Warning you have an appointment within " +
+                        "the next " + timeDifferenceMinutes + "-minutes. Appointment: ID[" + app.getAppointmentId() + "] " +
+                        "Date: " + LocalDate.from(app.getStartDateTime()) + " Time: " + LocalTime.from(app.getStartDateTime())
+                        + ".", ButtonType.OK);
+                lessThanFifteenAlert.setHeaderText("[WARNING] : [TIME]");
+                lessThanFifteenAlert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+                lessThanFifteenAlert.showAndWait();
+                flag = false;
+                break;
+            }
+        } if (flag) noUpcomingAlert.showAndWait();
+    }
+
+    public static void isAppointmentInWithinFifteenMinutes(Appointment app) {
+
     }
 
     //Might need to figure out the current work week.
