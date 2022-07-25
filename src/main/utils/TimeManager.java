@@ -33,7 +33,8 @@ public final class TimeManager {
 
         Alert lessThanFifteenAlert; //Defined as needed
 
-        boolean flag = true;
+        boolean flag = true; // flag if set to false stops the loop over all appointments
+
         for (Appointment app : AppointmentAllList) {
             Duration timeTillAppointmentStartInMinutes = Duration.between(LocalDateTime.now(), app.getStartDateTime());
             long timeDifferenceMinutes = timeTillAppointmentStartInMinutes.toMinutes();
