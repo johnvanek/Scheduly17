@@ -139,7 +139,6 @@ public class Login implements Initializable {
      */
     @FXML
     private boolean userIsValid() {
-        //TODO rework this so that it determines is a user is valid from the database.
         PreparedStatement ps;
         ResultSet rs;
         String query = "Select * From users";
