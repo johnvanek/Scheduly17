@@ -18,6 +18,11 @@ import static main.utils.ObservableManager.*;
 
 public final class TimeManager {
 
+    public static void checkForUpcomingAppointment(){
+
+    }
+
+
     private TimeManager() {
     }
 

@@ -18,11 +18,19 @@ import javafx.scene.media.MediaView;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.util.Duration;
+import main.DAO.models.Appointment;
+import main.DAO.models.User;
+import main.database.Connection;
 import main.utils.MediaManager;
+import main.utils.ObservableManager;
 import main.utils.StageManager;
+import main.utils.TimeManager;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.ZoneId;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -86,6 +94,8 @@ public class Login implements Initializable {
         //Set up the Media running on the Login Screen
         MediaManager.initMediaPlayer();
         VideoPlayer.setMediaPlayer(MediaManager.getMediaPlayer());
+        //Enable this line below to test the french language
+        //Locale.setDefault(new Locale("fr"));
         //Display the Language Text
         displayLocaleLanguage();
     }
@@ -129,9 +139,44 @@ public class Login implements Initializable {
      */
     @FXML
     private boolean userIsValid() {
-        //Todo implement the functionality here make sure the user is valid.
-        return true;
+        //TODO rework this so that it determines is a user is valid from the database.
+        PreparedStatement ps;
+        ResultSet rs;
+        String query = "Select * From users";
+        if (UserNameTextField.getText() != null && PassWordTextField.getText() != null) {
+            // Reassign these for easier access
+            String username = UserNameTextField.getText();
+            String password = PassWordTextField.getText();
+
+            try {
+                ps = Connection.getConnection().prepareStatement(query);
+                rs = ps.executeQuery();
+                if (rs != null) {
+                    while (rs.next()) {
+                        User currentUser = new User(
+                                rs.getInt("User_ID"),
+                                rs.getString("User_Name"),
+                                rs.getString("Password")
+                        );
+
+                        //Add all the appointments here from the script to the data model.
+                        if (currentUser.getUserName().equals(username) && currentUser.getPassword().equals(password)) {
+                            ObservableManager.currentlyLoggedInUser = currentUser;
+                            return true;
+                        }
+                    }
+                    //cleanup
+                    rs.close();
+                    ps.close();
+                }
+            } catch (SQLException e) {
+                System.out.println("Error creating the Observable List for appointments");
+                throw new RuntimeException(e);
+            }
+        }
+        return false;
     }
+
     /**
      * Resets the red borders from the username text-field to the original color.
      */
@@ -168,6 +213,7 @@ public class Login implements Initializable {
         if (userIsValid()) {
             // Todo call the method here to check in the next 15 minutes perhaps at an interval.
             StageManager.transitionNextScene("appointments");
+            TimeManager.checkForUpcomingAppointment();
         } else {
             displayErrorCodeStyling();
         }

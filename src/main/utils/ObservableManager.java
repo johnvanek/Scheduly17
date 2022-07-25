@@ -48,6 +48,8 @@ public final class ObservableManager {
 
     public static ObservableList<Appointment> CustomerAppointmentList = FXCollections.observableArrayList();
 
+    public static User currentlyLoggedInUser;
+
     private ObservableManager() {
     }
 
