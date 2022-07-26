@@ -81,31 +81,13 @@ public class Login implements Initializable {
     @FXML
     private BorderPane LockImageContainer;
 
-    /**
-     * Initializes the Login Screen is called after the FXML Fields have been loaded and injected.
-     *
-     * @param location  The location used to resolve relative paths for the root object, or null if the location is not known.
-     * @param resources The resources used to localize the root object, or null if the root object was not localized.
-     */
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        //Get the cursor focus out of the TextField Username.
-        Platform.runLater(this::releaseFocusFromTextBox);
-        //Set up the Media running on the Login Screen
-        MediaManager.initMediaPlayer();
-        VideoPlayer.setMediaPlayer(MediaManager.getMediaPlayer());
-        //Enable this line below to test the french language
-        //Locale.setDefault(new Locale("fr"));
-        //Display the Language Text
-        displayLocaleLanguage();
-    }
-
     //********************************************************************//
     //Fxml Methods
     //********************************************************************//
 
     /**
      * Display's the Login-Form in the User's language set from the Window's settings System Default.
+     * Using the currently supported Resource bundle the only included properties are currently (en and fr).
      */
     @FXML
     public void displayLocaleLanguage() {
@@ -133,9 +115,11 @@ public class Login implements Initializable {
     }
 
     /**
-     * Validates whether the user is Valid.
+     * Validates whether the user is valid by running the username and password text-fields against the database table
+     * for users. If the user is valid logs the user in global state for reference.
      *
-     * @return Returns a boolean value representing whether the user is or is not Valid.
+     * @return Returns true if the user is able to login with the username and password field. Or returns false
+     * if those fields did not match in the database.
      */
     @FXML
     private boolean userIsValid() {
@@ -169,7 +153,7 @@ public class Login implements Initializable {
                     ps.close();
                 }
             } catch (SQLException e) {
-                System.out.println("Error creating the Observable List for appointments");
+                System.out.println("Error accessing the users table for Log-In Validation");
                 throw new RuntimeException(e);
             }
         }
@@ -177,7 +161,8 @@ public class Login implements Initializable {
     }
 
     /**
-     * Resets the red borders from the username text-field to the original color.
+     * Removes the red borders from the Username Text Field by setting the FX:Style for the border color
+     * back to the original bluish color.
      */
     @FXML
     private void removeRedBordersUsername() {
@@ -185,7 +170,8 @@ public class Login implements Initializable {
     }
 
     /**
-     * Resets the red borders from the password text-field to the original color.
+     * Removes the red borders from the Password Text Field by setting the FX:Style for the border color
+     * back to the original bluish color.
      */
     @FXML
     private void removeRedBordersPassWord() {
@@ -202,9 +188,14 @@ public class Login implements Initializable {
     }
 
     /**
-     * Attempts to Login the user.
+     * Attempts to Log in the user by firstly determining if the user is valid. If so the user is transitioned to the
+     * main screen for appointments and check is made to see if the current user had any upcoming appointments in the
+     * next 15 minutes. If they do an alert will be shown informing them as such.
      *
-     * @throws IOException Signals an I/O exception of some sort has occurred.
+     * Regardless of a successful or unsuccessful login a record of activity is kept track in login_activity.txt
+     *
+     * @throws IOException Signals an I/O exception has occurred. Do to trying to access files for record keeping for
+     * login_activity.txt from the TimeManger.recordAttempt method.
      */
     @FXML
     public void loginUser() throws IOException {
@@ -220,7 +211,7 @@ public class Login implements Initializable {
     }
 
     /**
-     * Hides the error notification Text.
+     * Hides the error notification text by setting the FX:Style opacity to 0 rendering it unseeable.
      */
     @FXML
     private void hideErrorText() {
@@ -232,7 +223,9 @@ public class Login implements Initializable {
     //***************
 
     /**
-     * Displays red color scheme And error text with a shaking animation to alert the user.
+     * Displays the Error Code text by setting the FX:Style opacity to 1. Clears the fields username and password.
+     * Resets the mouse focus and makes the borders red for username and password text-fields. A animation is applied to
+     * the login box to alert the user that an error has occurred.
      */
     public void displayErrorCodeStyling() {
         ErrorNotificationText.setOpacity(1);
@@ -243,6 +236,14 @@ public class Login implements Initializable {
         errorCodeAnimation();
     }
 
+    /**
+     * Sets the text on the login-screen to the value defined in the resource bundle dictionary in relation to the
+     * locale that is defined by the user's computer settings. All the text is modified except for the information
+     * pertaining to the zone-ID defined in the upper left corner.
+     *
+     * @param dictionary A resourceBundle that contains the Language properties key value pairs.
+     * @param locale The locale representing the region that the user is currently residing.
+     */
     private void setLanguageValueFields(ResourceBundle dictionary, Locale locale) {
         //The main labels and Text
         String UserNameText = dictionary.getString("UserNameText");
@@ -260,11 +261,10 @@ public class Login implements Initializable {
 
         //RegionCode in the upper left
         RegionCode.setText("ZoneID: " + ZoneId.systemDefault());
-
     }
 
     /**
-     * Makes the borders for the username and password text fields red.
+     * Makes the borders for the username and password text fields red. By modifying the FX:Style for border-color.
      */
     private void makeRedBorders() {
         UserNameTextField.setStyle("-fx-border-color: red");
@@ -272,7 +272,8 @@ public class Login implements Initializable {
     }
 
     /**
-     * Shakes the login box left to right. Normally called on an error.
+     * Shakes the login box left to right simulating a wiggle. This animation is normally only shown if a login or input
+     * error has occurred to let the user know something is not right.
      */
     private void errorCodeAnimation() {
         //Animation for a Right wiggle effect
@@ -285,6 +286,26 @@ public class Login implements Initializable {
         overShootLeft.setToX(-10);
         SequentialTransition sequentialTransition = new SequentialTransition(moveRight, overShootLeft);
         sequentialTransition.play();
+    }
+
+    /**
+     * Initializes the Login Screen called after the FXML Fields have been loaded and injected. Initializes the media
+     * player for the background video and calls a method to set the text to the user's language settings.
+     *
+     * @param location  The location used to resolve relative paths for the root object, or null if the location is not known.
+     * @param resources The resources used to localize the root object, or null if the root object was not localized.
+     */
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        //Get the cursor focus out of the TextField Username.
+        Platform.runLater(this::releaseFocusFromTextBox);
+        //Set up the Media running on the Login Screen
+        MediaManager.initMediaPlayer();
+        VideoPlayer.setMediaPlayer(MediaManager.getMediaPlayer());
+        //Enable this line below to test the french language
+        //Locale.setDefault(new Locale("fr"));
+        //Display the Language Text
+        displayLocaleLanguage();
     }
 }
 
