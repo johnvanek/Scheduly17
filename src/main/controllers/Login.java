@@ -39,7 +39,8 @@ import static main.utils.LanguageManager.getLocale;
 import static main.utils.LanguageManager.getResourceBundle;
 
 /**
- * The controller for the Login-Screen View.
+ * The Login class representing the controller logic for the view of the same name. This is the entry point
+ * of the application for the user.
  */
 public class Login implements Initializable {
 
