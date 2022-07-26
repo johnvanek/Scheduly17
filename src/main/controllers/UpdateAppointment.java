@@ -83,7 +83,9 @@ public class UpdateAppointment implements Initializable {
 
     @FXML
     void TerminateSession(ActionEvent event) {
-        System.out.println("I am closing the session");
+        System.out.println("Terminating the application");
+        Connection.closeConnection();
+        System.exit(0);
     }
 
     @Override

@@ -30,7 +30,7 @@ public final class TimeManager {
     public static void checkForUpcomingAppointment() {
         //The Alert are defined at the top of the namespace
         Alert noUpcomingAlert = new Alert(Alert.AlertType.INFORMATION, "This is a message to " +
-                "inform you that user[" + currentlyLoggedInUser.getUserName() + "] + does not have any upcoming " +
+                "inform you that user[" + currentlyLoggedInUser.getUserName() + "] does not have any upcoming " +
                 "appointments within the next 15 minutes.", ButtonType.OK);
 
         noUpcomingAlert.setHeaderText("[INFO] : [TIME]");

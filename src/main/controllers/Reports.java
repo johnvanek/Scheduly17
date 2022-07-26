@@ -9,6 +9,7 @@ import javafx.scene.input.MouseEvent;
 import main.DAO.models.Appointment;
 import main.DAO.models.Contact;
 import main.DAO.models.Customer;
+import main.database.Connection;
 import main.utils.ObservableManager;
 import main.utils.StageManager;
 
@@ -102,7 +103,9 @@ public class Reports implements Initializable {
 
     @FXML
     void TerminateSession(ActionEvent event) {
-
+        System.out.println("Terminating the application");
+        Connection.closeConnection();
+        System.exit(0);
     }
 
     @FXML
