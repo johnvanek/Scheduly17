@@ -208,12 +208,13 @@ public class Login implements Initializable {
      */
     @FXML
     public void loginUser() throws IOException {
-        //Make this work later against the database.
+        //If the username is null logs as blank user
         if (userIsValid()) {
-            // Todo call the method here to check in the next 15 minutes perhaps at an interval.
+            TimeManager.recordAttempt(UserNameTextField.getText(), true);
             StageManager.transitionNextScene("appointments");
             TimeManager.checkForUpcomingAppointment();
         } else {
+            TimeManager.recordAttempt(UserNameTextField.getText(), false);
             displayErrorCodeStyling();
         }
     }

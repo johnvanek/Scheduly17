@@ -7,11 +7,16 @@ import javafx.scene.layout.Region;
 import main.DAO.models.Appointment;
 import main.database.Connection;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.*;
+import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -24,12 +29,12 @@ public final class TimeManager {
 
     public static void checkForUpcomingAppointment() {
         //The Alert are defined at the top of the namespace
-            Alert noUpcomingAlert = new Alert(Alert.AlertType.INFORMATION, "This is a message to " +
-                    "inform you that user[" + currentlyLoggedInUser.getUserName() + "] + does not have any upcoming " +
-                    "appointments within the next 15 minutes.", ButtonType.OK);
+        Alert noUpcomingAlert = new Alert(Alert.AlertType.INFORMATION, "This is a message to " +
+                "inform you that user[" + currentlyLoggedInUser.getUserName() + "] + does not have any upcoming " +
+                "appointments within the next 15 minutes.", ButtonType.OK);
 
-            noUpcomingAlert.setHeaderText("[INFO] : [TIME]");
-            noUpcomingAlert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+        noUpcomingAlert.setHeaderText("[INFO] : [TIME]");
+        noUpcomingAlert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
 
         Alert lessThanFifteenAlert; //Defined as needed
 
@@ -38,7 +43,6 @@ public final class TimeManager {
         for (Appointment app : AppointmentAllList) {
             Duration timeTillAppointmentStartInMinutes = Duration.between(LocalDateTime.now(), app.getStartDateTime());
             long timeDifferenceMinutes = timeTillAppointmentStartInMinutes.toMinutes();
-            System.out.println("Running analysis! On appointments to see if there is a upcoming appointment in 15 minutes!");
             if (timeDifferenceMinutes > 0 && timeDifferenceMinutes <= 15) {
                 lessThanFifteenAlert = new Alert(Alert.AlertType.WARNING, "Warning you have an appointment within " +
                         "the next " + timeDifferenceMinutes + "-minutes. Appointment: ID[" + app.getAppointmentId() + "] " +
@@ -50,7 +54,8 @@ public final class TimeManager {
                 flag = false;
                 break;
             }
-        } if (flag) noUpcomingAlert.showAndWait();
+        }
+        if (flag) noUpcomingAlert.showAndWait();
     }
 
     public static void isAppointmentInWithinFifteenMinutes(Appointment app) {
@@ -305,5 +310,49 @@ public final class TimeManager {
         return (time.isBefore(LocalTime.of(22, 0))
                 && (time.isAfter(LocalTime.of(8, 0))))
                 || (time.equals(LocalTime.of(22, 0)));
+    }
+
+    public static void recordAttempt(String username, boolean isAttemptValid) throws IOException {
+        System.out.println("Login-File-Is-Keeping-Record");
+        //First have to create the file is it does not already exist
+        //Declarations
+        File loginSheet = new File("login_activity.txt");
+
+        try {
+            System.out.println("Was a new file created: " + loginSheet.createNewFile());
+            System.out.println("Does this Login-Sheet exist: " + loginSheet.exists());
+        } catch (IOException e) {
+            System.out.println("Problem creating Login Sheet.");
+            throw new RuntimeException(e);
+        }
+        //Then we have to write to the file the record attempt
+        try {
+            FileWriter myWriter = new FileWriter("login_activity.txt", true);
+            BufferedWriter myBufferedWriter = new BufferedWriter(myWriter);
+
+            String baseMessage = "User [" + username + "] ";
+            String baseAfterCheck = "in at " + LocalDateTime.now(ZoneOffset.UTC).truncatedTo(ChronoUnit.MINUTES) + " UTC.";
+            String check;
+            String messageToWrite;
+            //determine whether valid or invalid
+            if (isAttemptValid) {
+                check = "successfully logged ";
+            } else {
+                check = "gave invalid log-";
+            }
+            //Combine them and write
+            messageToWrite = baseMessage + check + baseAfterCheck;
+            myBufferedWriter.write(messageToWrite);
+            myBufferedWriter.newLine();
+            //Close the resources
+            myBufferedWriter.close();
+            myWriter.close();
+            //logs
+            System.out.println("Recording attempts in the Login Sheet.");
+        } catch (IOException e) {
+            System.out.println("An error occurred. Attempting to write to Login Sheet");
+            e.printStackTrace();
+        }
+        System.out.println();
     }
 }
