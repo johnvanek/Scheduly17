@@ -132,7 +132,12 @@ public class AddAppointment implements Initializable {
         }
     }
 
-    private Boolean isFieldsFilledOut() {
+    /**
+     * A local utility method that determines whether the fields have been filled out.
+     *
+     * @return Returns a boolean representing whether the fields on the form are filled out.
+     */
+    Boolean isFieldsFilledOut() {
         //The Alert information
         Alert emptyFields = new Alert(Alert.AlertType.WARNING);
         emptyFields.setHeaderText("[WARNING] [EMPTY-FIELDS]");
@@ -183,28 +188,63 @@ public class AddAppointment implements Initializable {
     }
 
     //FXML METHODS*******************************
+
+    /**
+     * Event handler for the navigation bar [Appointment]-> View calls StageManager to handle the transition to the
+     * next scene. The method will route to the Main hub for appointments.
+     * See the {@link StageManager StageManager} class for more details on how the transition occurs.
+     *
+     * @param event Represents a ActionEvent event.
+     */
     @FXML
-    void ChangeSceneToAppointmentMainMenu(ActionEvent event) {
+    void changeSceneToAppointmentMainMenu(ActionEvent event) {
         StageManager.transitionNextScene("appointments");
     }
 
+    /**
+     * Event handler for the navigation bar [Customer]-> View calls StageManager to handle the transition to the
+     * next scene. The method will route to the Main hub for Customers.
+     * See the {@link StageManager StageManager} class for more details on how the transition occurs.
+     *
+     * @param event Represents a ActionEvent event.
+     */
     @FXML
-    void ChangeSceneToCustomerMainMenu(ActionEvent event) {
+    void changeSceneToCustomerMainMenu(ActionEvent event) {
         StageManager.transitionNextScene("customers");
     }
 
+    /**
+     * Event handler for the navigation bar [Reports]-> View calls StageManager to handle the transition to the
+     * next scene. The method will route to the Main hub for Reports.
+     * See the {@link StageManager StageManager} class for more details on how the transition occurs.
+     *
+     * @param event Represents a ActionEvent event.
+     */
     @FXML
-    void ChangeSceneToReports(ActionEvent event) {
+    void changeSceneToReports(ActionEvent event) {
         StageManager.transitionNextScene("reports");
     }
 
+    /**
+     * Event handler for the navigation bar [Signout]-> Quit loses the current Connection and exits the via the System.
+     *
+     * @param event Represents a ActionEvent event.
+     */
     @FXML
-    void TerminateSession(ActionEvent event) {
+    void terminateSession(ActionEvent event) {
         System.out.println("Terminating the application");
         Connection.closeConnection();
         System.exit(0);
     }
 
+    /**
+     * Initializes the AddAppointments scene called after the FXML Fields have been loaded and injected. Initializes and
+     * populates the data for the ComboBoxes. The ComboBoxes are representations of data from the
+     * observable lists representing time in {@link ObservableManager}.
+     *
+     * @param url            The location used to resolve relative paths for the root object, or null if the location is not known.
+     * @param resourceBundle The resources used to localize the root object, or null if the root object was not localized.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //initialize the combo-box data
