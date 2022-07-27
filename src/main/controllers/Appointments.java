@@ -24,8 +24,8 @@ import java.util.ResourceBundle;
 import static main.utils.ObservableManager.*;
 
 /**
- * This Class represents the controller logic for the view of the same name. This is the first scene show
- * after logging in and encompasses all functionality relating to appointments.
+ * This Class represents the controller logic for the view of the same name. The related view is shown
+ * after logging in and encompasses all functionality relating to viewing appointments.
  */
 public class Appointments implements Initializable {
     //FXML-ID'S*******************************
@@ -139,8 +139,8 @@ public class Appointments implements Initializable {
     //****************************************
 
     /**
-     * Deselects if currently selected a table row from the AllView-tableview. By getting the selection and then clearing
-     * out the selection.
+     * Event handler for mouse clicks that are outside the table view but inside the boxed area. Clears the selection
+     * from the table view on the all view tab.
      *
      * @param event Represents a mouse event.
      */
@@ -150,9 +150,9 @@ public class Appointments implements Initializable {
     }
 
     /**
-     * Attempts to delete a selected appointment via JDBC if the user agrees to continue. Regardless of
-     * whether the deletion was successful or not the front-end data
-     * models get recreated as a result of potentially altering the records.
+     * Event handler for the delete button on the modify tab. If there is a selected table row an attempt is made
+     * to delete a selected appointment via JDBC if the user agrees to continue. Regardless of whether the deletion
+     * was successful or not the front-end data models get recreated as a result of potentially altering the records.
      *
      * @param event Represents a mouse event.
      */
@@ -194,8 +194,8 @@ public class Appointments implements Initializable {
     }
 
     /**
-     * Changes the scene to the Update Appointment scene. Handles the mouse event, if the selection from AllView is valid
-     * update calls the StageManager to handle the scene changing.
+     * Event handler for the update button on the modify tab changes the scene to the Update Appointment scene.
+     * Will only update if the selection from AllView is valid StageManager will handle the transition.
      *
      * @param event Represents a mouse event.
      */
@@ -208,8 +208,9 @@ public class Appointments implements Initializable {
     }
 
     /**
-     * Changes the scene to the Appointment main hub area. Calls StageManager to handle the actual transition to the
-     * next scene. See the {@link StageManager StageManager} class for more details on how the transition occurs.
+     * Event handler for the navigation bar [Appointment]-> View calls StageManager to handle the transition to the
+     * next scene. The method will route to the Main hub for appointments.
+     * See the {@link StageManager StageManager} class for more details on how the transition occurs.
      *
      * @param event Represents a ActionEvent event.
      */
@@ -219,8 +220,9 @@ public class Appointments implements Initializable {
     }
 
     /**
-     * Changes the scene to the Customer main hub area. Calls StageManager to handle the actual transition to the
-     * next scene.
+     * Event handler for the navigation bar [Customer]-> View calls StageManager to handle the transition to the
+     * next scene. The method will route to the Main hub for Customers.
+     * See the {@link StageManager StageManager} class for more details on how the transition occurs.
      *
      * @param event Represents a ActionEvent event.
      */
@@ -230,8 +232,9 @@ public class Appointments implements Initializable {
     }
 
     /**
-     * Changes the scene to the Reports main hub area. Calls the StageManager to handle the actual transition to the
-     * next scene.
+     * Event handler for the navigation bar [Reports]-> View calls StageManager to handle the transition to the
+     * next scene. The method will route to the Main hub for Reports.
+     * See the {@link StageManager StageManager} class for more details on how the transition occurs.
      *
      * @param event Represents a ActionEvent event.
      */
@@ -241,7 +244,7 @@ public class Appointments implements Initializable {
     }
 
     /**
-     * Terminates the application. Closes the current Connection and exits the via the System.
+     * Event handler for the navigation bar [Signout]-> Quit loses the current Connection and exits the via the System.
      *
      * @param event Represents a ActionEvent event.
      */
@@ -253,10 +256,10 @@ public class Appointments implements Initializable {
     }
 
     /**
-     * Changes the scene to the AddAppointment scene. Calls the StageManager to handle the actual transition to the
-     * next scene.
+     * Event handler for the Add button on the modify tab changes the scene to the AddAppointment scene.
+     * StageManager handles the transition.
      *
-     * @param event Represents a MouseEvent event.
+     * @param event Represents a mouse event.
      */
     @FXML
     void changeSceneToAddAppointment(MouseEvent event) {
@@ -268,7 +271,7 @@ public class Appointments implements Initializable {
      * populates the Front end data relating to appointments. The table views are representations of data from the
      * observable lists in {@link ObservableManager}.
      *
-     * @param url The location used to resolve relative paths for the root object, or null if the location is not known.
+     * @param url            The location used to resolve relative paths for the root object, or null if the location is not known.
      * @param resourceBundle The resources used to localize the root object, or null if the root object was not localized.
      */
     @Override

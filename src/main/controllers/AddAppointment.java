@@ -22,6 +22,11 @@ import java.util.ResourceBundle;
 import static main.utils.ObservableManager.*;
 
 
+/**
+ * This Class represents the controller logic for the view of the same name. The Class is responsible for the logic
+ * encompassing the adding functionality for appointments. The view is accessed via the Appointments
+ * view.
+ */
 public class AddAppointment implements Initializable {
     //FXML ID's*************************************
     @FXML
@@ -47,35 +52,16 @@ public class AddAppointment implements Initializable {
     @FXML
     private TextField UserIDTextField;
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        //initialize the combo-box data
-        //This is probably the problem initialize gets called everytime the screen comes in
-        //Seems to only be a problem for the endTime Combobox is not getting cleared
-        ObservableManager.populateDataAppointmentComboBoxes();
-        TimeManager.generateValidBusinessHoursList();
-        StartTimeComboBox.setItems(StartTimesAddAppEst);
-        EndTimeComboBox.setItems(EndTimesAddAppEst);
-
-        System.out.println("****************************************************");
-        System.out.println("**************Testing the TimeZones*****************");
-
-        System.out.println("Printing Out Observable List's");
-        System.out.println("The ones in the comboBox are StartTimes/EndTimes EST");
-        System.out.println("StartTimesAll      : " + StartTimesAddApp);
-        System.out.println("StartTimesFiltered : " + StartTimesFiltered);
-        System.out.println("StartTimesEST      : " + StartTimesAddAppEst);
-        System.out.println();
-        System.out.println("EndTimesAll      : " + EndTimesAddApp);
-        System.out.println("EndTimesFiltered : " + EndTimesFiltered);
-        System.out.println("EndTimesEST      : " + EndTimesAddAppEst);
-
-        System.out.println("****************************************************");
-        System.out.println("****************************************************");
-    }
-
     //FXML METHODS*********************************
 
+    /**
+     * Event handler for the AddAppointment Submit button in order to submit the fields must all be NOT NULL.
+     * The validation and actual database operations are handled by {@link #verifyIfValidAndSubmit}.
+     *
+     * @param event Represent a MouseEvent event.
+     * @throws SQLException An Exception that provides information on a database error mostly relating to incorrect
+     *                      access.
+     */
     @FXML
     void submitNewAppointment(MouseEvent event) throws SQLException {
         if (isFieldsFilledOut()) {
@@ -83,7 +69,17 @@ public class AddAppointment implements Initializable {
         }
     }
 
-    private void verifyIfValidAndSubmit() throws SQLException {
+
+    /**
+     * Using the data from the fields on the form this method verifies if the appointment is valid to add. The criteria
+     * for whether appointment is valid or not is handled by the method {@link TimeManager#isCustomerAvailable(int,
+     * LocalDateTime, LocalDateTime) isCustomerAvailable}. If the criteria is met database insert operations are
+     * performed, an alert is generated for the user to let them know whether the submission was a success or failure.
+     * And then the data pertaining to appointments on the Front-End is regenerated.
+     *
+     * @throws SQLException A SqlException representing a database access error or other error has occurred.
+     */
+    void verifyIfValidAndSubmit() throws SQLException {
         String title = TitleTextField.getText();
         String desc = DescTextField.getText();
         String loc = LocTextField.getText();
@@ -209,4 +205,28 @@ public class AddAppointment implements Initializable {
         System.exit(0);
     }
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        //initialize the combo-box data
+        ObservableManager.populateDataAppointmentComboBoxes();
+        TimeManager.generateValidBusinessHoursList();
+        StartTimeComboBox.setItems(StartTimesAddAppEst);
+        EndTimeComboBox.setItems(EndTimesAddAppEst);
+
+        System.out.println("****************************************************");
+        System.out.println("**************Testing the TimeZones*****************");
+
+        System.out.println("Printing Out Observable List's");
+        System.out.println("The ones in the comboBox are StartTimes/EndTimes EST");
+        System.out.println("StartTimesAll      : " + StartTimesAddApp);
+        System.out.println("StartTimesFiltered : " + StartTimesFiltered);
+        System.out.println("StartTimesEST      : " + StartTimesAddAppEst);
+        System.out.println();
+        System.out.println("EndTimesAll      : " + EndTimesAddApp);
+        System.out.println("EndTimesFiltered : " + EndTimesFiltered);
+        System.out.println("EndTimesEST      : " + EndTimesAddAppEst);
+
+        System.out.println("****************************************************");
+        System.out.println("****************************************************");
+    }
 }
