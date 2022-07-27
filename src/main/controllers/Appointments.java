@@ -195,7 +195,7 @@ public class Appointments implements Initializable {
 
     /**
      * Event handler for the update button on the modify tab changes the scene to the Update Appointment scene.
-     * Will only update if the selection from AllView is valid StageManager will handle the transition.
+     * Will only update if the selection from Appointments is valid StageManager will handle the transition.
      *
      * @param event Represents a mouse event.
      */

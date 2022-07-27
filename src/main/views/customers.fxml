@@ -21,22 +21,22 @@
          <menus>
             <Menu mnemonicParsing="false" text="Appointments">
                <items>
-                  <MenuItem mnemonicParsing="false" onAction="#ChangeSceneToAppointmentMainMenu" text="View" />
+                  <MenuItem mnemonicParsing="false" onAction="#changeSceneToAppointmentMainMenu" text="View" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Customers">
                <items>
-                  <MenuItem mnemonicParsing="false" onAction="#ChangeSceneToCustomerMainMenu" text="View" />
+                  <MenuItem mnemonicParsing="false" onAction="#changeSceneToCustomerMainMenu" text="View" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Reports">
                <items>
-                  <MenuItem mnemonicParsing="false" onAction="#ChangeSceneToReports" text="View" />
+                  <MenuItem mnemonicParsing="false" onAction="#changeSceneToReports" text="View" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Signout">
                <items>
-                  <MenuItem mnemonicParsing="false" onAction="#TerminateSession" text="Quit" />
+                  <MenuItem mnemonicParsing="false" onAction="#terminateSession" text="Quit" />
                </items>
             </Menu>
          </menus>
@@ -44,7 +44,7 @@
             <Cursor fx:constant="OPEN_HAND" />
          </cursor>
       </MenuBar>
-      <Button layoutX="21.0" layoutY="215.0" mnemonicParsing="false" onMouseClicked="#ChangeSceneAddCustomer" prefHeight="25.0" prefWidth="65.0" style="-fx-font-size: 1em;" styleClass="loginButton" text="Add">
+      <Button layoutX="21.0" layoutY="215.0" mnemonicParsing="false" onMouseClicked="#changeSceneAddCustomer" prefHeight="25.0" prefWidth="65.0" style="-fx-font-size: 1em;" styleClass="loginButton" text="Add">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -56,7 +56,7 @@
             </DropShadow>
          </effect></Button>
       <Separator layoutX="196.0" layoutY="206.0" orientation="VERTICAL" prefHeight="79.0" prefWidth="0.0" />
-      <Button layoutX="21.0" layoutY="251.0" mnemonicParsing="false" onMouseClicked="#DeleteCustomer" prefHeight="25.0" prefWidth="65.0" style="-fx-font-size: 1em;" styleClass="loginButton" text="Delete">
+      <Button layoutX="21.0" layoutY="251.0" mnemonicParsing="false" onMouseClicked="#deleteCustomer" prefHeight="25.0" prefWidth="65.0" style="-fx-font-size: 1em;" styleClass="loginButton" text="Delete">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -67,7 +67,7 @@
                </color>
             </DropShadow>
          </effect></Button>
-      <Button layoutX="110.0" layoutY="215.0" mnemonicParsing="false" onMouseClicked="#ChangeSceneUpdateCustomer" prefHeight="25.0" prefWidth="65.0" style="-fx-font-size: 1em;" styleClass="loginButton" text="Update">
+      <Button layoutX="110.0" layoutY="215.0" mnemonicParsing="false" onMouseClicked="#changeSceneUpdateCustomer" prefHeight="25.0" prefWidth="65.0" style="-fx-font-size: 1em;" styleClass="loginButton" text="Update">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
