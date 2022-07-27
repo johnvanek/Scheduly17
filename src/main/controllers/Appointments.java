@@ -23,9 +23,14 @@ import java.util.ResourceBundle;
 
 import static main.utils.ObservableManager.*;
 
+/**
+ * This Class represents the controller logic for the view of the same name. This is the first scene show
+ * after logging in and encompasses all functionality relating to appointments.
+ */
 public class Appointments implements Initializable {
-    //FXML-ID'S**************************************************************************
-    //Week-Tab - ID'S
+    //FXML-ID'S*******************************
+    //            Week-Tab - ID'S
+    //****************************************
     @FXML
     private TableView<Appointment> WeekView;
 
@@ -58,8 +63,9 @@ public class Appointments implements Initializable {
 
     @FXML
     private TableColumn<?, ?> WeekViewUserID;
-
-    //Month-Tab - ID'S
+    //****************************************
+    //          Month-Tab - ID'S
+    //****************************************
     @FXML
     private TableView<Appointment> MonthView;
 
@@ -92,8 +98,9 @@ public class Appointments implements Initializable {
 
     @FXML
     private TableColumn<?, ?> MonthViewUserID;
-
-    //Modify-Tab - ID'S
+    //****************************************
+    //          Modify-Tab - ID'S
+    //****************************************
     @FXML
     private TableView<Appointment> AllView;
 
@@ -127,16 +134,30 @@ public class Appointments implements Initializable {
     @FXML
     private TableColumn<?, ?> AllViewUserID;
 
+    //****************************************
+    //             FXML-METHODS
+    //****************************************
 
-    //FXML-METHODS************************************
-
+    /**
+     * Deselects if currently selected a table row from the AllView-tableview. By getting the selection and then clearing
+     * out the selection.
+     *
+     * @param event Represents a mouse event.
+     */
     @FXML
-    void DeselectTableRow(MouseEvent event) {
+    void deselectTableRow(MouseEvent event) {
         AllView.getSelectionModel().clearSelection();
     }
 
+    /**
+     * Attempts to delete a selected appointment via JDBC if the user agrees to continue. Regardless of
+     * whether the deletion was successful or not the front-end data
+     * models get recreated as a result of potentially altering the records.
+     *
+     * @param event Represents a mouse event.
+     */
     @FXML
-    void DeleteFromAll(MouseEvent event) {
+    void deleteFromAll(MouseEvent event) {
         //The Alert Code
         Alert confirmDelete = new Alert(Alert.AlertType.WARNING);
         confirmDelete.setHeaderText("[WARNING] : [DELETION]");
@@ -172,38 +193,56 @@ public class Appointments implements Initializable {
         }
     }
 
+    /**
+     * Changes the scene to the Update Appointment scene. Handles the mouse event, if the selection from AllView is valid
+     * update calls the StageManager to handle the scene changing.
+     *
+     * @param event Represents a mouse event.
+     */
     @FXML
-    void ChangeSceneToUpdateAppointment(MouseEvent event) {
+    void changeSceneToUpdateAppointment(MouseEvent event) {
         if (AllView.getSelectionModel().getSelectedItem() != null) {
             Appointment selection = AllView.getSelectionModel().getSelectedItem();
             StageManager.transitionNextScene("updateAppointment", selection);
         }
     }
 
+    /**
+     * Changes the scene to the Appointment main hub area. Calls StageManager to handle the actual transition to the
+     * next scene. See the {@link StageManager StageManager} class for more details on how the transition occurs.
+     *
+     * @param event Represents a ActionEvent event.
+     */
     @FXML
-    void ChangeSceneToAppointmentMainMenu(ActionEvent event) {
+    void changeSceneToAppointmentMainMenu(ActionEvent event) {
         StageManager.transitionNextScene("appointments");
     }
 
+    /**
+     * Changes the scene to the Customer main hub area. Calls StageManager to handle the actual transition to the
+     * next scene.
+     *
+     * @param event Represents a ActionEvent event.
+     */
     @FXML
-    void ChangeSceneToCustomerMainMenu(ActionEvent event) {
+    void changeSceneToCustomerMainMenu(ActionEvent event) {
         StageManager.transitionNextScene("customers");
     }
 
     @FXML
-    void ChangeSceneToReports(ActionEvent event) {
+    void changeSceneToReports(ActionEvent event) {
         StageManager.transitionNextScene("reports");
     }
 
     @FXML
-    void TerminateSession(ActionEvent event) {
+    void terminateSession(ActionEvent event) {
         System.out.println("Terminating the application");
         Connection.closeConnection();
         System.exit(0);
     }
 
     @FXML
-    void ChangeSceneToAddAppointment(MouseEvent event) {
+    void changeSceneToAddAppointment(MouseEvent event) {
         StageManager.transitionNextScene("addAppointment");
     }
 

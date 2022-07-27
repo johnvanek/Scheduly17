@@ -39,11 +39,10 @@ import static main.utils.LanguageManager.getLocale;
 import static main.utils.LanguageManager.getResourceBundle;
 
 /**
- * The Login class representing the controller logic for the view of the same name. This is the entry point
+ * This class represents the controller logic for the view of the same name. This is the entry point
  * of the application for the user.
  */
 public class Login implements Initializable {
-
 
     //***********//
     //Fxml ID's
@@ -89,6 +88,7 @@ public class Login implements Initializable {
     /**
      * Display's the Login-Form in the User's language set from the Window's settings System Default.
      * Using the currently supported Resource bundle the only included properties are currently (en and fr).
+     * See {@link main.utils.LanguageManager LanguageManager} for more details.
      */
     @FXML
     public void displayLocaleLanguage() {
@@ -192,11 +192,11 @@ public class Login implements Initializable {
      * Attempts to Log in the user by firstly determining if the user is valid. If so the user is transitioned to the
      * main screen for appointments and check is made to see if the current user had any upcoming appointments in the
      * next 15 minutes. If they do an alert will be shown informing them as such.
-     *
+     * <p>
      * Regardless of a successful or unsuccessful login a record of activity is kept track in login_activity.txt
      *
      * @throws IOException Signals an I/O exception has occurred. Do to trying to access files for record keeping for
-     * login_activity.txt from the TimeManger.recordAttempt method.
+     *                     login_activity.txt from the TimeManger.recordAttempt method.
      */
     @FXML
     public void loginUser() throws IOException {
@@ -243,7 +243,7 @@ public class Login implements Initializable {
      * pertaining to the zone-ID defined in the upper left corner.
      *
      * @param dictionary A resourceBundle that contains the Language properties key value pairs.
-     * @param locale The locale representing the region that the user is currently residing.
+     * @param locale     The locale representing the region that the user is currently residing.
      */
     private void setLanguageValueFields(ResourceBundle dictionary, Locale locale) {
         //The main labels and Text

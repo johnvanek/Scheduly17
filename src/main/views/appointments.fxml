@@ -18,7 +18,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#DeselectTableRow" prefHeight="560.0" prefWidth="900.0" styleClass="tealBackground" stylesheets="@../resources/styles/main.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.Appointments">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#deselectTableRow" prefHeight="560.0" prefWidth="900.0" styleClass="tealBackground" stylesheets="@../resources/styles/main.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.Appointments">
    <children>
       <TabPane layoutX="13.0" layoutY="178.0" prefHeight="354.0" prefWidth="875.0" style="-fx-background-color: white;" tabClosingPolicy="UNAVAILABLE">
         <tabs>
@@ -100,9 +100,9 @@
             </Tab>
             <Tab text="Modify Appointments">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" onMouseClicked="#DeselectTableRow" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: lightblue;">
+                <AnchorPane minHeight="0.0" minWidth="0.0" onMouseClicked="#deselectTableRow" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: lightblue;">
                      <children>
-                        <Button layoutX="41.0" layoutY="49.0" mnemonicParsing="false" onMouseClicked="#ChangeSceneToAddAppointment" prefHeight="25.0" prefWidth="65.0" style="-fx-font-size: 1em;" styleClass="loginButton" text="Add">
+                        <Button layoutX="41.0" layoutY="49.0" mnemonicParsing="false" onMouseClicked="#changeSceneToAddAppointment" prefHeight="25.0" prefWidth="65.0" style="-fx-font-size: 1em;" styleClass="loginButton" text="Add">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
@@ -119,7 +119,7 @@
                         <Separator layoutX="34.0" layoutY="40.0" orientation="VERTICAL" prefHeight="80.0" prefWidth="6.0" />
                         <Text layoutX="49.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modifiers" />
                         <Separator layoutX="35.0" layoutY="40.0" prefHeight="0.0" prefWidth="14.0" />
-                        <Button layoutX="41.0" layoutY="85.0" mnemonicParsing="false" onMouseClicked="#DeleteFromAll" prefHeight="25.0" prefWidth="65.0" style="-fx-font-size: 1em;" styleClass="loginButton" text="Delete">
+                        <Button layoutX="41.0" layoutY="85.0" mnemonicParsing="false" onMouseClicked="#deleteFromAll" prefHeight="25.0" prefWidth="65.0" style="-fx-font-size: 1em;" styleClass="loginButton" text="Delete">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
@@ -130,7 +130,7 @@
                                  </color>
                               </DropShadow>
                            </effect></Button>
-                        <Button layoutX="130.0" layoutY="49.0" mnemonicParsing="false" onMouseClicked="#ChangeSceneToUpdateAppointment" prefHeight="25.0" prefWidth="65.0" style="-fx-font-size: 1em;" styleClass="loginButton" text="Update">
+                        <Button layoutX="130.0" layoutY="49.0" mnemonicParsing="false" onMouseClicked="#changeSceneToUpdateAppointment" prefHeight="25.0" prefWidth="65.0" style="-fx-font-size: 1em;" styleClass="loginButton" text="Update">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
@@ -183,22 +183,22 @@
         <menus>
           <Menu mnemonicParsing="false" text="Appointments">
             <items>
-              <MenuItem mnemonicParsing="false" onAction="#ChangeSceneToAppointmentMainMenu" text="View" />
+              <MenuItem mnemonicParsing="false" onAction="#changeSceneToAppointmentMainMenu" text="View" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Customers">
             <items>
-              <MenuItem mnemonicParsing="false" onAction="#ChangeSceneToCustomerMainMenu" text="View" />
+              <MenuItem mnemonicParsing="false" onAction="#changeSceneToCustomerMainMenu" text="View" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Reports">
             <items>
-              <MenuItem mnemonicParsing="false" onAction="#ChangeSceneToReports" text="View" />
+              <MenuItem mnemonicParsing="false" onAction="#changeSceneToReports" text="View" />
             </items>
           </Menu>
             <Menu mnemonicParsing="false" text="Signout">
               <items>
-                <MenuItem mnemonicParsing="false" onAction="#TerminateSession" text="Quit" />
+                <MenuItem mnemonicParsing="false" onAction="#terminateSession" text="Quit" />
               </items>
             </Menu>
         </menus>
