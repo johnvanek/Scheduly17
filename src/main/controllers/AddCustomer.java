@@ -1,5 +1,6 @@
 package main.controllers;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -14,6 +15,7 @@ import main.DAO.models.Division;
 import main.database.Connection;
 import main.utils.ObservableManager;
 import main.utils.StageManager;
+import main.utils.TimeManager;
 
 import java.net.URL;
 import java.sql.PreparedStatement;
@@ -24,8 +26,13 @@ import java.util.ResourceBundle;
 
 import static main.utils.ObservableManager.populateDataCustomerList;
 
+/**
+ * This Class represents the controller logic for the view of the same name. The Class is responsible for the logic
+ * encompassing the adding functionality for customers. The view is accessed via the Customer
+ * view.
+ */
 public class AddCustomer implements Initializable {
-    //FXML ID'S
+    //FXML ID'S************************************
     @FXML
     private TextField CustomerNameTextField;
 
@@ -44,31 +51,63 @@ public class AddCustomer implements Initializable {
     @FXML
     private ComboBox<Division> DivisionComboBox;
 
-    //FXML METHODS
+    //FXML METHODS******************************
+
+    /**
+     * Event handler for the navigation bar [Appointment]-> View calls StageManager to handle the transition to the
+     * next scene. The method will route to the Main hub for appointments.
+     * See the {@link StageManager StageManager} class for more details on how the transition occurs.
+     *
+     * @param event Represents a ActionEvent event.
+     */
     @FXML
-    void ChangeSceneToAppointmentMainMenu(ActionEvent event) {
+    void changeSceneToAppointmentMainMenu(ActionEvent event) {
         StageManager.transitionNextScene("appointments");
     }
 
+    /**
+     * Event handler for the navigation bar [Customer]-> View calls StageManager to handle the transition to the
+     * next scene. The method will route to the Main hub for Customers.
+     * See the {@link StageManager StageManager} class for more details on how the transition occurs.
+     *
+     * @param event Represents a ActionEvent event.
+     */
     @FXML
-    void ChangeSceneToCustomerMainMenu(ActionEvent event) {
+    void changeSceneToCustomerMainMenu(ActionEvent event) {
         StageManager.transitionNextScene("customers");
     }
 
+    /**
+     * Event handler for the navigation bar [Reports]-> View calls StageManager to handle the transition to the
+     * next scene. The method will route to the Main hub for Reports.
+     * See the {@link StageManager StageManager} class for more details on how the transition occurs.
+     *
+     * @param event Represents a ActionEvent event.
+     */
     @FXML
-    void ChangeSceneToReports(ActionEvent event) {
+    void changeSceneToReports(ActionEvent event) {
         StageManager.transitionNextScene("reports");
     }
 
+    /**
+     * Event handler for the navigation bar [Signout]-> Quit loses the current Connection and exits the via the System.
+     *
+     * @param event Represents a ActionEvent event.
+     */
     @FXML
-    void TerminateSession(ActionEvent event) {
+    void terminateSession(ActionEvent event) {
         System.out.println("Terminating the application");
         Connection.closeConnection();
         System.exit(0);
     }
-
+    /**
+     * An event handler that based on the value from the Country-ComboBox assigns the FirstLevel Division Combo-Box
+     * Values. See {@link #populateDataDivisionComboBox(Country) populateDataDivisionComboBox} for how that is evaluated.
+     *
+     * @param event Represents a ActionEvent event.
+     */
     @FXML
-    void SetValueForDivisionBasedOnCountry(ActionEvent event) {
+    void setValueForDivisionBasedOnCountry(ActionEvent event) {
         if (CountryComboBox.getValue() != null) {
             System.out.println("A Selection had been made in Country Combo-Box");
             populateDataDivisionComboBox(CountryComboBox.getValue());
@@ -76,14 +115,27 @@ public class AddCustomer implements Initializable {
 
     }
 
+    /**
+     * Event handler for the AddCustomer Submit button in order to submit the fields must all be NOT NULL.
+     * The validation and actual database operations are handled by {@link #verifyIfValidAndSubmit}.
+     *
+     * @param event Represent a MouseEvent event.
+     * @throws SQLException An Exception that provides information on a database error mostly relating to incorrect
+     *                      access.
+     */
     @FXML
-    void Submit(MouseEvent event) throws SQLException {
+    void submit(MouseEvent event) throws SQLException {
         if (isFieldsFilledOut()) {
             verifyIfValidAndSubmit();
         }
     }
 
-    private Boolean isFieldsFilledOut() {
+    /**
+     * A local utility method that determines whether the fields have been filled out.
+     *
+     * @return Returns a boolean representing whether the fields on the form are filled out.
+     */
+    Boolean isFieldsFilledOut() {
         //Reference variables
         String custName = CustomerNameTextField.getText();
         String custAddress = AddressTextField.getText();
@@ -119,7 +171,15 @@ public class AddCustomer implements Initializable {
         return true;
     }
 
-    private void verifyIfValidAndSubmit() throws SQLException {
+    /**
+     * Using the data from the fields on the form this method verifies if the customer is valid to add. Database insert
+     * operations are
+     * performed and alert is generated for the user to let them know whether the submission was a success or failure.
+     * And then the data pertaining to Customers on the Front-End is regenerated.
+     *
+     * @throws SQLException A SqlException representing a database access error or other error has occurred.
+     */
+    void verifyIfValidAndSubmit() throws SQLException {
         String custName = CustomerNameTextField.getText();
         String custAddress = AddressTextField.getText();
         String custPostalCode = PostalCodeTextField.getText();
@@ -164,10 +224,24 @@ public class AddCustomer implements Initializable {
         populateDataCustomerList();
     }
 
-    private void populateDataDivisionComboBox(Country country) {
+    /**
+     * Populates the list of items to be shown in the Divisions combo-box based on the selected Country from the Country
+     * combo-box. The logic behind the filtering is handled in
+     * {@link ObservableManager#searchByCountryCode(ObservableList, int) searchByCountryCode}.
+     * @param country Represents a Country selected from the Country combo-box.
+     */
+    void populateDataDivisionComboBox(Country country) {
         DivisionComboBox.setItems(ObservableManager.searchByCountryCode(ObservableManager.DivisionList, country.getCountryId()));
     }
 
+    /**
+     * Initializes the AddCustomer scene called after the FXML Fields have been loaded and injected. Initializes and
+     * populates the data for the ComboBoxes. The ComboBoxes are representations of data from the
+     * observable lists representing Countries and Divisions in {@link ObservableManager}.
+     *
+     * @param url            The location used to resolve relative paths for the root object, or null if the location is not known.
+     * @param resourceBundle The resources used to localize the root object, or null if the root object was not localized.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //Add the data
