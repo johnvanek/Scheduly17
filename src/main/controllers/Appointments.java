@@ -229,11 +229,22 @@ public class Appointments implements Initializable {
         StageManager.transitionNextScene("customers");
     }
 
+    /**
+     * Changes the scene to the Reports main hub area. Calls the StageManager to handle the actual transition to the
+     * next scene.
+     *
+     * @param event Represents a ActionEvent event.
+     */
     @FXML
     void changeSceneToReports(ActionEvent event) {
         StageManager.transitionNextScene("reports");
     }
 
+    /**
+     * Terminates the application. Closes the current Connection and exits the via the System.
+     *
+     * @param event Represents a ActionEvent event.
+     */
     @FXML
     void terminateSession(ActionEvent event) {
         System.out.println("Terminating the application");
@@ -241,11 +252,25 @@ public class Appointments implements Initializable {
         System.exit(0);
     }
 
+    /**
+     * Changes the scene to the AddAppointment scene. Calls the StageManager to handle the actual transition to the
+     * next scene.
+     *
+     * @param event Represents a MouseEvent event.
+     */
     @FXML
     void changeSceneToAddAppointment(MouseEvent event) {
         StageManager.transitionNextScene("addAppointment");
     }
 
+    /**
+     * Initializes the Appointments scene called after the FXML Fields have been loaded and injected. Initializes and
+     * populates the Front end data relating to appointments. The table views are representations of data from the
+     * observable lists in {@link ObservableManager}.
+     *
+     * @param url The location used to resolve relative paths for the root object, or null if the location is not known.
+     * @param resourceBundle The resources used to localize the root object, or null if the root object was not localized.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ObservableManager.populateDataAppointmentLists();
