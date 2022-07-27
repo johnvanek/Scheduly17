@@ -24,14 +24,18 @@ import java.util.ResourceBundle;
 
 import static main.utils.ObservableManager.*;
 
+/**
+ * This Class represents the controller logic for the view of the same name. The Class is responsible for the logic
+ * encompassing the update functionality for appointments. The view is accessed via the Appointments
+ * view.
+ */
 public class UpdateAppointment implements Initializable {
 
-
-    //local class data
+    /**
+     * Represents an Appointment that was selected before the update button was clicked.
+     */
     public static Appointment appSelected;
     //FXML-ID'S*****************************************
-    private LocalDateTime startDateTime;
-    private LocalDateTime endDateTime;
     @FXML
     private TextField TitleTextField;
 
@@ -66,28 +70,63 @@ public class UpdateAppointment implements Initializable {
     private TextField UserIDTextField;
 
     //FXML METHODS*******************************
+
+    /**
+     * Event handler for the navigation bar [Appointment]-> View calls StageManager to handle the transition to the
+     * next scene. The method will route to the Main hub for appointments.
+     * See the {@link StageManager StageManager} class for more details on how the transition occurs.
+     *
+     * @param event Represents a ActionEvent event.
+     */
     @FXML
-    void ChangeSceneToAppointmentMainMenu(ActionEvent event) {
+    void changeSceneToAppointmentMainMenu(ActionEvent event) {
         StageManager.transitionNextScene("appointments");
     }
 
+    /**
+     * Event handler for the navigation bar [Customer]-> View calls StageManager to handle the transition to the
+     * next scene. The method will route to the Main hub for Customers.
+     * See the {@link StageManager StageManager} class for more details on how the transition occurs.
+     *
+     * @param event Represents a ActionEvent event.
+     */
     @FXML
-    void ChangeSceneToCustomerMainMenu(ActionEvent event) {
+    void changeSceneToCustomerMainMenu(ActionEvent event) {
         StageManager.transitionNextScene("customers");
     }
 
+    /**
+     * Event handler for the navigation bar [Reports]-> View calls StageManager to handle the transition to the
+     * next scene. The method will route to the Main hub for Reports.
+     * See the {@link StageManager StageManager} class for more details on how the transition occurs.
+     *
+     * @param event Represents a ActionEvent event.
+     */
     @FXML
-    void ChangeSceneToReports(ActionEvent event) {
+    void changeSceneToReports(ActionEvent event) {
         StageManager.transitionNextScene("reports");
     }
 
+    /**
+     * Event handler for the navigation bar [Signout]-> Quit loses the current Connection and exits the via the System.
+     *
+     * @param event Represents a ActionEvent event.
+     */
     @FXML
-    void TerminateSession(ActionEvent event) {
+    void terminateSession(ActionEvent event) {
         System.out.println("Terminating the application");
         Connection.closeConnection();
         System.exit(0);
     }
 
+    /**
+     * Initializes the UpdateAppointments scene called after the FXML Fields have been loaded and injected. Initializes and
+     * populates the data for the ComboBoxes. The ComboBoxes are representations of data from the
+     * observable lists representing time in {@link ObservableManager}.
+     *
+     * @param url            The location used to resolve relative paths for the root object, or null if the location is not known.
+     * @param resourceBundle The resources used to localize the root object, or null if the root object was not localized.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         System.out.println("The value of passing data is " + appSelected.getTitle());
@@ -98,7 +137,11 @@ public class UpdateAppointment implements Initializable {
         prefillData();
     }
 
-    private void prefillData() {
+
+    /**
+     * Using the data from the selected appointment data is pre-populated.
+     */
+    void prefillData() {
         //Get that is stored.
         //Get a reference to all the fields
         // And assign the values
@@ -117,7 +160,12 @@ public class UpdateAppointment implements Initializable {
         //And assign these w/e there is a change from the fields in case they immediately resubmit
     }
 
-    private Boolean isFieldsFilledOut() {
+    /**
+     * A local utility method that determines whether the fields have been filled out.
+     *
+     * @return Returns a boolean representing whether the fields on the form are filled out.
+     */
+    Boolean isFieldsFilledOut() {
         //The Alert information
         Alert emptyFields = new Alert(Alert.AlertType.WARNING);
         emptyFields.setHeaderText("[WARNING] [EMPTY-FIELDS]");
@@ -167,6 +215,15 @@ public class UpdateAppointment implements Initializable {
         return true;
     }
 
+
+    /**
+     * Event handler for the UpdateAppointment Submit button in order to submit the fields must all be NOT NULL.
+     * The validation and actual database operations are handled by {@link #verifyIfValidAndSubmit}.
+     *
+     * @param event Represents a MouseEvent event.
+     * @throws SQLException An exception that provides information about a database access error or other SQL related
+     *                      error.
+     */
     @FXML
     private void SubmitUpdate(MouseEvent event) throws SQLException {
         if (isFieldsFilledOut()) {
@@ -177,6 +234,15 @@ public class UpdateAppointment implements Initializable {
         populateDataAppointmentLists();
     }
 
+    /**
+     * Using the data from the fields on the form this method verifies if the appointment is valid to Update. The criteria
+     * for whether appointment is valid or not is handled by the method {@link TimeManager#isCustomerAvailable(int,
+     * LocalDateTime, LocalDateTime) isCustomerAvailable}. If the criteria is met database insert operations are
+     * performed, an alert is generated for the user to let them know whether the Update was a success or failure.
+     * And then the data pertaining to appointments on the Front-End is regenerated.
+     *
+     * @throws SQLException A SqlException representing a database access error or other error has occurred.
+     */
     private void verifyIfValidAndSubmit() throws SQLException {
         String title = TitleTextField.getText();
         String desc = DescTextField.getText();
@@ -229,6 +295,4 @@ public class UpdateAppointment implements Initializable {
             StageManager.transitionNextScene("appointments");
         }
     }
-
-
 }
