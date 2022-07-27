@@ -28,7 +28,7 @@ public class Main extends Application {
     }
 
     /**
-     * This method set's up and displays the initial view for the JavaFx application.
+     * Starts the JAVAFX application this method set's up and displays the initial view for the JavaFx application.
      */
     @Override
     public void start(Stage primaryStage) {
