@@ -25,6 +25,7 @@ public class Main extends Application {
         Connection.makeConnection();
         launch(args);
         Connection.closeConnection();
+        //TODO Write the Readme LAST THING!!!
     }
 
     /**

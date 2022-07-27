@@ -126,14 +126,13 @@ public class Customers implements Initializable {
      * whether successful or not the front-end data models get recreated as a result of potentially altering the records.
      * </p>
      * <p>
-     * <b>Lambda Occurrence [1]</b> - Using the Alert class with the method .showAndWait() and
+     * <b>Lambda [1]</b> - Using the Alert class with the method .showAndWait() and
      * chaining that method with .isPresent() [a consumer] allows me to pass code to evaluate if the
-     * predicate evaluates to true.
+     * evaluates to true.
      *
      * The user is presented the Alert with the warning that performing a delete is a permanent action, if the boolean
      * for the response evaluates true the code to perform a deletion executes allowing me to handle the event right
-     * there inline an as a
-     * anonymous function.
+     * there inline anonymously.
      * </p>
      *
      * @param event Represents a mouse event.
@@ -156,7 +155,6 @@ public class Customers implements Initializable {
                     "[WARNING] - This will also delete all of the customers scheduled " +
                     "appointments are you sure you wish to continue? " +
                     "This action cannot be reversed!");
-            //TODO document this lambda
             Customer effectivelyFinalSelectedCustomer = selectedCustomer;
             confirmDelete.showAndWait().ifPresent(response -> {
                 if (response == ButtonType.OK) {

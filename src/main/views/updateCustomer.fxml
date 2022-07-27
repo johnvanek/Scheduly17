@@ -21,22 +21,22 @@
          <menus>
             <Menu mnemonicParsing="false" text="Appointments">
                <items>
-                  <MenuItem mnemonicParsing="false" onAction="#ChangeSceneToAppointmentMainMenu" text="View" />
+                  <MenuItem mnemonicParsing="false" onAction="#changeSceneToAppointmentMainMenu" text="View" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Customers">
                <items>
-                  <MenuItem mnemonicParsing="false" onAction="#ChangeSceneToCustomerMainMenu" text="View" />
+                  <MenuItem mnemonicParsing="false" onAction="#changeSceneToCustomerMainMenu" text="View" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Reports">
                <items>
-                  <MenuItem mnemonicParsing="false" onAction="#ChangeSceneToReports" text="View" />
+                  <MenuItem mnemonicParsing="false" onAction="#changeSceneToReports" text="View" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Signout">
                <items>
-                  <MenuItem mnemonicParsing="false" onAction="#TerminateSession" text="Quit" />
+                  <MenuItem mnemonicParsing="false" onAction="#terminateSession" text="Quit" />
                </items>
             </Menu>
          </menus>

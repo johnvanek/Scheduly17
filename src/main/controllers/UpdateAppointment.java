@@ -120,26 +120,7 @@ public class UpdateAppointment implements Initializable {
     }
 
     /**
-     * Initializes the UpdateAppointments scene called after the FXML Fields have been loaded and injected. Initializes and
-     * populates the data for the ComboBoxes. The ComboBoxes are representations of data from the
-     * observable lists representing time in {@link ObservableManager}.
-     *
-     * @param url            The location used to resolve relative paths for the root object, or null if the location is not known.
-     * @param resourceBundle The resources used to localize the root object, or null if the root object was not localized.
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println("The value of passing data is " + appSelected.getTitle());
-        ObservableManager.populateDataAppointmentComboBoxes();
-        TimeManager.generateValidBusinessHoursList();
-        StartTimeComboBox.setItems(StartTimesAddAppEst);
-        EndTimeComboBox.setItems(EndTimesAddAppEst);
-        prefillData();
-    }
-
-
-    /**
-     * Using the data from the selected appointment data is pre-populated.
+     * Using the data from the selected appointment the form data is pre-populated.
      */
     void prefillData() {
         //Get that is stored.
@@ -214,7 +195,6 @@ public class UpdateAppointment implements Initializable {
         }
         return true;
     }
-
 
     /**
      * Event handler for the UpdateAppointment Submit button in order to submit the fields must all be NOT NULL.
@@ -294,5 +274,23 @@ public class UpdateAppointment implements Initializable {
             success.showAndWait();
             StageManager.transitionNextScene("appointments");
         }
+    }
+
+    /**
+     * Initializes the UpdateAppointments scene called after the FXML Fields have been loaded and injected. Initializes and
+     * populates the data for the ComboBoxes. The ComboBoxes are representations of data from the
+     * observable lists representing time in {@link ObservableManager}.
+     *
+     * @param url            The location used to resolve relative paths for the root object, or null if the location is not known.
+     * @param resourceBundle The resources used to localize the root object, or null if the root object was not localized.
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        System.out.println("The value of passing data is " + appSelected.getTitle());
+        ObservableManager.populateDataAppointmentComboBoxes();
+        TimeManager.generateValidBusinessHoursList();
+        StartTimeComboBox.setItems(StartTimesAddAppEst);
+        EndTimeComboBox.setItems(EndTimesAddAppEst);
+        prefillData();
     }
 }
