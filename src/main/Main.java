@@ -21,7 +21,7 @@ public class Main extends Application {
      *
      * @param args the list of string arguments that are passed to the JVM.
      */
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) {
         Connection.makeConnection();
         launch(args);
         Connection.closeConnection();
