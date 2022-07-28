@@ -6,25 +6,55 @@ import java.time.LocalDateTime;
  * This Class is a data model that represents an appointment.
  */
 public class Appointment {
+    /**
+     * A distinct integer ID. This is set by the database operation.
+     */
     private final int appointmentId;
+    /**
+     * A String representing an appointment Title.
+     */
     private String title;
+    /**
+     * A string containing a short description of the appointment.
+     */
     private String description;
+    /**
+     * A string detailing the physical location of the appointment.
+     */
     private String location;
+    /**
+     * A string detailing the type of the appointment for example a meeting.
+     */
     private String type;
+    /**
+     * A LocalDateTime which represents the start time of an appointment.
+     */
     private LocalDateTime startDateTime;
+    /**
+     * A LocalDateTime which represents the end time of an appointment.
+     */
     private LocalDateTime endDateTime;
+    /**
+     * A integer representing customer's distinct ID.
+     */
     private int customerId;
+    /**
+     * A integer representing a user's distinct ID.
+     */
     private int userId;
+    /**
+     * A integer representing a contact's distinct ID.
+     */
     private int contactId;
 
 
     /**
      * Constructor for an appointment data model
      *
-     * @param appointmentId A distinct integer ID.
-     * @param title         A String representing a Title.
+     * @param appointmentId A distinct integer ID. This is set by the database operation.
+     * @param title         A String representing an appointment Title.
      * @param description   A string containing a short description of the appointment.
-     * @param location      A string detailing the location of the appointment.
+     * @param location      A string detailing the physical location of the appointment.
      * @param type          A string detailing the type of the appointment for example a meeting.
      * @param startDateTime A LocalDateTime which represents the start time of an appointment.
      * @param endDateTime   A LocalDateTime which represents the end time of an appointment.
