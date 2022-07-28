@@ -52,6 +52,13 @@ public class Customers implements Initializable {
     private TableColumn<?, ?> CustomerCountryCode;
 
     //FXML METHODS
+    /**
+     * Event handler for the navigation bar [Appointment]-> View calls StageManager to handle the transition to the
+     * next scene. The method will route to the Main hub for appointments.
+     * See the {@link StageManager StageManager} class for more details on how the transition occurs.
+     *
+     * @param event Represents a ActionEvent event.
+     */
     @FXML
     void changeSceneToAppointmentMainMenu(ActionEvent event) {
         StageManager.transitionNextScene("appointments");

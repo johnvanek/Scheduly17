@@ -17,7 +17,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#DeselectTableRow" prefHeight="560.0" prefWidth="900.0" styleClass="tealBackground" stylesheets="@../resources/styles/main.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.Reports">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="900.0" styleClass="tealBackground" stylesheets="@../resources/styles/main.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controllers.Reports">
    <children>
       <TabPane layoutX="13.0" layoutY="178.0" prefHeight="354.0" prefWidth="875.0" style="-fx-background-color: white;" tabClosingPolicy="UNAVAILABLE">
          <tabs>
@@ -36,7 +36,7 @@
                               <String fx:value="inbetweenStroke" />
                            </styleClass>
                         </Text>
-                        <ComboBox fx:id="MonthSelectComboBox" layoutX="268.0" layoutY="37.0" onAction="#DetermineSelectionReturnTotal" prefHeight="25.0" prefWidth="135.0">
+                        <ComboBox fx:id="MonthSelectComboBox" layoutX="268.0" layoutY="37.0" onAction="#determineSelectionReturnTotal" prefHeight="25.0" prefWidth="135.0">
                            <cursor>
                               <Cursor fx:constant="CLOSED_HAND" />
                            </cursor>
@@ -52,7 +52,7 @@
                               <String fx:value="inbetweenStroke" />
                            </styleClass>
                         </Text>
-                        <ComboBox fx:id="TypeSelectComboBox" layoutX="268.0" layoutY="81.0" onAction="#DetermineSelectionReturnTotal" prefHeight="25.0" prefWidth="135.0">
+                        <ComboBox fx:id="TypeSelectComboBox" layoutX="268.0" layoutY="81.0" onAction="#determineSelectionReturnTotal" prefHeight="25.0" prefWidth="135.0">
                            <cursor>
                               <Cursor fx:constant="CLOSED_HAND" />
                            </cursor>
@@ -95,7 +95,7 @@
             </Tab>
             <Tab text="Contact Schedules">
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" onMouseClicked="#DeselectTableRow" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: lightblue;">
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: lightblue;">
                      <children>
                         <ScrollPane layoutX="14.0" layoutY="40.0" prefHeight="271.0" prefWidth="846.0">
                            <content>
@@ -126,7 +126,7 @@
                               <String fx:value="inbetweenStroke" />
                            </styleClass>
                         </Text>
-                        <ComboBox fx:id="ContactSelectionComboBox" layoutX="95.0" layoutY="3.0" onAction="#ShowSchedule" onMouseClicked="#PopulateContactSchedule" prefWidth="150.0">
+                        <ComboBox fx:id="ContactSelectionComboBox" layoutX="95.0" layoutY="3.0" onAction="#showSchedule" prefWidth="150.0">
                            <cursor>
                               <Cursor fx:constant="CLOSED_HAND" />
                            </cursor>
@@ -148,7 +148,7 @@
             </Tab>
             <Tab text="Customer Schedules">
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" onMouseClicked="#DeselectTableRow" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: lightblue;">
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: lightblue;">
                      <children>
                         <ScrollPane layoutX="14.0" layoutY="40.0" prefHeight="271.0" prefWidth="846.0">
                            <content>
@@ -179,7 +179,7 @@
                               <String fx:value="inbetweenStroke" />
                            </styleClass>
                         </Text>
-                        <ComboBox fx:id="CustomerSelectionComboBox" layoutX="114.0" layoutY="3.0" onAction="#ShowCustomerSchedule" onMouseClicked="#PopulateContactSchedule" prefHeight="26.0" prefWidth="183.0">
+                        <ComboBox fx:id="CustomerSelectionComboBox" layoutX="114.0" layoutY="3.0" onAction="#showCustomerSchedule" prefHeight="26.0" prefWidth="183.0">
                            <cursor>
                               <Cursor fx:constant="CLOSED_HAND" />
                            </cursor>
@@ -205,22 +205,22 @@
          <menus>
             <Menu mnemonicParsing="false" text="Appointments">
                <items>
-                  <MenuItem mnemonicParsing="false" onAction="#ChangeSceneToAppointmentMainMenu" text="View" />
+                  <MenuItem mnemonicParsing="false" onAction="#changeSceneToAppointmentMainMenu" text="View" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Customers">
                <items>
-                  <MenuItem mnemonicParsing="false" onAction="#ChangeSceneToCustomerMainMenu" text="View" />
+                  <MenuItem mnemonicParsing="false" onAction="#changeSceneToCustomerMainMenu" text="View" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Reports">
                <items>
-                  <MenuItem mnemonicParsing="false" onAction="#ChangeSceneToReports" text="View" />
+                  <MenuItem mnemonicParsing="false" onAction="#changeSceneToReports" text="View" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Signout">
                <items>
-                  <MenuItem mnemonicParsing="false" onAction="#TerminateSession" text="Quit" />
+                  <MenuItem mnemonicParsing="false" onAction="#terminateSession" text="Quit" />
                </items>
             </Menu>
          </menus>
