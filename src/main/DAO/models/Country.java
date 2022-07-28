@@ -8,18 +8,18 @@ package main.DAO.models;
 public class Country {
 
     /**
-     * A int representing a distinct id for the country.
+     * A int representing a distinct id for the country
      */
     private final int countryId;
 
     /**
-     * A string representing the name of a country.
+     * A string representing the name of a country
      */
     private final String countryName;
 
     /**
-     * @param countryId A int representing a distinct ID for the country.
-     * @param countryName A string representing the name of a country.
+     * @param countryId   A int representing a distinct ID for the country
+     * @param countryName A string representing the name of a country
      */
     public Country(int countryId, String countryName) {
         this.countryId = countryId;
@@ -27,8 +27,9 @@ public class Country {
     }
 
     /**
-     * Returns the countryID for the country.
-     * @return int that represents a distinct id for the country.
+     * Returns the countryID for the country
+     *
+     * @return int that represents a distinct id for the country
      */
     public int getCountryId() {
         return countryId;
@@ -36,8 +37,9 @@ public class Country {
 
 
     /**
-     * Returns the country name represented as a string.
-     * @return string that represents the country name.
+     * Returns the country name represented as a string
+     *
+     * @return string that represents the country name
      */
     public String getCountryName() {
         return countryName;
@@ -45,8 +47,9 @@ public class Country {
 
     /**
      * Overrides the toString() method so that when toString() is called
-     * the output is the name of the country.
-     * @return a string that represents the Country Object.
+     * the output is the name of the country
+     *
+     * @return a string that represents the Country Object
      */
     @Override
     public String toString() {

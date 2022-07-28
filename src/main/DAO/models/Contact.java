@@ -10,19 +10,19 @@ public class Contact {
      */
     private final int contactID;
     /**
-     * A string representation of the contact's name.
+     * A string representation of the contact's name
      */
     private final String contactName;
     /**
-     * A string representation of the email of the contact.
+     * A string representation of the email of the contact
      */
     private final String email;
 
 
     /**
      * @param contactID   A distinct integer contactID. This is set by the database operation.
-     * @param contactName A string representation of the contact's Name.
-     * @param email       A string representation of the email address of the contact.
+     * @param contactName A string representation of the contact's name
+     * @param email       A string representation of the email address of the contact
      */
     public Contact(int contactID, String contactName, String email) {
         this.contactID = contactID;
@@ -31,27 +31,27 @@ public class Contact {
     }
 
     /**
-     * Returns the contact id of the contact.
+     * Returns the contact id of the contact
      *
-     * @return int representing the contactID of the contact.
+     * @return int representing the contactID of the contact
      */
     public int getContactID() {
         return contactID;
     }
 
     /**
-     * Returns the contact name that is a string that represent the contact's name.
+     * Returns the contact name that is a string that represent the contact's name
      *
-     * @return string representing the name of the contact.
+     * @return string representing the name of the contact
      */
     public String getContactName() {
         return contactName;
     }
 
     /**
-     * Returns the email that is a string that represents the contact's email.
+     * Returns the email that is a string that represents the contact's email
      *
-     * @return string representing the email of the contact.
+     * @return string representing the email of the contact
      */
     public String getEmail() {
         return email;
@@ -59,9 +59,9 @@ public class Contact {
 
     /**
      * Overrides the toString() method of this contact class to output the contact: id and name when the toString()
-     * method is called.
+     * method is called
      *
-     * @return string representing the contact object.
+     * @return string representing the contact object
      */
     @Override
     public String toString() {
