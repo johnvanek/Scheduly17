@@ -33,6 +33,10 @@ public final class TimeManager {
     private TimeManager() {
     }
 
+    /**
+     * Checks for the currently logged in user if there are any appointments upcoming within the next 15 minutes.
+     * An alert will be shown alerting the user whether there is or if there is not any appointments in that time frame.
+     */
     public static void checkForUpcomingAppointment() {
         //The Alert are defined at the top of the namespace
         Alert noUpcomingAlert = new Alert(Alert.AlertType.INFORMATION, "This is a message to " +
@@ -64,10 +68,12 @@ public final class TimeManager {
         if (flag) noUpcomingAlert.showAndWait();
     }
 
-    public static void isAppointmentInWithinFifteenMinutes(Appointment app) {
-
-    }
-
+    /**
+     * Given an appointment this method determines whether the appointment startTime occurs within the next 7 days.
+     *
+     * @param appointment A appointment object that represents an appointment data model.
+     * @return a boolean that indicates whether an appointment is within the next 7 days.
+     */
     //Might need to figure out the current work week.
     public static boolean isInRangeWeekly(Appointment appointment) {
         //This just checks if it is within 7 days
@@ -78,6 +84,12 @@ public final class TimeManager {
         return ((currentTime.isBefore(appStartDateTime) && (appStartDateTime.isBefore(sevenDaysForward) && appStartDateTime.isAfter(currentTime))));
     }
 
+    /**
+     * Given an appointment this method determines whether the appointment startTime occurs within the next 30 days.
+     *
+     * @param appointment A appointment object that represents an appointment data model.
+     * @return a boolean that indicates whether an appointment is within the next 30 days.
+     */
     public static boolean isInRangeMonthly(Appointment appointment) {
         LocalDateTime currentTime = LocalDateTime.now();
         LocalDateTime appStartDateTime = appointment.getStartDateTime();
@@ -86,6 +98,16 @@ public final class TimeManager {
         return (currentTime.isBefore(appStartDateTime) && currentTime.isBefore(monthForward) && appStartDateTime.isAfter(currentTime) && currentTime.getMonth() == appStartDateTime.getMonth() && currentTime.getYear() == appStartDateTime.getYear());
     }
 
+    /**
+     * Given a customer id the method determines whether the customer is available for scheduling or if scheduling
+     * the customer would cause an overlap error.
+     *
+     * @param customerID An integer the unique if for each customer.
+     * @param appStart   The start time an appointment.
+     * @param appEnd     The end time of an appointment.
+     * @return a boolean representing whether the customer is free for scheduling.
+     * @throws SQLException An exception that provides information about database access errors.
+     */
     public static boolean isCustomerAvailable(int customerID, LocalDateTime appStart, LocalDateTime appEnd) throws SQLException {
         //Methods in the LocalDateTime class
         // A > B    /// A.isAfter(B)
@@ -155,7 +177,16 @@ public final class TimeManager {
         return true;
     }
 
-
+    /**
+     * Given a customer id the method determines whether the customer is available for scheduling if updated or if updating
+     * the customer would cause an overlap error.
+     *
+     * @param customerID An integer the unique if for each customer.
+     * @param appStart   The start time an appointment.
+     * @param appEnd     The end time of an appointment.
+     * @return a boolean representing whether the customer is free for scheduling.
+     * @throws SQLException An exception that provides information about database access errors.
+     */
     public static boolean isCustomerAvailableForUpdate(int customerID, LocalDateTime appStart, LocalDateTime appEnd, String title, String description, int appId) throws SQLException {
         //Methods in the LocalDateTime class
         // A > B    /// A.isAfter(B)
@@ -234,11 +265,22 @@ public final class TimeManager {
         return true;
     }
 
+    /**
+     * A bundler method generates two observable lists so that the data from time can be drilled down first by calling
+     * {@link #trimValidBusinessHours() trimValidBusinessHours()} and then {@link #trimToEST() trimToEST()}. This results
+     * in the creation of 4 additional observable lists representing the start times and end times drilled down.
+     */
     public static void generateValidBusinessHoursList() {
         trimValidBusinessHours();
         trimToEST();
     }
 
+    /**
+     * Using the start times and end times data as a starting point this method creates 2 new observable lists
+     * that represent on valid office hours in the EST ( office time zone ). See {@link #isValidStartBusinessHours(LocalTime)
+     * isValidStartBusinessHours()} and  {@link #isValidEndBusinessHours(LocalTime) isValidEndBusinessHours()} for implementation
+     * details.
+     */
     public static void trimValidBusinessHours() {
 
         //The times here need to be filtered to the start times for the office which is
@@ -258,6 +300,10 @@ public final class TimeManager {
         );
     }
 
+    /**
+     * Using the start times filtered  and end times filtered data as a starting point this method creates 2 new observable lists
+     * that represent the valid hours after conversion to est and then filtered for valid office hours.
+     */
     public static void trimToEST() {
         ObservableManager.StartTimesFiltered.forEach(localTime -> {
             LocalDateTime localDateTime = LocalDateTime.of(LocalDate.now(), localTime);
@@ -289,6 +335,12 @@ public final class TimeManager {
         });
     }
 
+    /**
+     * Given a local time this method determines whether the time falls within the stating office hours.
+     *
+     * @param time A  local time representing start of a list of office hours.
+     * @return a boolean representing whether the time given falls within starting office hours.
+     */
     private static Boolean isValidStartBusinessHours(LocalTime time) {
         //Methods in the LocalDateTime class
         // A > B    /// A.isAfter(B)
@@ -310,6 +362,12 @@ public final class TimeManager {
         //have to account for the edge cases 8AM and 10PM
     }
 
+    /**
+     * Given a local time this method determines whether the time falls within the ending office hours.
+     *
+     * @param time A  local time representing end times list of office hours.
+     * @return a boolean representing whether the time given falls within ending office hours.
+     */
     private static Boolean isValidEndBusinessHours(LocalTime time) {
         //Represent the Business Hours in Est
         //have to account for the edge cases 8AM and 10PM
@@ -318,6 +376,14 @@ public final class TimeManager {
                 || (time.equals(LocalTime.of(22, 0)));
     }
 
+    /**
+     * Records the attempts that any users make at logging in and records their username and whether they were
+     * successful or not in a txt file called login_activity.txt in the root folder.
+     *
+     * @param username       The username of the user that attempted to log in.
+     * @param isAttemptValid A boolean representing whether the attempt to log in succeeded or not.
+     * @throws IOException Signals that I/O exception of some sort has occurred.
+     */
     public static void recordAttempt(String username, boolean isAttemptValid) throws IOException {
         System.out.println("Login-File-Is-Keeping-Record");
         //First have to create the file is it does not already exist
