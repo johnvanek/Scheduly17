@@ -85,7 +85,11 @@ public class Login implements Initializable {
     //Fxml Methods
     //********************************************************************//
 
-    private Login() {
+
+    /**
+     * Public constructor for login only public so that javafx can instantiate it.
+     */
+    public Login() {
     }
 
     /**

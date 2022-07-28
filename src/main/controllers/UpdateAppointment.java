@@ -71,7 +71,10 @@ public class UpdateAppointment implements Initializable {
 
     //FXML METHODS*******************************
 
-    private UpdateAppointment() {
+    /**
+     * Public constructor for updateAppointment only public so that javafx can instantiate it.
+     */
+    public UpdateAppointment() {
     }
 
     /**

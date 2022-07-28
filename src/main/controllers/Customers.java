@@ -28,7 +28,10 @@ import static main.utils.ObservableManager.populateDataCustomerList;
  * after navigating from the navbar and encompasses all functionality relating to Customers.
  */
 public class Customers implements Initializable {
-    private Customers() {
+    /**
+     * Public constructor for customers only public so that javafx can instantiate it.
+     */
+    public Customers() {
     }
 
     //FXML ID's

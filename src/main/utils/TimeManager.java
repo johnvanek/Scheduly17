@@ -181,9 +181,12 @@ public final class TimeManager {
      * Given a customer id the method determines whether the customer is available for scheduling if updated or if updating
      * the customer would cause an overlap error.
      *
-     * @param customerID An integer the unique if for each customer.
-     * @param appStart   The start time an appointment.
-     * @param appEnd     The end time of an appointment.
+     * @param customerID  An integer the unique if for each customer.
+     * @param appStart    The start time an appointment.
+     * @param appEnd      The end time of an appointment.
+     * @param title       A title for the appointment.
+     * @param description A description of the appointment.
+     * @param appId       The unique id of the appointment.
      * @return a boolean representing whether the customer is free for scheduling.
      * @throws SQLException An exception that provides information about database access errors.
      */

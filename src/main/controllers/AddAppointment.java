@@ -54,7 +54,10 @@ public class AddAppointment implements Initializable {
 
     //FXML METHODS*********************************
 
-    private AddAppointment() {
+    /**
+     * Public constructor for Addappointment only public so that javafx can instantiate it.
+     */
+    public AddAppointment() {
     }
 
     /**

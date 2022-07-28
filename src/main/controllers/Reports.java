@@ -67,8 +67,10 @@ public class Reports implements Initializable {
     private TableColumn<?, ?> ReportContactScheduleCustomerID;
     @FXML
     private ComboBox<Contact> ContactSelectionComboBox;
-
-    private Reports() {
+    /**
+     * Public constructor for reports only public so that javafx can instantiate it.
+     */
+    public Reports() {
     }
 
     //FXML Methods***************************************

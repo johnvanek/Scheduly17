@@ -324,6 +324,10 @@ public class UpdateCustomer implements Initializable {
         prefillData();
     }
 
-    private UpdateCustomer() {
+
+    /**
+     * Public constructor for UpdateCustomer only public so javaFx can instantiate it.
+     */
+    public UpdateCustomer() {
     }
 }

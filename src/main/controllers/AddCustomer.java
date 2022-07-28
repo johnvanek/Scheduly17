@@ -52,8 +52,10 @@ public class AddCustomer implements Initializable {
     private ComboBox<Division> DivisionComboBox;
 
     //FXML METHODS******************************
-
-    private AddCustomer() {
+    /**
+     * Public constructor for addCustomer only public so that javafx can instantiate it.
+     */
+    public AddCustomer() {
 
     }
 

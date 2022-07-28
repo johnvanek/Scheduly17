@@ -139,6 +139,12 @@ public class Appointments implements Initializable {
     //****************************************
 
     /**
+     * Public constructor for appointments only public so that javafx can instantiate it.
+     */
+    public Appointments() {
+    }
+
+    /**
      * Event handler for mouse clicks that are outside the table view but inside the boxed area. Clears the selection
      * from the table view on the all view tab.
      *
@@ -264,9 +270,6 @@ public class Appointments implements Initializable {
     @FXML
     void changeSceneToAddAppointment(MouseEvent event) {
         StageManager.transitionNextScene("addAppointment");
-    }
-
-    private Appointments() {
     }
 
     /**
