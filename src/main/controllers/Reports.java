@@ -137,7 +137,6 @@ public class Reports implements Initializable {
         System.exit(0);
     }
 
-
     /**
      * Using the values from the Month Combo-box and the Type-Combo-box this method assigns the Monthly total amount of the
      * selected type of appointments to the text field under the total label. The inner logic for calculation is performed by
@@ -219,7 +218,7 @@ public class Reports implements Initializable {
      * </p>
      */
     String calculateMonthTypeAppointments(Month monthSelected, String typeSelected) {
-        int count = 0;
+        int count;
         //TODO document this lambda the use of count.
         if (typeSelected.equals("All Types!")) {
             count = (int) AppointmentAllList.stream().filter(appointment ->
