@@ -61,6 +61,12 @@ public class UpdateCustomer implements Initializable {
     //FXML METHODS*********************************
 
     /**
+     * Public constructor for UpdateCustomer only public so javaFx can instantiate it.
+     */
+    public UpdateCustomer() {
+    }
+
+    /**
      * Event handler for the navigation bar [Appointment]-> View calls StageManager to handle the transition to the
      * next scene. The method will route to the Main hub for appointments.
      * See the {@link StageManager StageManager} class for more details on how the transition occurs.
@@ -122,6 +128,8 @@ public class UpdateCustomer implements Initializable {
         }
     }
 
+    //LocalMethods*****************************************
+
     /**
      * Event handler for the AddCustomer Submit button in order to submit the fields must all be NOT NULL.
      * The validation and actual database operations are handled by {@link #verifyIfValidAndSubmit}.
@@ -136,8 +144,6 @@ public class UpdateCustomer implements Initializable {
             verifyIfValidAndSubmit();
         }
     }
-
-    //LocalMethods*****************************************
 
     /**
      * A local utility method that determines whether the fields have been filled out.
@@ -266,6 +272,7 @@ public class UpdateCustomer implements Initializable {
 
     /**
      * Pre-populates the Division ComboBox based on the Division that is passed as a parameter.
+     *
      * @param division A Division data model object representing provinces and states see {@link Division} for more information.
      */
     void prepopulateDivisionComboBox(Division division) {
@@ -322,12 +329,5 @@ public class UpdateCustomer implements Initializable {
         CountryComboBox.setItems(ObservableManager.CountryList);
         //Prefill the passed data
         prefillData();
-    }
-
-
-    /**
-     * Public constructor for UpdateCustomer only public so javaFx can instantiate it.
-     */
-    public UpdateCustomer() {
     }
 }
