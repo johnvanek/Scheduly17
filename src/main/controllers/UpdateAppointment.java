@@ -71,6 +71,9 @@ public class UpdateAppointment implements Initializable {
 
     //FXML METHODS*******************************
 
+    private UpdateAppointment() {
+    }
+
     /**
      * Event handler for the navigation bar [Appointment]-> View calls StageManager to handle the transition to the
      * next scene. The method will route to the Main hub for appointments.

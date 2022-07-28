@@ -85,6 +85,9 @@ public class Login implements Initializable {
     //Fxml Methods
     //********************************************************************//
 
+    private Login() {
+    }
+
     /**
      * Display's the Login-Form in the User's language set from the Window's settings System Default.
      * Using the currently supported Resource bundle the only included properties are currently (en and fr).

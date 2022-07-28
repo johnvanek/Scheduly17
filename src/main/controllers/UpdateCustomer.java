@@ -316,4 +316,7 @@ public class UpdateCustomer implements Initializable {
         //Prefill the passed data
         prefillData();
     }
+
+    private UpdateCustomer() {
+    }
 }

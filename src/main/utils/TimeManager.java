@@ -22,8 +22,14 @@ import java.util.stream.Collectors;
 
 import static main.utils.ObservableManager.*;
 
+/**
+ * A utility class that manages all the functionality relating to time.
+ */
 public final class TimeManager {
 
+    /**
+     * A private constructor so that TimeManager cannot be instantiated.
+     */
     private TimeManager() {
     }
 

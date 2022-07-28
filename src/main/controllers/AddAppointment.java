@@ -54,6 +54,9 @@ public class AddAppointment implements Initializable {
 
     //FXML METHODS*********************************
 
+    private AddAppointment() {
+    }
+
     /**
      * Event handler for the AddAppointment Submit button in order to submit the fields must all be NOT NULL.
      * The validation and actual database operations are handled by {@link #verifyIfValidAndSubmit}.
@@ -68,7 +71,6 @@ public class AddAppointment implements Initializable {
             verifyIfValidAndSubmit();
         }
     }
-
 
     /**
      * Using the data from the fields on the form this method verifies if the appointment is valid to add. The criteria
@@ -132,6 +134,8 @@ public class AddAppointment implements Initializable {
         }
     }
 
+    //FXML METHODS*******************************
+
     /**
      * A local utility method that determines whether the fields have been filled out.
      *
@@ -186,8 +190,6 @@ public class AddAppointment implements Initializable {
         }
         return true;
     }
-
-    //FXML METHODS*******************************
 
     /**
      * Event handler for the navigation bar [Appointment]-> View calls StageManager to handle the transition to the

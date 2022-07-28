@@ -266,6 +266,9 @@ public class Appointments implements Initializable {
         StageManager.transitionNextScene("addAppointment");
     }
 
+    private Appointments() {
+    }
+
     /**
      * Initializes the Appointments scene called after the FXML Fields have been loaded and injected. Initializes and
      * populates the Front end data relating to appointments. The table views are representations of data from the
@@ -317,5 +320,7 @@ public class Appointments implements Initializable {
 
         //Testing LoggedInUser
         System.out.println("The currently LoggedIn user is " + currentlyLoggedInUser);
+
+
     }
 }

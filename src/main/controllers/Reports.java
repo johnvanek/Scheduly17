@@ -27,65 +27,49 @@ public class Reports implements Initializable {
     //FXML ID'S********************************
     @FXML
     private TextField TotalTextBox;
-
     @FXML
     private ComboBox<Month> MonthSelectComboBox;
-
     @FXML
     private ComboBox<String> TypeSelectComboBox;
     @FXML
     private TableView<Appointment> CustomerScheduleView;
-
     @FXML
     private TableColumn<?, ?> CustomerScheduleAppId;
-
     @FXML
     private TableColumn<?, ?> CustomerScheduleTitle;
-
     @FXML
     private TableColumn<?, ?> CustomerScheduleType;
-
     @FXML
     private TableColumn<?, ?> CustomerScheduleLocation;
-
     @FXML
     private TableColumn<?, ?> CustomerScheduleStart;
-
     @FXML
     private TableColumn<?, ?> CustomerScheduleEnd;
-
     @FXML
     private TableColumn<?, ?> CustomerScheduleContactID;
-
     @FXML
     private ComboBox<Customer> CustomerSelectionComboBox;
-
     @FXML
     private TableView<Appointment> ReportContactScheduleView;
-
     @FXML
     private TableColumn<?, ?> ReportContactScheduleAppIdColumn;
-
     @FXML
     private TableColumn<?, ?> ReportContactScheduleTitleColumn;
-
     @FXML
     private TableColumn<?, ?> ReportContactScheduleTypeColumn;
-
     @FXML
     private TableColumn<?, ?> ReportContactScheduleDescriptionColumn;
-
     @FXML
     private TableColumn<?, ?> ReportContactScheduleStartDateTimeColumn;
-
     @FXML
     private TableColumn<?, ?> ReportContactScheduleEndDateTimeColumn;
-
     @FXML
     private TableColumn<?, ?> ReportContactScheduleCustomerID;
-
     @FXML
     private ComboBox<Contact> ContactSelectionComboBox;
+
+    public Reports() {
+    }
 
     //FXML Methods***************************************
 

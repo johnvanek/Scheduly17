@@ -53,6 +53,10 @@ public class AddCustomer implements Initializable {
 
     //FXML METHODS******************************
 
+    private AddCustomer() {
+
+    }
+
     /**
      * Event handler for the navigation bar [Appointment]-> View calls StageManager to handle the transition to the
      * next scene. The method will route to the Main hub for appointments.
@@ -100,6 +104,7 @@ public class AddCustomer implements Initializable {
         Connection.closeConnection();
         System.exit(0);
     }
+
     /**
      * An event handler that based on the value from the Country-ComboBox assigns the FirstLevel Division Combo-Box
      * Values. See {@link #populateDataDivisionComboBox(Country) populateDataDivisionComboBox} for how that is evaluated.
@@ -228,6 +233,7 @@ public class AddCustomer implements Initializable {
      * Populates the list of items to be shown in the Divisions combo-box based on the selected Country from the Country
      * combo-box. The logic behind the filtering is handled in
      * {@link ObservableManager#searchByCountryCode(ObservableList, int) searchByCountryCode}.
+     *
      * @param country Represents a Country selected from the Country combo-box.
      */
     void populateDataDivisionComboBox(Country country) {

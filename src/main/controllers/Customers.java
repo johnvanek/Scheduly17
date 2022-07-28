@@ -28,6 +28,9 @@ import static main.utils.ObservableManager.populateDataCustomerList;
  * after navigating from the navbar and encompasses all functionality relating to Customers.
  */
 public class Customers implements Initializable {
+    private Customers() {
+    }
+
     //FXML ID's
     @FXML
     private TableView<Customer> CustomersTableView;
