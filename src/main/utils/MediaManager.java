@@ -18,7 +18,7 @@ public final class MediaManager {
         return mediaPlayer;
     }
 
-    private static void setMediaPlayer(MediaPlayer mediaPlayer) {
+    static void setMediaPlayer(MediaPlayer mediaPlayer) {
         MediaManager.mediaPlayer = mediaPlayer;
     }
 
