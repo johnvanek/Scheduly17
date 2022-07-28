@@ -68,7 +68,7 @@ public class Reports implements Initializable {
     @FXML
     private ComboBox<Contact> ContactSelectionComboBox;
 
-    public Reports() {
+    private Reports() {
     }
 
     //FXML Methods***************************************

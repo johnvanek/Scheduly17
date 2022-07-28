@@ -28,7 +28,14 @@ import java.util.ResourceBundle;
 
 import static main.utils.ObservableManager.*;
 
+/**
+ * This class represents the controller logic for the view of the same name. The related view is shown
+ * after navigating from the customers update button and encompasses all functionality relating to the updating of customers.
+ */
 public class UpdateCustomer implements Initializable {
+    /**
+     * The selected customer object from the customers scene.
+     */
     //ClassData**************************************
     public static Customer customerSelected;
 
