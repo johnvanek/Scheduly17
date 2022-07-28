@@ -3,7 +3,7 @@ package main.DAO.models;
 import java.time.LocalDateTime;
 
 /**
- * This Class is a data model that represents an appointment.
+ * This Class is a data model that represents an appointment
  */
 public class Appointment {
     /**
