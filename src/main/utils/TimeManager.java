@@ -1,6 +1,5 @@
 package main.utils;
 
-import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.Region;
@@ -14,11 +13,8 @@ import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.time.*;
 import java.time.temporal.ChronoUnit;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 import static main.utils.ObservableManager.*;
 

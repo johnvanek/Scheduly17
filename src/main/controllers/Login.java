@@ -18,7 +18,6 @@ import javafx.scene.media.MediaView;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.util.Duration;
-import main.DAO.models.Appointment;
 import main.DAO.models.User;
 import main.database.Connection;
 import main.utils.MediaManager;

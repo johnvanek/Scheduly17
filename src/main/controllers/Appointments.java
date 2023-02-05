@@ -14,7 +14,6 @@ import main.DAO.models.Appointment;
 import main.database.Connection;
 import main.utils.ObservableManager;
 import main.utils.StageManager;
-import main.utils.TimeManager;
 
 import java.net.URL;
 import java.sql.PreparedStatement;
