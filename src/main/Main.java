@@ -5,15 +5,10 @@ import javafx.stage.Stage;
 import main.database.Connection;
 import main.utils.StageManager;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
 /**
  * Main Class the Entry-Point into the application.
  */
 public class Main extends Application {
-
     /**
      * This is the main method called by the JVM.
      * Execution of the application starts here.
