@@ -198,7 +198,7 @@ public class Login implements Initializable {
      * Attempts to Log in the user by firstly determining if the user is valid. If so the user is transitioned to the
      * main screen for appointments and check is made to see if the current user had any upcoming appointments in the
      * next 15 minutes. If they do an alert will be shown informing them as such.
-     * <p>
+     *
      * Regardless of a successful or unsuccessful login a record of activity is kept track in login_activity.txt
      *
      * @throws IOException Signals an I/O exception has occurred. Do to trying to access files for record keeping for

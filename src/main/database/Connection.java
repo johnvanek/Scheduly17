@@ -26,7 +26,11 @@ public class Connection {
     /**
      * a string that combines to form the jdbc uniform resource location
      */
-    private static final String jdbcUrl = protocol + vendor + location + databaseName + "?connectionTimeZone = SERVER"; // LOCAL
+    //What was before
+    // ?connectionTimeZone = SERVER
+    //Try This for legacy support
+    // ?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    private static final String jdbcUrl = protocol + vendor + location + databaseName + "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC"; // LOCAL
     /**
      * a string that represents the jdbc driver
      */
@@ -34,11 +38,11 @@ public class Connection {
     /**
      * a string that represents the database user's username
      */
-    private static final String userName = "sqlUser"; // Username
+    private static final String userName = "root"; // Username
     /**
-     * a string that represents the database user's password
+     * a string that represents the database user's password set to MySqlWorkBench Default
      */
-    private static final String password = "Passw0rd!"; // Password
+    private static final String password = ""; // Password set blank by default
     /**
      * a connection object that serves to store the state of the current connection
      */
@@ -56,6 +60,8 @@ public class Connection {
             System.out.println("Error:" + e.getMessage() + " Class Not Found");
         } catch (SQLException e) {
             System.out.println("Error:" + e.getMessage() + " General Sql Exception");
+            System.out.println("Error-Code: " + e.getErrorCode());
+            System.out.println("Current State: " + e.getSQLState());
         }
     }
 
